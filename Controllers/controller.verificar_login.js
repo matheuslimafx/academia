@@ -24,7 +24,7 @@ $(function () {
                 }
                 Form.find(".pf_load").fadeOut();
                 if (data.result === true){
-                    window.location.replace("http://localhost/AcademiaPerformanceFit/v1.3/index");
+                    window.location.replace("http://localhost/AcademiaPerformanceFit/academia/index");
                 }
             }
         });
