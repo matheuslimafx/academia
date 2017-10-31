@@ -1,0 +1,167 @@
+.resultado_login{
+    display: none;
+    float: right;
+    padding: 20px 20px;
+    margin-bottom: 30px;
+    background-color: #05f;
+    color: #fff;
+    font-size: 1.4em;
+}
+.pf_load{
+    display: none;
+    padding-left: 200px;
+}
+
+.btn-success{
+    width: 150px;
+}
+
+.btn-danger{
+    width: 150px;
+}
+
+.btn-warning{
+    width: 150px;
+}
+
+.btn-primary{
+    width: 150px;
+}
+
+.btn-default{
+    width: 150px;
+}
+
+.alert-success{
+    display: none;
+}
+
+.alert-warning{
+    display: none;
+}
+
+.alert-danger{
+    display: none;
+}
+.alert-info{
+    display: none;
+}
+
+.anamnese-div{
+    display: none;
+}
+#fechar-novo-anamnese{
+    display: none;
+}
+.aluno-div{
+    display: none;
+}
+
+#fechar-aluno{
+    display: none;
+}
+
+.funcionario-div{
+    display: none;
+}
+
+#fechar-funcionario{
+    display: none;
+}
+
+.mensalidade-div{
+    display: none;
+}
+
+#fechar-mensalidade{
+    display: none;
+}
+
+.treino-div{
+    display: none;
+}
+
+#fechar-treino{
+    display: none;
+}
+
+.equipamento-div{
+    display: none;
+}
+
+#fechar-equipamento{
+    display: none;
+}
+
+.usuario-div{
+    display: none;
+}
+
+#fechar-usuario{
+    display: none;
+}
+
+.produto-div{
+    display: none;
+}
+
+#fechar-produto{
+    display: none;
+}
+
+.fornecedor-div{
+    display: none;
+}
+
+
+#fechar-fornecedor{
+    display: none;
+}
+
+.venda-div{
+    display: none;
+}
+
+#fechar-venda{
+    display: none;
+}
+
+#nao_pagas{
+    display: none;
+}
+
+#todas{
+    display: none;
+}
+
+.obrigatorios{
+    color: red;
+}
+
+.editar{
+    width: 50px;
+}
+
+#deletar{
+    width: 50px;
+}
+
+#pesquisar{
+    width: 50px;
+}
+
+#imprimir{
+    width: 50px;
+}
+
+#fundo{
+    background-color: #e6e6e6;
+}
+
+.aluno-editar-div{
+    display: none;
+}
+
+#fechar-aluno-editar{
+    display: none;
+}
