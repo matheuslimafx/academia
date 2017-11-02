@@ -47,85 +47,6 @@
     display: none;
 }
 
-.anamnese-div{
-    display: none;
-}
-#fechar-novo-anamnese{
-    display: none;
-}
-.aluno-div{
-    display: none;
-}
-
-#fechar-aluno{
-    display: none;
-}
-
-.funcionario-div{
-    display: none;
-}
-
-#fechar-funcionario{
-    display: none;
-}
-
-.mensalidade-div{
-    display: none;
-}
-
-#fechar-mensalidade{
-    display: none;
-}
-
-.treino-div{
-    display: none;
-}
-
-#fechar-treino{
-    display: none;
-}
-
-.equipamento-div{
-    display: none;
-}
-
-#fechar-equipamento{
-    display: none;
-}
-
-.usuario-div{
-    display: none;
-}
-
-#fechar-usuario{
-    display: none;
-}
-
-.produto-div{
-    display: none;
-}
-
-#fechar-produto{
-    display: none;
-}
-
-.fornecedor-div{
-    display: none;
-}
-
-
-#fechar-fornecedor{
-    display: none;
-}
-
-.venda-div{
-    display: none;
-}
-
-#fechar-venda{
-    display: none;
-}
-
 #nao_pagas{
     display: none;
 }
@@ -158,10 +79,20 @@
     background-color: #e6e6e6;
 }
 
-.aluno-editar-div{
+/* Estilos das modals de Create e Update */
+.modal-create{
     display: none;
 }
 
-#fechar-aluno-editar{
+.modal-update{
     display: none;
 }
+
+.close-modal-create{
+    display: none;
+}
+
+.close-modal-update{
+    display: none;
+}
+
