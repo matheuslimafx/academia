@@ -20,7 +20,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
             <button class="btn btn-primary" id="novo-aluno"><i class="glyphicon glyphicon-user"></i> Novo Aluno</button>
             <button class="btn btn-danger" id="fechar-aluno"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
             <button class="btn btn-danger" id="fechar-aluno-editar"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
-            <a href="http://localhost/AcademiaPerformanceFit/v1.3/Views/view.alunos.relatorio.php" id="relatorio-aluno" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
+            <a href="http://localhost/academia/Views/view.alunos.relatorio.php" id="relatorio-aluno" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
@@ -228,7 +228,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     " <td>{$status_aluno}</td>" .
                     "<td>".
                         "<button id='aluno-editar' class='btn btn-success btn-xs jedit-aluno'><i class='glyphicon glyphicon-edit'></i></button> ".
-                        "<a href='http://localhost/AcademiaPerformanceFit/v1.3/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> ".
+                        "<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> ".
                     "</td>" .
                     "</tr>";
                 endforeach;
