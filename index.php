@@ -30,7 +30,8 @@
         <script src="_cdn/jquery.mask.min.js"></script>
         <script src="_cdn/bootstrap/js/bootstrap.min.js"></script>
         <script src="_cdn/mascara.js"></script>
-        <script src="_cdn/console.js"></script>
+        <!--<script src="_cdn/console.js"></script>-->
+        <script src="_cdn/console.geral.js"></script>
         <script src="Controllers/controller.verificar_login.js"></script> 
         <script src="Controllers/controller.fornecedor.js"></script>
         <script src="Controllers/controller.aluno.js"></script>
