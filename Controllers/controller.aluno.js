@@ -72,7 +72,7 @@ $(function () {
     });
 
 //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA ALUNO:
-    $('html').on('click', '.jedit-aluno', function () {
+    $('html').on('click', '.open-modal-update', function () {
         var button = $(this);
         var idalunos_cliente = $(button).attr('idalunos_cliente');
         var idendereco_aluno = $(button).attr('idendereco_aluno');
