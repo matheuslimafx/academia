@@ -33,7 +33,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <h5 class="obrigatorios">* Campos obrigatórios</h5>
             </div>
             <form action="" method="POST" class="form_aluno">
-                <input type="hidden" name="callback" value="aluno">
+                <input type="hidden" name="callback" value="create-aluno">
                 <div class="form-group col-md-6">
                     <br>
                     <label>* Nome</label>
@@ -120,8 +120,10 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
         
         <!--Formulário para Editar-->
         <div class="col-md-12 aluno-editar-div">
-            <form action="" method="POST" class="form_aluno">
-                <input type="hidden" name="callback" value="aluno">
+            <form action="" method="POST" class="form_aluno j-editaluno">
+                <input type="hidden" name="callback" value="update-aluno">
+                <input type="text" name="idalunos_cliente" value="">
+                <input type="text" name="idendereco_aluno" value="">
                 <div class="form-group col-md-6">
                     <br>
                     <label>* Nome</label>
@@ -198,7 +200,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
 
                 <div class="form-group col-md-12">
                     <label>Obs.</label>
-                    <textarea type="text" name="obs_aluno" class="form-control"></textarea>
+                    <input type="text" name="obs_aluno" class="form-control">
                 </div>
                 <div class="form-group col-md-12">
                     <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Salvar</button>
@@ -227,8 +229,8 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     "<td>{$nome_aluno}</td>" .
                     " <td>{$status_aluno}</td>" .
                     "<td>".
-                        "<button id='aluno-editar' class='btn btn-success btn-xs jedit-aluno'><i class='glyphicon glyphicon-edit'></i></button> ".
-                        "<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> ".
+                        "<button id='aluno-editar' class='btn btn-success btn-xs jedit-aluno' idalunos_cliente='{$idalunos_cliente}' idendereco_aluno='{$idendereco_aluno}'><i class='glyphicon glyphicon-edit'></i></button> ".
+                        "&nbsp;&nbsp;&nbsp;<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> ".
                     "</td>" .
                     "</tr>";
                 endforeach;
