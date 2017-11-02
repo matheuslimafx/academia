@@ -20,11 +20,11 @@ if (count($getPost) == 1):
 
     //CONDIÇÃO PARA VERIFICAR SE O TERMO DE PESQUISA É INT, CASO SEJA SERÁ REALIZADO UMA CONSULTA NO BANCO DE DADOS PELA MATRÍCULA OU CASO SEJA STRING SERÁ FEITA A CONSULTA NO BANCO DE DADOS PELO NOME DO ALUNO.
     if (is_int($queryPesquisa)):
-        $buscarAluno->FullRead("SELECT idalunos_cliente, nome_aluno, status_aluno FROM alunos_cliente WHERE idalunos_cliente = {$queryPesquisa}");
+        $buscarAluno->FullRead("SELECT idalunos_cliente, idendereco_aluno, nome_aluno, status_aluno FROM alunos_cliente WHERE idalunos_cliente = {$queryPesquisa}");
         $jSon = $buscarAluno->getResult();
         echo json_encode($jSon);
     elseif (is_string($queryPesquisa)):
-        $buscarAluno->FullRead("SELECT idalunos_cliente, nome_aluno, status_aluno FROM alunos_cliente WHERE nome_aluno LIKE '%{$queryPesquisa}%'");        
+        $buscarAluno->FullRead("SELECT idalunos_cliente, idendereco_aluno, nome_aluno, status_aluno FROM alunos_cliente WHERE nome_aluno LIKE '%{$queryPesquisa}%'");
         $jSon = $buscarAluno->getResult();
         echo json_encode($jSon);
     endif;
@@ -36,26 +36,22 @@ else:
     else:
 //    CASO O CALLBACK ESTEJA CORRETO A FUNÇÃO ARRAY_MAP INICIA A 'LIMPEZA' DOS VALORES DE CADA INDICE RETIRANDO TAGS DE SQL INJECTION E OUTRAS AMEAÇAS:
         $Post = array_map("strip_tags", $getPost);
-
 //A VARIAVEL $Action É CRIADA PARA RECEBER O ACTION DO ARRAY QUE VEIO DO JS:
         $Action = $Post['callback'];
-
-        $EnderecoAluno = array();
-        $EnderecoAluno['idcidade'] = $Post['idcidade'];
-        $EnderecoAluno['idestado'] = $Post['idestado'];
-        $EnderecoAluno['complementos_aluno'] = $Post['complementos_aluno'];
-
-//    O INDICE 'CALLBACK' E O SEU RESPECTIVO VALOR SÃO DESMEMBRADOS DA VARIAVEL POST, ISSO É NECESSÁRIO PARA ENVIAR PARA O BANCO APENAS OS DADOS NECESSÁRIOS:
+//    O INDICE 'CALLBACK' E O SEU RESPECTIVO VALOR SÃO APAGADOS DA VARIAVEL POST, ISSO É NECESSÁRIO PARA ENVIAR PARA O BANCO APENAS OS DADOS NECESSÁRIOS:
         unset($Post['callback']);
-
-        unset($Post['idcidade']);
-        unset($Post['idestado']);
-        unset($Post['complementos_aluno']);
 //    SWITCH SERÁ AS CONDIÇÕES VERIFICADAS E USADAS PARA TOMAR AÇÕES DE ACORDO COM CADA CALLBACK:
         switch ($Action):
-
 //        CONDIÇÃO  'aluno' ATENDIDA:
-            case 'aluno':
+            case 'create-aluno':
+                
+                $EnderecoAluno = array();
+                $EnderecoAluno['idcidade'] = $Post['idcidade'];
+                $EnderecoAluno['idestado'] = $Post['idestado'];
+                $EnderecoAluno['complementos_aluno'] = $Post['complementos_aluno'];
+                unset($Post['idcidade']);
+                unset($Post['idestado']);
+                unset($Post['complementos_aluno']);
 
 //            CRIAÇÃO DE UMA VARIÁVEL RESPONSÁVEL POR RECEBER  O NOME DA TABELA QUE SERÁ INSERIDA OS DADOS NO BANCO:
                 $Tabela = "alunos_cliente";
@@ -84,7 +80,19 @@ else:
 //                GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS O CADASTRO:
                     $jSon['clear'] = true;
                 endif;
+
+                break;
                 
+            case 'povoar-edit':
+                $DadosAluno = new Read;
+                $DadosAluno->FullRead("SELECT alunos_cliente.*, endereco_aluno.idcidade, endereco_aluno.idestado, endereco_aluno.complementos_aluno FROM alunos_cliente INNER JOIN endereco_aluno ON alunos_cliente.idendereco_aluno = endereco_aluno.idendereco_aluno WHERE alunos_cliente.idalunos_cliente = :idaluno", "idaluno={$Post['idalunos_cliente']}");
+                if($DadosAluno->getResult()):
+                    foreach($DadosAluno->getResult() as $e):
+                        $Resultado = $e;
+                    endforeach;
+                    $jSon = $Resultado;
+                endif;
+                        
                 break;
 
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
