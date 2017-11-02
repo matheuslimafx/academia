@@ -1,7 +1,7 @@
 //INICIAR JQUERY:
 $(function () {
-    $("#pesquisa").keyup(function () {
-        var termo = $("#pesquisa").val();
+    $(".pesquisar").keyup(function () {
+        var termo = $(".pesquisar").val();
         if (termo === '') {
             termo = '0';
         }
@@ -86,7 +86,7 @@ $(function () {
 
             },
             success: function (data) {
-                var Form = $('.j-editaluno');
+                var Form = $('.jedit-aluno');
                 $.each(data, function(key, value){
                     Form.find("input[name='"+key+"']").val(value);
                 });
