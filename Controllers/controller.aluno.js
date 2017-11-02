@@ -2,14 +2,16 @@
 $(function () {
     $("#pesquisa").keyup(function () {
         var termo = $("#pesquisa").val();
-        if(termo === ''){termo = '0';}
+        if (termo === '') {
+            termo = '0';
+        }
         $.ajax({
             url: "Controllers/controller.aluno.php",
             data: termo,
             type: 'POST',
             dataType: 'json',
             beforeSend: function (xhr) {
-                
+
             },
             success: function (data) {
                 $('.j-result-alunos').html('');
@@ -18,7 +20,7 @@ $(function () {
                             "<td>" + value.idalunos_cliente + "</td>" +
                             "<td>" + value.nome_aluno + "</td>" +
                             "<td>" + value.status_aluno + "</td>" +
-                            "<td><button id='aluno-editar' rel='" + value.idalunos_cliente + "' class='btn btn-success btn-xs jedit-aluno'><i class='glyphicon glyphicon-edit'></i></button>" +
+                            "<td><button id='aluno-editar' class='btn btn-success btn-xs jedit-aluno' idalunos_cliente='" + value.idalunos_cliente + "' idendereco_aluno='" + value.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button>" +
                             "&nbsp;&nbsp;&nbsp;<button id='dinheiro' class='btn btn-primary btn-xs'>Gerar Mensalidade</button>" +
                             "</td>" +
                             "</tr>");
@@ -69,9 +71,27 @@ $(function () {
         return false;
     });
 
-//EDITAR CADASTRO DE ALUNO:
-    $('html').on('click', '.jedit-aluno', function(){
-        alert('clicou agora!');
+//FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA ALUNO:
+    $('html').on('click', '.jedit-aluno', function () {
+        var button = $(this);
+        var idalunos_cliente = $(button).attr('idalunos_cliente');
+        var idendereco_aluno = $(button).attr('idendereco_aluno');
+        var dados_edit = {callback: 'povoar-edit', idalunos_cliente: idalunos_cliente, idendereco_alunos: idendereco_aluno};
+        $.ajax({
+            url: "Controllers/controller.aluno.php",
+            data: dados_edit,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+
+            },
+            success: function (data) {
+                var Form = $('.j-editaluno');
+                $.each(data, function(key, value){
+                    Form.find("input[name='"+key+"']").val(value);
+                });
+            }
+        });
     });
 
 //    SELECIONAR CIDADE DE ACORDO COM O ESTADO:
