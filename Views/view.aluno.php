@@ -13,7 +13,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
         <div class="col-md-12">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input id="pesquisa" type="text" name="pesquisa" placeholder="Pesquisar" class="form-control">
+                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar">
                 </div>
             </form>
 
@@ -119,8 +119,8 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
         </div>
         
         <!--Formulário para Editar-->
-        <div class="col-md-12 aluno-editar-div">
-            <form action="" method="POST" class="form_aluno j-editaluno">
+        <div class="col-md-12 aluno-editar-div modal-update">
+            <form action="" method="POST" class="form_aluno jedit-aluno form-update">
                 <input type="hidden" name="callback" value="update-aluno">
                 <input type="text" name="idalunos_cliente" value="">
                 <input type="text" name="idendereco_aluno" value="">
