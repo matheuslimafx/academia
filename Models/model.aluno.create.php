@@ -2,10 +2,10 @@
 
 /**
  * <b>Fornecedor.class:</b>
- * Classe responsável por gerenciamento dos dados da tabela fornecedor!
+ * Model(Classe) responsável pelo gerenciamento de cadastro de novos alunos no banco de dados!
  * 
  */
-class Aluno {
+class AlunoCreate {
 
     private $Tabela;
     private $Dados;

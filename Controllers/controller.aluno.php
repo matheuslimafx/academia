@@ -57,16 +57,16 @@ else:
                 $Tabela = "alunos_cliente";
 
 //            INSERIR A CLASSE DA MODEL RESPONSÁVEL PELA INTERAÇÃO COM O BANCO DE DADOS:
-                require '../Models/model.aluno.php';
+                require '../Models/model.aluno.create.php';
 
 //            INSTÂNCIA DO OBJETO DA CLASSE ALUNO RESPONSÁVEL POR CADASTRAR NOVOS ALUNOS NO BANCO DE DADOS:
-                $CadEndAluno = new Aluno;
+                $CadEndAluno = new AlunoCreate;
                 $CadEndAluno->novoEnderecoAluno("endereco_aluno", $EnderecoAluno);
                 $IdEnderecoAluno = $CadEndAluno->getResult();
 
                 $Post['idendereco_aluno'] = $IdEnderecoAluno;
 
-                $CadastrarAluno = new Aluno;
+                $CadastrarAluno = new AlunoCreate;
 
 //            MÉTODO DA CLASSE ALUNO RESPONSÁVEL POR CADASTRAR NOVOS ALUNOS NO BANCO DE DADOS:
                 $CadastrarAluno->novoAluno($Tabela, $Post);
@@ -93,6 +93,38 @@ else:
                     $jSon = $Resultado;
                 endif;
                         
+                break;
+                
+            case 'update-aluno':
+                
+                //ATUALIZAR O ENDEREÇO DO ALUNO SELECIONADO:
+                $novoEndereco = array();
+                $novoEndereco['idendereco_aluno'] = $Post['idendereco_aluno'];
+                $novoEndereco['idestado'] = $Post['idestado'];
+                $novoEndereco['idcidade'] = $Post['idcidade'];
+                $novoEndereco['complementos_aluno'] = $Post['complementos_aluno'];
+                
+                unset($Post['idendereco_aluno']);
+                unset($Post['idestado']);
+                unset($Post['idcidade']);
+                unset($Post['complementos_aluno']);
+                
+                require '../Models/model.aluno.update.php';
+                
+                $updateEndereco = new AtualizarAluno;
+                //ATUALIZA O ENDEREÇO DO ALUNO:
+                $updateEndereco->atualizarEnderecoAluno('endereco_aluno', $novoEndereco, "WHERE idendereco_aluno = :idendereco", ":idendereco={$novoEndereco['idendereco_aluno']}");
+                if($updateEndereco->getResult()):
+                    //ATUALIZA OS DADOS DO ALUNO:
+                    $updateAluno = new AtualizarAluno;
+                    $updateAluno->atualizarAluno('alunos_cliente', $Post, "WHERE idalunos_cliente = :idaluno", "idaluno={$Post['idalunos_cliente']}");
+                    if($updateAluno->getResult()):
+                        $jSon['sucesso'] = ['true']; 
+                        $jSon['clear'] = ['true'];
+                    endif;
+                endif;
+                
+                
                 break;
 
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
