@@ -42,6 +42,7 @@ $(function(){
        $('#relatorio-aluno').fadeIn(0);
        $('#fechar-aluno-editar').fadeOut(0);
        $('.table-aluno').fadeIn(0);
+       $('.form-update').trigger('reset');
     });
 
     //FORMULÁRIO DE FUNCIONÁRIO
