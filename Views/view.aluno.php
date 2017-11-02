@@ -33,7 +33,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <h5 class="obrigatorios">* Campos obrigatórios</h5>
             </div>
             <!--Form create de Aluno-->
-            <form action="" method="POST" class="form-create">
+            <form action="" method="POST" class="form-create j-form-create-aluno">
                 <input type="hidden" name="callback" value="create-aluno">
                 <div class="form-group col-md-6">
                     <br>
@@ -208,7 +208,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     <input type="text" name="obs_aluno" class="form-control">
                 </div>
                 <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Salvar</button>
+                    <button type="submit" class="btn btn-primary j-form-update-aluno"><i class="glyphicon glyphicon-floppy-disk"></i> Salvar</button>
                 </div>
             </form>
         </div>

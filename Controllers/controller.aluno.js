@@ -1,5 +1,8 @@
 //INICIAR JQUERY:
 $(function () {
+    
+    
+    //FUNÇÃO RESPONSÁVEL POR FAZER CONSULTAS DE ACORDO COM PESQUISAS DO USUÁRIO:
     $(".pesquisar").keyup(function () {
         var termo = $(".pesquisar").val();
         if (termo === '') {
@@ -11,7 +14,7 @@ $(function () {
             type: 'POST',
             dataType: 'json',
             beforeSend: function (xhr) {
-
+                
             },
             success: function (data) {
                 $('.j-result-alunos').html('');
@@ -28,8 +31,8 @@ $(function () {
             }
         });
     });
-//    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
-    $(".form_aluno").submit(function () {
+//    FUNÇÃO RESPONSÁVEL POR CADASTRAR UM NOVO ALUNO NO BANCO DE DADOS: 
+    $(".j-form-create-aluno").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
         var Form = $(this);
 //        VARIAVEL ACTION RECEBE O VALOR DO CALLBACK QUE É UM INPUT ESCONDIDO NO FORMULARIO ESSE CALLBACK SERVE COMO GATILHO PARA CONDIÇÕES:
