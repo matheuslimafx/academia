@@ -67,6 +67,7 @@ $(function () {
                 if (data.clear) {
                     Form.trigger('reset');
                 }
+                $('.modal-create').fadeOut();
             }
         });
 
@@ -88,7 +89,16 @@ $(function () {
                 
             },
             success: function (data) {
-                
+                if(data.clear){
+                    Form.trigger('reset');
+                }
+                if(data.sucesso){
+                    $('.pesquisar').fadeIn(0);
+                    $('.open-modal-create').fadeIn(0);
+                    $('.relatorio-geral').fadeIn(0);
+                    $('.modal-table').fadeIn(0);
+                    $('.modal-update').fadeOut();
+                }
             }
         });
 
