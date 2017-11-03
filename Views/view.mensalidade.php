@@ -5,32 +5,77 @@
 
 <div class="container">
     <h2>Mensalidades</h2>
-    <div id="fundo" class="well">
+    <div>
         <div class="col-md-12">
             <form action="" method="">
                 <div class="form-group col-md-3">
-                    <select name="seleciona_mensalidade" class="form-control" onchange="$('.divs').hide();$('#' + this.value).show();">
+                    <select name="seleciona_mensalidade" class="form-control modal-select" onchange="$('.divs').hide();$('#' + this.value).show();">
                         <option value="pagas">Mensalidades Pagas</option>
                         <option value="nao_pagas">Mensalidades Pendentes</option>
                         <option value="todas">Todas Mensalidades</option>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control">
-                </div>
-                <div class="form-group col-md-1"> 
-                    <button id="pesquisar" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control pesquisar">
                 </div>
             </form>
-            <button type="button" class="btn btn-primary" id="nova-mensalidade"><i class="glyphicon glyphicon-plus"></i> Nova Mensalidade</button>
-            <button type="button" class="btn btn-danger"id="fechar-mensalidade"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
-            <a href="http://localhost/AcademiaPerformanceFit/5/Views/view.mensalidades.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
+            <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Nova Mensalidade</button>
+            <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
+            <button type="button" class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
+            <a class="relatorio-geral" href="http://localhost/academia/Views/view.mensalidades.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
         <div class="alert alert-success mensagens-alerta">Cadastro Realizado com sucesso!</div>
 
         <!--FORMULÁRIO DE CADASTRO DE MENSALIDADE-->
-        <div class="col-md-12 mensalidade-div">
+        <div class="col-md-12 modal-create">
+            <form class="form-mensalidade" action="" method="POST">
+                <input type="hidden" name="callback" value="mensalidade">
+                <div class="form-group col-md-6">
+                    <br>
+                    <label>Aluno</label>
+                    <select name="idalunos_cliente" class="form-control">
+                        <?php
+                        $ReadAlunos = new Read;
+                        $ReadAlunos->ExeRead("alunos_cliente");
+                        foreach ($ReadAlunos->getResult() as $e):
+                            extract($e);
+                            echo "<option value='{$idalunos_cliente}'>{$idalunos_cliente} - {$nome_aluno}</option>";
+                        endforeach;
+                        ?>
+
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <br>
+                    <label>Data de Pagamento</label>
+                    <input type="date" name="data_mens_pag" class="form-control">
+                </div>
+                <div class="form-group col-md-3">
+                    <br>
+                    <label>Valor</label>
+                    <input type="text" name="valor_mensalidades" class="form-control" placeholder="R$" id="moeda">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Status</label>
+                    <select name="status_mensalidades" class="form-control">
+                        <option value=0>SELECIONE</option>
+                        <option value="Em dia">Em dia</option>
+                        <option value="Pendente">Pendente</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Observações</label>
+                    <textarea name="obs_mensalidades" class="form-control"></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <button name="Cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
+                </div>
+            </form>
+        </div>
+        
+        <!--FORMULÁRIO DE CADASTRO DE MENSALIDADE-->
+        <div class="col-md-12 modal-update">
             <form class="form-mensalidade" action="" method="POST">
                 <input type="hidden" name="callback" value="mensalidade">
                 <div class="form-group col-md-6">
@@ -79,7 +124,7 @@
 
         <!--Mensalidades Pagas-->
         <div class="divs" id="pagas">
-            <table class="table table-striped">
+            <table class="table table-striped modal-table">
                 <thead>
                     <tr>
                         <th>Matricula</th>
@@ -103,7 +148,7 @@
                         "<td>{$data_mens_pag}</td>" .
                         "<td>{$status_mensalidades}</td>" .
                         "<td>" .
-                        "<a href='#'><button id='editar' class='btn btn-success btn-xs'><i class='glyphicon glyphicon-edit'></i></button></a> " .
+                        "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button></a> " .
                         "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
                         "</td>" .
                         "</tr>";
@@ -139,7 +184,7 @@
                         "<td>{$data_mens_pag}</td>" .
                         "<td>{$status_mensalidades}</td>" .
                         "<td>" .
-                        "<button type='button' class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_mensalidade_update'>Editar</button>" .
+                        "<button type='button' class='btn btn-success btn-xs open-modal-update' data-toggle='modal' data-target='#modal_mensalidade_update'>Editar</button>" .
                         " <a href='#' onclick='return confirm('Tem certeza que deseja gera o pagamento?')'><button class='btn btn-danger btn-xs'>Gerar Pagamento</button></a>" .
                         "</td>" .
                         "</tr>";
@@ -174,7 +219,7 @@
                         "<td>{$data_mens_pag}</td>" .
                         "<td>{$status_mensalidades}</td>" .
                         "<td>" .
-                        "<button type='button' class='btn btn-success btn-xs' data-toggle='modal' data-target='#modal_mensalidade_update'>Editar</button>" .
+                        "<button type='button' class='btn btn-success btn-xs open-modal-update'>Editar</button>" .
                         " <a href='#' onclick='return confirm('Tem certeza que deseja gera o pagamento?')'><button class='btn btn-danger btn-xs'>Gerar Pagamento</button></a>" .
                         "</td>" .
                         "</tr>";

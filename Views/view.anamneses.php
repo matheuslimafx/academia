@@ -4,27 +4,24 @@
 
 <div class="container">
     <h2>Anamneses</h2>
-    <div id="fundo" class="well">
-
+    <div>
         <div class="col-md-12">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control">
-                </div>
-                <div class="form-group col-md-1"> 
-                    <button id="pesquisar" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar">
                 </div>
             </form>
 
-            <button class="btn btn-primary" id="novo-anamnese"><i class="glyphicon glyphicon-plus"></i> Nova Anamnese</button>
-            <button class="btn btn-danger" id="fechar-novo-anamnese"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
-            <a href="http://localhost/AcademiaPerformanceFit/5/Views/view.anamneses.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
+            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Nova Anamnese</button>
+            <button class="btn btn-danger close-modal-create" ><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
+            <button class="btn btn-danger close-modal-update" ><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
+            <a class="relatorio-geral" href="http://localhost/academia/Views/view.anamneses.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
             <div class="alert alert-success">Cadastro realizado com sucesso!</div>
         </div>
-        
+
         <!--Modal create de Anamneses-->
         <div class="col-md-12 anamnese-div modal-create">
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
@@ -137,7 +134,7 @@
                 </div>
             </form>
         </div>
-        
+
         <!--Modal update de Anamneses-->
         <div class="col-md-12 modal-update">
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
@@ -251,7 +248,7 @@
             </form>
         </div>
 
-        <table class="table table-striped">
+        <table class="table table-striped modal-table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -273,9 +270,9 @@
                     "<td></td>" .
                     "<td></td>" .
                     "<td>" .
-                    " <a href='#'><button id='editar' class='btn btn-success btn-xs'><i class='glyphicon glyphicon-edit'></i></button></a>" .
-                    " <a href='http://localhost/AcademiaPerformanceFit/5/Views/view.anamnese.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a>" .
-                    " <a href='#'><button id='deletar' class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-trash'></i></button></a>" .
+                    " <button id='editar' class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button>" .
+                    " <a href='http://localhost/academia/Views/view.anamnese.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a>" .
+                    " <button id='deletar' class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-trash'></i></button>" .
                     "</td>" .
                     "</tr>";
                 endforeach;

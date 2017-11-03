@@ -7,17 +7,17 @@
         <div class="col-md-12">
             <form action="" method="">
                 <div class="form-group col-md-4">
-                    <input type="text" name="pesquisa" class="form-control venda-pesquisa" placeholder="Pesquisar">
+                    <input type="text" name="pesquisa" class="form-control pesquisar" placeholder="Pesquisar">
                 </div>
             </form>
-            <button type="button" class="btn btn-primary" id="nova-venda"><i class="glyphicon glyphicon-plus"></i> Nova Venda</button>
-            <button type="button" class="btn btn-danger" id="fechar-venda"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
-            <a class="venda-relatorio" href="http://localhost/AcademiaPerformanceFit/5/Views/view.vendas.relatorio.php" target="_blank"><button type="" class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
+            <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Nova Venda</button>
+            <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
+            <a class="relatorio-geral" href="http://localhost/academia/Views/view.vendas.relatorio.php" target="_blank"><button type="" class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
         <div class="alert alert-success mensagens-retorno">Venda realizada com sucesso!</div>
 
-        <div class="col-md-12 venda-div">
+        <div class="col-md-12 modal-create">
             <form action="" method="POST">
                 <input type="hidden" name="callback" value="vendas">
                 <div class="form-group col-md-3">
@@ -55,7 +55,7 @@
             </form>
         </div>
         <div class="venda-lista">
-            <table class="table table-striped">
+            <table class="table table-striped modal-table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -81,7 +81,7 @@
                         "<td>R$ {$valor_vendas}</td>" .
                         "<td>{$qt_vendas}</td>" .
                         "<td>" .
-                        "<a href='http://localhost/AcademiaPerformanceFit/5/Views/view.venda.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a>" .
+                        "<a href='http://localhost/academia/Views/view.venda.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a>" .
                         "</td>" .
                         "</tr>";
                     endforeach;
