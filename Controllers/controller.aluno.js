@@ -1,5 +1,8 @@
 //INICIAR JQUERY:
 $(function () {
+
+
+    //FUNÇÃO RESPONSÁVEL POR FAZER CONSULTAS DE ACORDO COM PESQUISAS DO USUÁRIO:
     $(".pesquisar").keyup(function () {
         var termo = $(".pesquisar").val();
         if (termo === '') {
@@ -21,15 +24,15 @@ $(function () {
                             "<td>" + value.nome_aluno + "</td>" +
                             "<td>" + value.status_aluno + "</td>" +
                             "<td><button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + value.idalunos_cliente + "' idendereco_aluno='" + value.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button>" +
-                            "&nbsp;&nbsp;&nbsp;<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> "+
+                            "&nbsp;&nbsp;&nbsp;<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> " +
                             "</td>" +
                             "</tr>");
                 });
             }
         });
     });
-//    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
-    $(".form_aluno").submit(function () {
+//    FUNÇÃO RESPONSÁVEL POR CADASTRAR UM NOVO ALUNO NO BANCO DE DADOS: 
+    $(".j-form-create-aluno").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
         var Form = $(this);
 //        VARIAVEL ACTION RECEBE O VALOR DO CALLBACK QUE É UM INPUT ESCONDIDO NO FORMULARIO ESSE CALLBACK SERVE COMO GATILHO PARA CONDIÇÕES:
@@ -64,10 +67,41 @@ $(function () {
                 if (data.clear) {
                     Form.trigger('reset');
                 }
+                $('.modal-create').fadeOut();
             }
         });
 
 //        RETURN É A FUNÇÃO PARA NÃO PERMITIR QUE O FORMULÁRIO GERE AÇÃO: 
+        return false;
+    });
+
+//    FUNÇÃO RESPONSÁVEL POR ATUALIZAR OS DADOS NO BANCO DE DADOS:
+    $('.j-form-update-aluno').submit(function () {
+        var Form = $(this);
+        var Data = Form.serialize();
+
+        $.ajax({
+            url: "Controllers/controller.aluno.php",
+            data: Data,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+                
+            },
+            success: function (data) {
+                if(data.clear){
+                    Form.trigger('reset');
+                }
+                if(data.sucesso){
+                    $('.pesquisar').fadeIn(0);
+                    $('.open-modal-create').fadeIn(0);
+                    $('.relatorio-geral').fadeIn(0);
+                    $('.modal-table').fadeIn(0);
+                    $('.modal-update').fadeOut();
+                }
+            }
+        });
+
         return false;
     });
 
@@ -86,9 +120,9 @@ $(function () {
 
             },
             success: function (data) {
-                var Form = $('.jedit-aluno');
-                $.each(data, function(key, value){
-                    Form.find("input[name='"+key+"']").val(value);
+                var Form = $('.j-form-update-aluno');
+                $.each(data, function (key, value) {
+                    Form.find("input[name='" + key + "']").val(value);
                 });
             }
         });

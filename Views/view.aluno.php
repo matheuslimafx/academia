@@ -33,7 +33,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <h5 class="obrigatorios">* Campos obrigatórios</h5>
             </div>
             <!--Form create de Aluno-->
-            <form action="" method="POST" class="form-create">
+            <form action="" method="POST" class="form-create j-form-create-aluno">
                 <input type="hidden" name="callback" value="create-aluno">
                 <div class="form-group col-md-6">
                     <br>
@@ -43,7 +43,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <div class="form-group col-md-3">
                     <br>
                     <label>* CPF</label>
-                    <input type="text" name="cpf_aluno" class="form-control" id="cpf" required>
+                    <input type="text" name="cpf_aluno" class="form-control cpf" required>
                 </div>
                 <div class="form-group col-md-3">
                     <br>
@@ -125,7 +125,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <h5 class="obrigatorios">* Campos obrigatórios</h5>
             </div>
             <!--Form update Aluno-->
-            <form action="" method="POST" class="jedit-aluno form-update">
+            <form action="" method="POST" class="j-form-update-aluno form-update ">
                 <input type="hidden" name="callback" value="update-aluno">
                 <input type="hidden" name="idalunos_cliente" value="">
                 <input type="hidden" name="idendereco_aluno" value="">
@@ -137,7 +137,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <div class="form-group col-md-3">
                     <br>
                     <label>* CPF</label>
-                    <input type="text" name="cpf_aluno" class="form-control" id="cpf" required>
+                    <input type="text" name="cpf_aluno" class="form-control cpf" required>
                 </div>
                 <div class="form-group col-md-3">
                     <br>
