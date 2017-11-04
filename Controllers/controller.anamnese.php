@@ -9,6 +9,30 @@ $jSon = array();
 //$getPost É A VARIAVEL QUE RECEBE OS DADOS ENVIADOS DO ARQUIVO JS:
 $getPost = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
+//Verifica se os dados vindos do arquivo js são referentes a função pesquisa por anamnese. Caso o tamanho do array seja igual a 1 é referente a pesquisa. Caso o array seja maior que 1 significa que são dados para realizar o CRUD.
+if(count($getPost) == 1):
+    
+    $getQuery = array_keys($getPost);
+
+    $queryPesquisa = (is_int($getQuery[0]) ? $getQuery[0] : strip_tags(str_replace('_', ' ', $getQuery[0])));
+    
+    $buscarAnamnese = new Read;
+    
+    if(is_int($queryPesquisa)):
+        $buscarAnamnese->FullRead("SELECT anamneses.idanamneses, anamneses.idalunos_cliente, alunos_cliente.nome_aluno "
+                . "FROM anamneses "
+                . "LEFT JOIN alunos_cliente ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                . "WHERE anamneses.idalunos_cliente = {$queryPesquisa}");
+        $jSon = $buscarAnamnese->getResult();
+    elseif(is_string($queryPesquisa)):
+        $buscarAnamnese->FullRead("SELECT anamneses.idanamneses, anamneses.idalunos_cliente, alunos_cliente.nome_aluno "
+                . "FROM anamneses "
+                . "LEFT JOIN alunos_cliente ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                . "WHERE alunos_cliente.nome_aluno LIKE '%{$queryPesquisa}%'");
+        $jSon = $buscarAnamnese->getResult();
+    endif;
+endif;
+
 //PRIMEIRA CONDIÇÃO  - NESSA CONDIÇÃO VERIFICA, SE O INDICE CALLBACK FOI PREENCHIDO:
 if (empty($getPost['callback'])):
     //CASO NÃO HAJA O INDICE CALLBACK UM GATILHO DE ERRO (TRIGGER) É CRIADO NO ARRAY $jSon:
