@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 ﻿Apenas arquivo de teste para controle de versão
 nova linha de teste.
+=======
+﻿Apenas arquivo de teste para controle de versão...
+>>>>>>> bugs_matheus
