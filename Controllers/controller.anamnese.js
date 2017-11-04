@@ -2,8 +2,8 @@
 $(function(){
     
     //FUNÇÃO RESPONSAVEL POR FAZER CONSULTAS DE ACORDO COM A PESQUISA DO USUÁRIO
-    $(".pesquisar").keyup(function (){
-       var termo = $(".pesquisar").val();
+    $(".pesquisar-anamnese").keyup(function (){
+       var termo = $(".pesquisar-anamnese").val();
        if (termo === ''){
            termo = '0';
        }
@@ -20,10 +20,11 @@ $(function(){
                $(data).each(function (index, value){
                   $('.j-result-anamneses').append(
                           "<tr id='"+value.idanamneses+"'>"+
+                          "<td>"+value.idanamneses+"</td>"+
                           "<td>"+ value.idalunos_cliente + "</td>"+
                           "<td>"+ value.nome_aluno + "</td>"+
                           "<td align='right'>"+
-                          "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> "+
+                          "<button class='btn btn-success btn-xs open-modal-update' idanamenes='"+ value.idanamneses +"'><i class='glyphicon glyphicon-edit'></i></button> "+
                           "<a href='http://localhost/academia/Views/view.anamnese.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> "+
                           "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>"+
                           "</td>"+

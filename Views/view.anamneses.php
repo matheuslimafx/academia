@@ -8,7 +8,7 @@
         <div class="col-md-12" align="right">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar">
+                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar-anamnese">
                 </div>
             </form>
 

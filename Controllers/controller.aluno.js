@@ -3,8 +3,8 @@ $(function () {
 
 
     //FUNÇÃO RESPONSÁVEL POR FAZER CONSULTAS DE ACORDO COM PESQUISAS DO USUÁRIO:
-    $(".pesquisar").keyup(function () {
-        var termo = $(".pesquisar").val();
+    $(".pesquisar-aluno").keyup(function () {
+        var termo = $(".pesquisar-aluno").val();
         if (termo === '') {
             termo = '0';
         }
