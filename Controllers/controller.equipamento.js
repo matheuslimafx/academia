@@ -1,5 +1,39 @@
 //INICIAR JQUERY:
 $(function () {
+    
+//FUNÇÃO RESPONSAVEL POR FAZER CONSULTAS DE ACORDO COM A PESQUISA DO USUÁRIO    
+    $(".pesquisar-equipamento").keyup(function (){
+       var termo = $(".pesquisar-equipamento").val();
+       if(termo === ''){
+           termo = '0';
+       }
+       $.ajax({
+          url: "Controllers/controller.equipamento.php",
+          data: termo,
+          type: 'POST',
+          dataType: 'json',
+          beforeSend: function (xhr){
+              
+          },
+          success: function (data){
+              $('.j-result-equipamentos').html('');
+              $(data).each(function (index, value){
+                 $('.j-result-equipamentos').append(
+                    "<tr id='" + value.idequipamentos + "'>" +
+                    "<td>"+ value.idequipamentos +"</td>"+
+                    "<td>" + value.nome_equip + "</td>" +
+                    "<td>" + value.marca_equip + "</td>" +
+                    "<td>" + value.nome_forn + "</td>"+
+                    "<td>"+
+                    
+                    "</td>"+
+                    "</tr>"
+                    ); 
+              });
+          }
+       });
+    });
+    
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
     $(".form_equipamento").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
