@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 Apenas arquivo de teste para controle de versão... - hey 2
+=======
+a
+>>>>>>> bugs_matheus
