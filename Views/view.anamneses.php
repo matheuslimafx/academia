@@ -5,16 +5,16 @@
 <div class="container">
     <h2>Anamneses</h2>
     <div>
-        <div class="col-md-12">
+        <div class="col-md-12" align="right">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar">
+                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar-anamnese">
                 </div>
             </form>
 
-            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Nova Anamnese</button>
-            <button class="btn btn-danger close-modal-create" ><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
-            <button class="btn btn-danger close-modal-update" ><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
+            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Registro</button>
+            <button class="btn btn-danger close-modal-create" ><i class="glyphicon glyphicon-remove"></i></button>
+            <button class="btn btn-danger close-modal-update" ><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.anamneses.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
@@ -254,25 +254,25 @@
                     <th>ID</th>
                     <th>Matricula</th>
                     <th>Aluno</th>
-                    <th>Ultima Atualização</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="j-result-anamneses">
                 <?php
                 $ReadAnamnese = new Read;
-                $ReadAnamnese->ExeRead("anamneses");
+                $ReadAnamnese->FullRead("SELECT anamneses.idanamneses, anamneses.idalunos_cliente, alunos_cliente.nome_aluno "
+                                       . "FROM anamneses "
+                                       . "LEFT JOIN alunos_cliente ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente");
                 foreach ($ReadAnamnese->getResult() as $e):
                     extract($e);
                     echo "<tr>" .
                     "<td>{$idanamneses}</td>" .
                     "<td>{$idalunos_cliente}</td>" .
-                    "<td></td>" .
-                    "<td></td>" .
-                    "<td>" .
-                    " <button id='editar' class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button>" .
-                    " <a href='http://localhost/academia/Views/view.anamnese.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a>" .
-                    " <button id='deletar' class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-trash'></i></button>" .
+                    "<td>{$nome_aluno}</td>" .
+                    "<td align='right'>" .
+                    "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<a href='http://localhost/academia/Views/view.anamnese.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " .
+                    "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" .
                     "</td>" .
                     "</tr>";
                 endforeach;
