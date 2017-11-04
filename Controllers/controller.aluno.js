@@ -19,7 +19,7 @@ $(function () {
             success: function (data) {
                 $('.j-result-alunos').html('');
                 $(data).each(function (index, value) {
-                    $('.j-result-alunos').append("<tr>" +
+                    $('.j-result-alunos').append("<tr id='"+value.idalunos_cliente+"'>" +
                             "<td>" + value.idalunos_cliente + "</td>" +
                             "<td>" + value.nome_aluno + "</td>" +
                             "<td>" + value.status_aluno + "</td>" +
@@ -86,18 +86,36 @@ $(function () {
             type: 'POST',
             dataType: 'json',
             beforeSend: function (xhr) {
-                
             },
             success: function (data) {
                 if(data.clear){
                     Form.trigger('reset');
                 }
                 if(data.sucesso){
+                    $('.modal-update').fadeOut(0);
+                    $('.close-modal-update').fadeOut(0);
                     $('.pesquisar').fadeIn(0);
                     $('.open-modal-create').fadeIn(0);
                     $('.relatorio-geral').fadeIn(0);
                     $('.modal-table').fadeIn(0);
-                    $('.modal-update').fadeOut();
+                }
+                if(data.content){
+                    var novoAluno = data.content;
+                    //FUNÇÃO RESPONSÁVEL POR OCULTAR DO DOM O REGISTRO QUE FOI EDITADO COM EFEITO ANIMATE E POIS FADEOUT, POIS O EFEITO DO ANIMTE GERA UM CSS COMO 'display: hidden' E NÃO 'display: none', E DEIXA ESPAÇO NO HTML, POR ISSO O USO DA FUNÇÃO 'fadeOut()' POSTERIORMENTE.
+                    $('html').find("tr[id='"+novoAluno.idalunos_cliente+"']").addClass("animated zoomOutDown").fadeOut(720);
+                    //FUNÇÃO RESPONSÁVEL POR INSERIR NO DOM O NOVO ALUNO CADASTRADO. *IMPORTANTE USAR O PARÂMETRO ':first' PARA QUE O JQUERY COLOQUE O NOVO ALUNO ACIMA DO ANTIGO REGISTRO, CASO NÃO TENHA O PARÂMETRO O MESMO ALUNO EDITADO PODERÁ SER INSERIDO NO DOM MAIS DE UMA VEZ.
+                    $("tr[id='"+ novoAluno.idalunos_cliente +"']:first").before("<tr id='"+novoAluno.idalunos_cliente+"' class='animated zoomInDown'>" +
+                            "<td>" + novoAluno.idalunos_cliente + "</td>" +
+                            "<td>" + novoAluno.nome_aluno + "</td>" +
+                            "<td>" + novoAluno.status_aluno + "</td>" +
+                            "<td><button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + novoAluno.idalunos_cliente + "' idendereco_aluno='" + novoAluno.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button>" +
+                            "&nbsp;&nbsp;&nbsp;<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> " +
+                            "</td>" +
+                            "</tr>");
+                    //ESSA FUNÇÃO EVITA QUE AO EDITAR UM USUÁRIO DIFERENTE GERE EFEITOS EM ELEMENTOS QUE JÁ FORAM EDITADOS ANTES.
+                    setTimeout(function(){
+                        $("tr[id='"+ novoAluno.idalunos_cliente +"']:first").removeClass("animated zoomInDown");
+                    }, 1000);
                 }
             }
         });

@@ -22,11 +22,9 @@ if (count($getPost) == 1):
     if (is_int($queryPesquisa)):
         $buscarAluno->FullRead("SELECT idalunos_cliente, idendereco_aluno, nome_aluno, status_aluno FROM alunos_cliente WHERE idalunos_cliente = {$queryPesquisa}");
         $jSon = $buscarAluno->getResult();
-        echo json_encode($jSon);
     elseif (is_string($queryPesquisa)):
         $buscarAluno->FullRead("SELECT idalunos_cliente, idendereco_aluno, nome_aluno, status_aluno FROM alunos_cliente WHERE nome_aluno LIKE '%{$queryPesquisa}%'");
         $jSon = $buscarAluno->getResult();
-        echo json_encode($jSon);
     endif;
 else:
     //PRIMEIRA CONDIÇÃO - NESSA CONDIÇÃO VERIFICA SE O INDICE CALLBACK FOI PREENCHIDO:
@@ -42,7 +40,7 @@ else:
         unset($Post['callback']);
 //    SWITCH SERÁ AS CONDIÇÕES VERIFICADAS E USADAS PARA TOMAR AÇÕES DE ACORDO COM CADA CALLBACK:
         switch ($Action):
-//        CONDIÇÃO  'aluno' ATENDIDA:
+//        CONDIÇÃO  'create-aluno' ATENDIDA, RESPONSÁVEL POR CADASTRAR NOVOS ALUNOS NO BANCO:
             case 'create-aluno':
                 
                 $EnderecoAluno = array();
@@ -82,7 +80,7 @@ else:
                 endif;
 
                 break;
-                
+            //FUNÇÃO RESPONSÁVEL POR CONSULTAR NO BANCO DE DADOS AS INFORMAÇÕES DO ALUNO PARA POVOAR A MODAL DE EDIÇÃO.    
             case 'povoar-edit':
                 $DadosAluno = new Read;
                 $DadosAluno->FullRead("SELECT alunos_cliente.*, endereco_aluno.idcidade, endereco_aluno.idestado, endereco_aluno.complementos_aluno FROM alunos_cliente INNER JOIN endereco_aluno ON alunos_cliente.idendereco_aluno = endereco_aluno.idendereco_aluno WHERE alunos_cliente.idalunos_cliente = :idaluno", "idaluno={$Post['idalunos_cliente']}");
@@ -110,9 +108,9 @@ else:
                 unset($Post['complementos_aluno']);
                 
                 require '../Models/model.aluno.update.php';
-                
+                //O MÉTODO NA MODEL: 'AtualizarAluno' É RESPONSÁVEL POR ATUALIZAR OS DADOS (INCLUINDO SEU ENDEREÇO) DO ALUNO NO BANCO DE DADOS:
                 $updateEndereco = new AtualizarAluno;
-                //ATUALIZA O ENDEREÇO DO ALUNO:
+                //ATUALIZA O ENDEREÇO DO ALUNO :
                 $updateEndereco->atualizarEnderecoAluno('endereco_aluno', $novoEndereco, "WHERE idendereco_aluno = :idendereco", ":idendereco={$novoEndereco['idendereco_aluno']}");
                 if($updateEndereco->getResult()):
                     //ATUALIZA OS DADOS DO ALUNO:
@@ -121,6 +119,10 @@ else:
                     if($updateAluno->getResult()):
                         $jSon['sucesso'] = ['true']; 
                         $jSon['clear'] = ['true'];
+                        $jSon['content']['idalunos_cliente'] = $Post['idalunos_cliente'];
+                        $jSon['content']['nome_aluno'] = $Post['nome_aluno'];
+                        $jSon['content']['status_aluno'] = $Post['status_aluno'];
+                        $jSon['content']['idendereco_aluno'] = $novoEndereco['idendereco_aluno'];
                     endif;
                 endif;
                 
@@ -134,8 +136,6 @@ else:
         endswitch;
 
     endif;
-
+endif;
 //USANDO O ECHO OS GATILHOS VOLTA VIA AJAX UTILIZANDO JSON PARA O ARQUIVO JS E LÁ SERÁ INTERPRETADO:
     echo json_encode($jSon);  
-    
-endif;

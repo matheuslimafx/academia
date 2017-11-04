@@ -229,7 +229,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 $ReadAlunos->ExeRead("alunos_cliente");
                 foreach ($ReadAlunos->getResult() as $e):
                     extract($e);
-                    echo "<tr>" .
+                    echo "<tr id='{$idalunos_cliente}'>" .
                     "<td>{$idalunos_cliente}</td>" .
                     "<td>{$nome_aluno}</td>" .
                     " <td>{$status_aluno}</td>" .
