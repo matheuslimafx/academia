@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-a alterado
-=======
-﻿Apenas arquivo de teste para controle de versão
->>>>>>> a7942416ee3472f6cd706654e67bd4a62cd4ddcb
+bugsmatheus
