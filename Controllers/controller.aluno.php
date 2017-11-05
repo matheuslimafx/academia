@@ -60,7 +60,7 @@ else:
 //            INSTÂNCIA DO OBJETO DA CLASSE ALUNO RESPONSÁVEL POR CADASTRAR NOVOS ALUNOS NO BANCO DE DADOS:
                 $CadEndAluno = new AlunoCreate;
                 $CadEndAluno->novoEnderecoAluno("endereco_aluno", $EnderecoAluno);
-                $IdEnderecoAluno = $CadEndAluno->getResult();
+                $IdEnderecoAluno = $CadEndAluno->getResult(); //A VARIÁVEL '$IdEnderecoAluno' RECEBE O ID DO ENDEREÇO INSERIDO.
 
                 $Post['idendereco_aluno'] = $IdEnderecoAluno;
 
@@ -71,7 +71,13 @@ else:
 
 //            CONDIÇÃO PARA VERIFICAR SE FOI CADASTRADO UM NOVO ALUNO, UTILIZANDO UM MÉTODO DA CLASSE ALUNO:
                 if ($CadastrarAluno->getResult()):
-
+                    $idNovoAluno = $CadastrarAluno->getResult();
+                    $alunoCadastrado = new Read;
+                    $alunoCadastrado->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.idendereco_aluno, alunos_cliente.nome_aluno, alunos_cliente.status_aluno FROM alunos_cliente WHERE alunos_cliente.idalunos_cliente = :idaluno", "idaluno={$idNovoAluno}");
+                    if($alunoCadastrado->getResult()):
+                        $novoAluno = $alunoCadastrado->getResult();
+                        $jSon['novoaluno'] = $novoAluno[0];
+                    endif;
 //                CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO ARQUIVO JS:
                     $jSon['sucesso'] = true;
 
