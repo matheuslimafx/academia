@@ -10,16 +10,16 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
 <div class="container">
     <h2>Funcionários</h2>
     <div>
-        <div class="col-md-12">
+        <div class="col-md-12" align="right">
            <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control pesquisar">
+                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control pesquisar-funcionario">
                 </div>
             </form>
 
-            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Funcionário</button>
-            <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
-            <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
+            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Registro</button>
+            <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
+            <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.funcionarios.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
@@ -304,7 +304,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="j-result-funcionarios">
                 <?php
                 $ReadFun = new Read;
                 $ReadFun->ExeRead("funcionarios");
@@ -315,9 +315,9 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     "<td>{$nome_func}</td>" .
                     "<td>{$cargo_func}</td>" .
                     "<td>{$status_func}</td>" .
-                    "<td>".
+                    "<td align='right'>".
                         "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> ".
-                        "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a>" .
+                        "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" .
                     "</td>" .
                     "</tr>";
                 endforeach;
