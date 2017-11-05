@@ -4,15 +4,15 @@
 <div class="container">
     <h2>Fornecedores</h2>
     <div>
-        <div class="col-md-12">
+        <div class="col-md-12" align="right">
             <form action="" method="POST">
-                <div class="form-group col-md-3">
-                    <input type="text" class="form-control pesquisar" placeholder="Pesquisar">
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control pesquisar-fornecedor" placeholder="Pesquisar">
                 </div>
             </form>
-            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo</button>
-            <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i> Fechar</button>
-            <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i> Fechar</button>
+            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Registro</button>
+            <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
+            <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.fornecedor.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório</button></a>
         </div>
 
@@ -94,7 +94,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="j-result-fornecedores">
                 <?php
                 $ReadForn = new Read;
                 $ReadForn->ExeRead("fornecedores");
@@ -105,7 +105,7 @@
                     "<td>{$nome_forn}</td>" .
                     "<td>{$nome_fantasia_forn}</td>" .
                     "<td>{$telefone_forn}</td>" .
-                    "<td>" .
+                    "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
                     "</td>" .
                     "</tr>";

@@ -1,5 +1,39 @@
 //INICIAR JQUERY:
 $(function () {
+    //FUNÇÃO RESPONSAVEL POR FAZER CONSULTAS DE ACORDO COM A PESQUISA DO USUÁRIO
+    $(".pesquisar-funcionario").keyup(function () {
+        var termo = $(".pesquisar-funcionario").val();
+        if (termo === '') {
+            termo = '0';
+        }
+        $.ajax({
+            url: "Controllers/controller.funcionario.php",
+            data: termo,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+
+            },
+            success: function (data) {
+                $(".j-result-funcionarios").html('');
+                $(data).each(function (index, value) {
+                    $(".j-result-funcionarios").append(
+                            "<tr id='" + value.idfuncionarios + "'>" +
+                            "<td>" + value.idfuncionarios + "</td>" +
+                            "<td>" + value.nome_func + "</td>" +
+                            "<td>" + value.cargo_func + "</td>" +
+                            "<td>" + value.status_func + "</td>" +
+                            "<td align='right'>" +
+                            "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" +
+                            "</td>" +
+                            "</tr>"
+                            );
+                });
+            }
+        });
+    });
+
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
     $(".form_funcionario").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
@@ -19,13 +53,11 @@ $(function () {
             type: 'POST',
 //            DATATYPE É O TIPO DE DADOS TRAFÉGADOS:
             dataType: 'json',
-
 //            BEFORE SEND É A FUNÇÃO QUE PERMITE EXECUTAR UM ALGORITMO DO JQUERY ANTES DOS DADOS SEREM ENVIADOS:
             beforeSend: function (xhr) {
 //                PODE-SE NESSA PARTE MOSTRAR E RETIRAR POR EXEMPLO ELEMENTOS DO HTML:
                 alert('enviou');
             },
-
 //            SUCCESS É A FUNÇÃO DO AJAX RESPONSÁVEL POR EXECUTAR ALGORITMOS DEPOIS QUE OS DADOS RETORNAM DA CONTROLLER, TAIS DADOS PODEM SER ACESSADOS PELA VARIAVEL "(data)":
             success: function (data) {
 
@@ -44,8 +76,8 @@ $(function () {
 //        RETURN É A FUNÇÃO PARA NÃO PERMITIR QUE O FORMULÁRIO GERE AÇÃO: 
         return false;
     });
-    
+
 //    SELECIONAR CIDADE DE ACORDO COM O ESTADO:
 
-    
+
 });
