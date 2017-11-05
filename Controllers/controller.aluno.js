@@ -1,7 +1,9 @@
 //INICIAR JQUERY:
 $(function () {
-
-
+    //A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
+    $('.pesquisar-aluno').on('keypress', function (e) {
+        return e.which !== 13;
+    });
     //FUNÇÃO RESPONSÁVEL POR FAZER CONSULTAS DE ACORDO COM PESQUISAS DO USUÁRIO:
     $(".pesquisar-aluno").keyup(function () {
         var termo = $(".pesquisar-aluno").val();
@@ -69,15 +71,18 @@ $(function () {
                 }
                 $('.modal-create').fadeOut();
                 if (data.novoaluno) {
-                    var novoaluno = data.novoaluno;
-                    $('.j-result-alunos').prepend("<tr id='" + novoaluno.idalunos_cliente + "' class='animated zoomInDown'>" +
-                            "<td>" + novoaluno.idalunos_cliente + "</td>" +
-                            "<td>" + novoaluno.nome_aluno + "</td>" +
-                            "<td>" + novoaluno.status_aluno + "</td>" +
-                            "<td><button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + novoaluno.idalunos_cliente + "' idendereco_aluno='" + novoaluno.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button>" +
+                    var novoAluno = data.novoaluno;
+                    $('.j-result-alunos').prepend("<tr id='" + novoAluno.idalunos_cliente + "' class='animated zoomInDown'>" +
+                            "<td>" + novoAluno.idalunos_cliente + "</td>" +
+                            "<td>" + novoAluno.nome_aluno + "</td>" +
+                            "<td>" + novoAluno.status_aluno + "</td>" +
+                            "<td><button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + novoAluno.idalunos_cliente + "' idendereco_aluno='" + novoAluno.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button>" +
                             "&nbsp;&nbsp;&nbsp;<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> " +
                             "</td>" +
                             "</tr>");
+                    setTimeout(function () {
+                        $("tr[id='" + novoAluno.idalunos_cliente + "']:first").removeClass("animated zoomInDown");
+                    }, 1000);
                 }
             }
         });
@@ -111,21 +116,21 @@ $(function () {
                     $('.modal-table').fadeIn(0);
                 }
                 if (data.content) {
-                    var novoAluno = data.content;
+                    var alunoEditado = data.content;
                     //FUNÇÃO RESPONSÁVEL POR OCULTAR DO DOM O REGISTRO QUE FOI EDITADO COM EFEITO ANIMATE E POIS FADEOUT, POIS O EFEITO DO ANIMTE GERA UM CSS COMO 'display: hidden' E NÃO 'display: none', E DEIXA ESPAÇO NO HTML, POR ISSO O USO DA FUNÇÃO 'fadeOut()' POSTERIORMENTE.
-                    $('html').find("tr[id='" + novoAluno.idalunos_cliente + "']").addClass("animated zoomOutDown").fadeOut(720);
+                    $('html').find("tr[id='" + alunoEditado.idalunos_cliente + "']").addClass("animated zoomOutDown").fadeOut(720);
                     //FUNÇÃO RESPONSÁVEL POR INSERIR NO DOM O NOVO ALUNO CADASTRADO. *IMPORTANTE USAR O PARÂMETRO ':first' PARA QUE O JQUERY COLOQUE O NOVO ALUNO ACIMA DO ANTIGO REGISTRO, CASO NÃO TENHA O PARÂMETRO O MESMO ALUNO EDITADO PODERÁ SER INSERIDO NO DOM MAIS DE UMA VEZ.
-                    $("tr[id='" + novoAluno.idalunos_cliente + "']:first").before("<tr id='" + novoAluno.idalunos_cliente + "' class='animated zoomInDown'>" +
-                            "<td>" + novoAluno.idalunos_cliente + "</td>" +
-                            "<td>" + novoAluno.nome_aluno + "</td>" +
-                            "<td>" + novoAluno.status_aluno + "</td>" +
-                            "<td><button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + novoAluno.idalunos_cliente + "' idendereco_aluno='" + novoAluno.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button>" +
+                    $("tr[id='" + alunoEditado.idalunos_cliente + "']:first").before("<tr id='" + alunoEditado.idalunos_cliente + "' class='animated zoomInDown'>" +
+                            "<td>" + alunoEditado.idalunos_cliente + "</td>" +
+                            "<td>" + alunoEditado.nome_aluno + "</td>" +
+                            "<td>" + alunoEditado.status_aluno + "</td>" +
+                            "<td><button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + alunoEditado.idalunos_cliente + "' idendereco_aluno='" + alunoEditado.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button>" +
                             "&nbsp;&nbsp;&nbsp;<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> " +
                             "</td>" +
                             "</tr>");
-                    //ESSA FUNÇÃO EVITA QUE AO EDITAR UM USUÁRIO DIFERENTE GERE EFEITOS EM ELEMENTOS QUE JÁ FORAM EDITADOS ANTES.
+                    //ESSA FUNÇÃO EVITA QUE AO ADICIONAR UM NOVO USUÁRIO DIFERENTE GERE EFEITOS EM ELEMENTOS QUE JÁ FORAM CADASTRADOS ANTES.
                     setTimeout(function () {
-                        $("tr[id='" + novoAluno.idalunos_cliente + "']:first").removeClass("animated zoomInDown");
+                        $("tr[id='" + alunoEditado.idalunos_cliente + "']:first").removeClass("animated zoomInDown");
                     }, 1000);
                 }
             }
