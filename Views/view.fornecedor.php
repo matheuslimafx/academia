@@ -105,7 +105,7 @@
                     "<td>{$nome_forn}</td>" .
                     "<td>{$nome_fantasia_forn}</td>" .
                     "<td>{$telefone_forn}</td>" .
-                    "<td>" .
+                    "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
                     "</td>" .
                     "</tr>";
