@@ -13,7 +13,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
         <div class="col-md-12">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar-aluno">
+                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar pesquisar-aluno">
                 </div>
             </form>
 
