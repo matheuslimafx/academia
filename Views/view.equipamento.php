@@ -12,16 +12,16 @@ $ReadTreino->ExeRead("treinos");
 
     <h2>Equipamentos</h2>
     <div>
-        <div class="col-md-12">
+        <div class="col-md-12" align="right">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar">
+                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar-equipamento">
                 </div>
             </form>
 
-            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Equipamento</button>
-            <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
-            <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
+            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Registro</button>
+            <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
+            <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.equipamento.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
@@ -31,11 +31,12 @@ $ReadTreino->ExeRead("treinos");
 
         <!--FORMULÁRIO DE CADASTRO DE TREINOS-->
         <div class="col-md-12 modal-create">
+            <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
             <form class="form_equipamento" action="" method="POST">
                 <input type="hidden" name="callback" value="equipamento">
                 <div class="form-group col-md-3">
-                    <label>Fornecedor</label>
-                    <select class="form-control" name="idfornecedores">
+                    <label>* Fornecedor</label>
+                    <select class="form-control" name="idfornecedores" required>
                         <option>SELECIONE</option>
                         <?php
                         foreach ($ReadFornecedor->getResult() as $e):
@@ -46,8 +47,8 @@ $ReadTreino->ExeRead("treinos");
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Treino</label>
-                    <select class="form-control" name="idtreino_equip">
+                    <label>* Treino</label>
+                    <select class="form-control" name="idtreino_equip" required>
                         <option>SELECIONE</option>
                         <?php
                         foreach ($ReadTreino->getResult() as $e):
@@ -58,12 +59,12 @@ $ReadTreino->ExeRead("treinos");
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Nome</label>
-                    <input type="text" name="nome_equip" class="form-control">
+                    <label>* Nome</label>
+                    <input type="text" name="nome_equip" class="form-control" required>
                 </div>
                 <div class="form-group col-md-2">
-                    <label>Data de entrada</label>
-                    <input type="date" name="data_equip_entr" class="form-control">
+                    <label>* Data de entrada</label>
+                    <input type="date" name="data_equip_entr" class="form-control" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label>Data de Saida</label>
@@ -78,8 +79,8 @@ $ReadTreino->ExeRead("treinos");
                     <input type="date" name="data_manutencao_equip" class="form-control">
                 </div>
                 <div class="form-group col-md-4">
-                    <label>Marca</label>
-                    <input type="text" name="marca_equip" class="form-control">
+                    <label>* Marca</label>
+                    <input type="text" name="marca_equip" class="form-control" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Funcionalidade</label>
@@ -93,11 +94,12 @@ $ReadTreino->ExeRead("treinos");
         
          <!--FORMULÁRIO DE UPDATE DE TREINOS-->
         <div class="col-md-12 modal-update">
+            <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
             <form class="form_equipamento" action="" method="POST">
                 <input type="hidden" name="callback" value="equipamento">
                 <div class="form-group col-md-3">
-                    <label>Fornecedor</label>
-                    <select class="form-control" name="idfornecedores">
+                    <label>* Fornecedor</label>
+                    <select class="form-control" name="idfornecedores" required>
                         <option>SELECIONE</option>
                         <?php
                         foreach ($ReadFornecedor->getResult() as $e):
@@ -108,8 +110,8 @@ $ReadTreino->ExeRead("treinos");
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Treino</label>
-                    <select class="form-control" name="idtreino_equip">
+                    <label>* Treino</label>
+                    <select class="form-control" name="idtreino_equip" required>
                         <option>SELECIONE</option>
                         <?php
                         foreach ($ReadTreino->getResult() as $e):
@@ -120,12 +122,12 @@ $ReadTreino->ExeRead("treinos");
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Nome</label>
-                    <input type="text" name="nome_equip" class="form-control">
+                    <label>* Nome</label>
+                    <input type="text" name="nome_equip" class="form-control" required>
                 </div>
                 <div class="form-group col-md-2">
-                    <label>Data de entrada</label>
-                    <input type="date" name="data_equip_entr" class="form-control">
+                    <label>* Data de entrada</label>
+                    <input type="date" name="data_equip_entr" class="form-control" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label>Data de Saida</label>
@@ -140,8 +142,8 @@ $ReadTreino->ExeRead("treinos");
                     <input type="date" name="data_manutencao_equip" class="form-control">
                 </div>
                 <div class="form-group col-md-4">
-                    <label>Marca</label>
-                    <input type="text" name="marca_equip" class="form-control">
+                    <label>* Marca</label>
+                    <input type="text" name="marca_equip" class="form-control" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Funcionalidade</label>
@@ -163,17 +165,19 @@ $ReadTreino->ExeRead("treinos");
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="j-result-equipamentos">
                 <?php
                 $ReadEquipamento = new Read;
-                $ReadEquipamento->ExeRead("equipamentos");
+                $ReadEquipamento->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
+                                          ."FROM equipamentos "
+                                          ."LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores;");
                 foreach ($ReadEquipamento->getResult() as $e):
                     extract($e);
                     echo "<tr>" .
                     "<td>{$idequipamentos}</td>" .
                     "<td>{$nome_equip}</td>" .
                     "<td>{$marca_equip}</td>" .
-                    "<td>{$idfornecedores}</td>" .
+                    "<td>{$nome_forn}</td>" .
                     "<td>" .
                     "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
                     "</td>" .
