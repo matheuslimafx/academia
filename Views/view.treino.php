@@ -5,15 +5,15 @@
 
     <h2>Treinos</h2>
     <div>
-        <div class="col-md-12">
+        <div class="col-md-12" align="right">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
                     <input type="text" placeholder="Pesquisar" class="form-control pesquisar">
                 </div>
             </form>
-            <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Treino</button>
-            <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i> Fechar Treino</button>
-            <button type="button" class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i> Fechar Treino</button>
+            <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Registro</button>
+            <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
+            <button type="button" class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.treinos.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório</button></a>
         </div>
 
@@ -256,14 +256,15 @@
                 $ReadTreinos->ExeRead("treinos");
                 foreach ($ReadTreinos->getResult() as $e):
                     extract($e);
-                    echo "<tr>" .
+                    echo
+                    "<tr id='{$idtreinos}'>" .
                     "<td>{$idtreinos}</td>" .
                     "<td>{$nome_treino}</td>" .
                     "<td>{$turno_treino}</td>" .
-                    "<td>" .
+                    "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
-                    "<a href='http://localhost/academia/Views/view.treino.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a>" .
-                    "<button id='deletar' class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-trash'></i></button>" .
+                    "<a href='http://localhost/academia/Views/view.treino.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " .
+                    "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" .
                     "</td>" .
                     "</tr>";
                 endforeach;

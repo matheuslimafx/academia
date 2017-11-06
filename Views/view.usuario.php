@@ -4,15 +4,15 @@
 <div class="container">
     <h2>Usuários</h2>
     <div>
-        <div class="col-md-12">
-            <form action="" method="">
+        <div class="col-md-12" align="right">
+            <form action="" method="POST">
                 <div class="form-group col-md-4">
                     <input type="text" class="form-control pesquisar" placeholder="Pesquisar">
                 </div>
             </form>
-            <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Usuário</button>
-            <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
-            <button type="button" class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
+            <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Registro</button>
+            <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
+            <button type="button" class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.usuarios.relatorio.php" target="_blank"><button type="" class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
@@ -128,14 +128,15 @@
                 $ReadUsuario->ExeRead("usuario");
                 foreach ($ReadUsuario->getResult() as $e):
                     extract($e);
-                    echo "<tr>" .
+                    echo
+                    "<tr id='{$idusuario}'>" .
                     "<td>{$idusuario}</td>" .
                     "<td>{$email_usuario}</td>" .
                     "<td>{$perfil_usuario}</td>" .
                     "<td>{$idfuncionarios}</td>" .
-                    "<td>".
+                    "<td align='right'>".
                     "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
-                    "<button class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-trash'></i></button>" .
+                    "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" .
                     "</td>".
                     "</tr>";
                 endforeach;

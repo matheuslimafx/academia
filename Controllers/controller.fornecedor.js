@@ -1,9 +1,12 @@
 //INICIAR JQUERY:
 $(function () {
-
+    //A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
+    $('.pesquisar-fornecedor').on('keypress', function (e) {
+        return e.which !== 13;
+    });
     $(".pesquisar-fornecedor").keyup(function () {
         var termo = $(".pesquisar-fornecedor").val();
-        if (termo == '') {
+        if (termo === '') {
             termo = '0';
         }
         $.ajax({
@@ -18,15 +21,15 @@ $(function () {
                 $('.j-result-fornecedores').html('');
                 $(data).each(function (index, value) {
                     $('.j-result-fornecedores').append(
-                            "<tr id='"+ value.idfornecedores +"'>"+
-                            "<td>"+ value.idfornecedores +"</td>"+
-                            "<td>"+ value.nome_forn +"</td>"+
-                            "<td>"+ value.nome_fantasia_forn +"</td>"+
-                            "<td>"+ value.telefone_forn +"</td>"+
-                            "<td>"+
-                            "<td align='right'>"+
-                            "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> "+
-                            "</td>"+
+                            "<tr id='" + value.idfornecedores + "'>" +
+                            "<td>" + value.idfornecedores + "</td>" +
+                            "<td>" + value.nome_forn + "</td>" +
+                            "<td>" + value.nome_fantasia_forn + "</td>" +
+                            "<td>" + value.telefone_forn + "</td>" +
+                            "<td>" +
+                            "<td align='right'>" +
+                            "<button class='btn btn-success btn-xs open-modal-update' idfornecedores='"+value.idfornecedores+"' idendereco_forn='"+value.idendereco_forn+"' ><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "</td>" +
                             "</tr>"
                             );
                 });

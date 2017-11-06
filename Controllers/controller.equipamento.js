@@ -1,6 +1,9 @@
 //INICIAR JQUERY:
 $(function () {
-    
+//A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
+    $('.pesquisar-equipamento').on('keypress', function (e) {
+        return e.which !== 13;
+    });
 //FUNÇÃO RESPONSAVEL POR FAZER CONSULTAS DE ACORDO COM A PESQUISA DO USUÁRIO    
     $(".pesquisar-equipamento").keyup(function (){
        var termo = $(".pesquisar-equipamento").val();
@@ -24,8 +27,8 @@ $(function () {
                     "<td>" + value.nome_equip + "</td>" +
                     "<td>" + value.marca_equip + "</td>" +
                     "<td>" + value.nome_forn + "</td>"+
-                    "<td>"+
-                    
+                    "<td align='right'>"+
+                    "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button>"+
                     "</td>"+
                     "</tr>"
                     ); 

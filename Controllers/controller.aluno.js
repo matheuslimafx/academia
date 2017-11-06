@@ -25,8 +25,9 @@ $(function () {
                             "<td>" + value.idalunos_cliente + "</td>" +
                             "<td>" + value.nome_aluno + "</td>" +
                             "<td>" + value.status_aluno + "</td>" +
-                            "<td><button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + value.idalunos_cliente + "' idendereco_aluno='" + value.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button>" +
-                            "&nbsp;&nbsp;&nbsp;<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> " +
+                            "<td align='right'>"+
+                            "<button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + value.idalunos_cliente + "' idendereco_aluno='" + value.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" +
                             "</td>" +
                             "</tr>");
                 });

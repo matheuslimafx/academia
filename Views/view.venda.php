@@ -4,14 +4,14 @@
 <div class="container">
     <h2>Vendas</h2>
     <div>
-        <div class="col-md-12">
-            <form action="" method="">
+        <div class="col-md-12" align="right">
+            <form action="" method="POST">
                 <div class="form-group col-md-4">
                     <input type="text" name="pesquisa" class="form-control pesquisar" placeholder="Pesquisar">
                 </div>
             </form>
             <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Nova Venda</button>
-            <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
+            <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.vendas.relatorio.php" target="_blank"><button type="" class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
@@ -70,18 +70,24 @@
                 <tbody>
                     <?php
                     $ReadVenda = new Read;
-                    $ReadVenda->ExeRead("vendas");
+                    $ReadVenda->FullRead("SELECT vendas.idvendas, vendas.data_venda, vendas.valor_vendas, vendas.qt_vendas, ".
+                                        "produtos.nome_prod, ". 
+                                        "alunos_cliente.nome_aluno ".
+                                        "FROM vendas ".
+                                        "LEFT JOIN produtos ON  vendas.idprodutos = produtos.idprodutos ".
+                                        "LEFT JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente");
                     foreach ($ReadVenda->getResult() as $e):
                         extract($e);
-                        echo "<tr>" .
+                        echo
+                        "<tr id='{$idvendas}'>" .
                         "<td>{$idvendas}</td>" .
-                        "<td>{$idprodutos}</td>" .
-                        "<td>{$idalunos_cliente}</td>" .
+                        "<td>{$nome_prod}</td>" .
+                        "<td>{$nome_aluno}</td>" .
                         "<td>{$data_venda}</td>" .
                         "<td>R$ {$valor_vendas}</td>" .
                         "<td>{$qt_vendas}</td>" .
-                        "<td>" .
-                        "<a href='http://localhost/academia/Views/view.venda.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a>" .
+                        "<td align='right'>" .
+                        "<a href='http://localhost/academia/Views/view.venda.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" .
                         "</td>" .
                         "</tr>";
                     endforeach;

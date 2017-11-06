@@ -17,12 +17,17 @@ if (count($getPost) == 1):
 
     $buscarEquip = new Read;
 
-    if (is_int($queryPesquisa)):
+    if ($queryPesquisa >= 1):
         $buscarEquip->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
                 . "FROM equipamentos "
                 . "LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
                 . "WHERE equipamentos.idequipamentos = {$queryPesquisa}");
         $jSon = $buscarEquip->getResult();
+        elseif($queryPesquisa === 0):
+            $buscarEquip->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
+                . "FROM equipamentos "
+                . "LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores ");
+            $jSon = $buscarEquip->getResult();
     elseif (is_string($queryPesquisa)):
         $buscarEquip->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
                 . "FROM equipamentos "

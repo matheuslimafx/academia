@@ -1,5 +1,9 @@
 //INICIAR JQUERY:
 $(function () {
+    //A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
+    $('.pesquisar-funcionario').on('keypress', function (e) {
+        return e.which !== 13;
+    });
     //FUNÇÃO RESPONSAVEL POR FAZER CONSULTAS DE ACORDO COM A PESQUISA DO USUÁRIO
     $(".pesquisar-funcionario").keyup(function () {
         var termo = $(".pesquisar-funcionario").val();
@@ -24,7 +28,7 @@ $(function () {
                             "<td>" + value.cargo_func + "</td>" +
                             "<td>" + value.status_func + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update' idfuncionarios='"+value.idfuncionarios+"' idendereco_fun='"+value.idendereco_fun+"'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" +
                             "</td>" +
                             "</tr>"

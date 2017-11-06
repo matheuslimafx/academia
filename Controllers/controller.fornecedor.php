@@ -16,11 +16,14 @@ if (count($getPost) == 1):
 
     $buscarForn = new Read;
 
-    if (is_int($queryPesquisa)):
-        $buscarForn->ExeRead("fornecedores", "WHERE idfornecedores = {$queryPesquisa}");
+    if ($queryPesquisa >= 1):
+        $buscarForn->FullRead("SELECT idfornecedores, nome_forn, nome_fantasia_forn, telefone_forn FROM fornecedores WHERE idfornecedores = {$queryPesquisa}");
+        $jSon = $buscarForn->getResult();
+    elseif ($queryPesquisa === 0):
+        $buscarForn->FullRead("SELECT idfornecedores, nome_forn, nome_fantasia_forn, telefone_forn FROM fornecedores");
         $jSon = $buscarForn->getResult();
     elseif (is_string($queryPesquisa)):
-        $buscarForn->ExeRead("fornecedores", "WHERE nome_forn LIKE '%{$queryPesquisa}%'");
+        $buscarForn->FullRead("SELECT idfornecedores, nome_forn, nome_fantasia_forn, telefone_forn FROM fornecedores WHERE nome_forn LIKE '%{$queryPesquisa}%';");
         $jSon = $buscarForn->getResult();
     endif;
 

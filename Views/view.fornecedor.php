@@ -25,7 +25,8 @@
             <div class="container">
                 <h5 class="obrigatorios">* Campos obrigatórios</h5>
             </div>
-            <form>
+            <form action="" method="POST" class="form-create j-form-create-fornecedor">
+                <input type="hidden" name="callback" value="create-fornecedor">
                 <div class="form-group col-md-3">
                     <label>* Nome</label>
                     <input type="text" name="nome_forn" class="form-control" required>
@@ -52,12 +53,15 @@
             </form>
         </div>
         
-        <!--Modal de Create de Fornecedores-->
+        <!--Modal de UPDATE de Fornecedores-->
         <div class="col-md-12 modal-update">
             <div class="container">
                 <h5 class="obrigatorios">* Campos obrigatórios</h5>
             </div>
-            <form>
+            <form action="" method="POST" class="form-update j-form-update-fornecedor">
+                <input type="hidden" name="callback" value="update-fornecedor">
+                <input type="hidden" name="idfornecedores" value="">
+                <input type="hidden" name="idendereco_forn" value="">
                 <div class="form-group col-md-3">
                     <label>* Nome</label>
                     <input type="text" name="nome_forn" class="form-control" required>
@@ -100,13 +104,14 @@
                 $ReadForn->ExeRead("fornecedores");
                 foreach ($ReadForn->getResult() as $e):
                     extract($e);
-                    echo "<tr>" .
+                    echo
+                    "<tr id='{$idfornecedores}'>" .
                     "<td>{$idfornecedores}</td>" .
                     "<td>{$nome_forn}</td>" .
                     "<td>{$nome_fantasia_forn}</td>" .
                     "<td>{$telefone_forn}</td>" .
                     "<td align='right'>" .
-                    "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<button class='btn btn-success btn-xs open-modal-update' idfornecedores='{$idfornecedores}' idendereco_forn='{$idendereco_forn}'><i class='glyphicon glyphicon-edit'></i></button> " .
                     "</td>" .
                     "</tr>";
                 endforeach;

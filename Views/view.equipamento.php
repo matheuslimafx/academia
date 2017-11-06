@@ -15,7 +15,7 @@ $ReadTreino->ExeRead("treinos");
         <div class="col-md-12" align="right">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar-equipamento">
+                    <input type="text" placeholder="Pesquisar" class="form-control pesquisar pesquisar-equipamento">
                 </div>
             </form>
 
@@ -173,12 +173,13 @@ $ReadTreino->ExeRead("treinos");
                                           ."LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores;");
                 foreach ($ReadEquipamento->getResult() as $e):
                     extract($e);
-                    echo "<tr>" .
+                    echo 
+                    "<tr id='{$idequipamentos}'>" .
                     "<td>{$idequipamentos}</td>" .
                     "<td>{$nome_equip}</td>" .
                     "<td>{$marca_equip}</td>" .
                     "<td>{$nome_forn}</td>" .
-                    "<td>" .
+                    "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
                     "</td>" .
                     "</tr>";

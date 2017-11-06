@@ -10,17 +10,17 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
 <div class="container">
     <h2>Alunos</h2>
     <div>
-        <div class="col-md-12">
+        <div class="col-md-12" align='right'>
             <form action="" method="POST">
                 <div class="form-group col-md-4">
                     <input type="text" placeholder="Pesquisar" class="form-control pesquisar pesquisar-aluno">
                 </div>
             </form>
 
-            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Aluno</button>
-            <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
-            <button class="btn btn-danger close-modal-update" id="fechar-aluno-editar"><i class="glyphicon glyphicon-remove"></i> Fechar Formulário</button>
-            <a href="http://localhost/academia/Views/view.alunos.relatorio.php" id="relatorio-aluno" target="_blank" class="relatorio-geral"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
+            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Registro</button>
+            <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
+            <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
+            <a href="http://localhost/academia/Views/view.alunos.relatorio.php" target="_blank" class="relatorio-geral"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
@@ -233,9 +233,9 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     "<td>{$idalunos_cliente}</td>" .
                     "<td>{$nome_aluno}</td>" .
                     " <td>{$status_aluno}</td>" .
-                    "<td>".
+                    "<td align='right'>".
                         "<button class='btn btn-success btn-xs open-modal-update' idalunos_cliente='{$idalunos_cliente}' idendereco_aluno='{$idendereco_aluno}'><i class='glyphicon glyphicon-edit'></i></button> ".
-                        "&nbsp;&nbsp;&nbsp;<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> ".
+                        "<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> ".
                     "</td>" .
                     "</tr>";
                 endforeach;
