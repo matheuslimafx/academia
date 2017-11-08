@@ -7,7 +7,7 @@
         <div class="col-md-12" align="right">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control pesquisar" placeholder="Pesquisar">
+                    <input type="text" class="form-control pesquisar pesquisar-usuario" placeholder="Pesquisar">
                 </div>
             </form>
             <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Registro</button>
@@ -17,14 +17,22 @@
         </div>
 
         <div class="alert alert-success mensagens-retorno">Cadastro Realizado com sucesso!</div>
-        
+
         <!--MODAL DE CREATE DO USUÁRIO-->
         <div class="col-md-12 modal-create">
+            <div class="container">
+                <h5 class="obrigatorios">* Campos obrigatórios</h5>
+            </div>
             <form action="" method="POST" class="form-usuario">
                 <input type="hidden" name="callback" value="usuarios">
                 <div class="form-group col-md-6">
                     <br>
-                    <label>Funcionário</label>
+                    <label>* Nome</label>
+                    <input type="text" name="nome_usuario" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <br>
+                    <label>* Funcionário</label>
                     <select name="idfuncionarios" class="form-control">
                         <option>SELECIONE</option>
                         <?php
@@ -38,40 +46,44 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <br>
-                    <label>E-mail</label>
-                    <input type="email" name="email_usuario" class="form-control" placeholder="email@exemplo.com.br">
+                    <label>* E-mail</label>
+                    <input type="email" name="email_usuario" class="form-control" placeholder="email@exemplo.com.br" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Senha</label>
-                    <input type="password" name="senha_usuario" class="form-control">
+                    <label>* Senha</label>
+                    <input type="password" name="senha_usuario" class="form-control" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Confirme a Senha</label>
-                    <input type="password" name="senha_usuario" class="form-control">
+                    <label>* Confirme a Senha</label>
+                    <input type="password" name="senha_usuario" class="form-control" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Perfil</label>
-                    <select name="perfil_usuario" class="form-control">
+                    <label>* Perfil</label>
+                    <select name="perfil_usuario" class="form-control" required>
                         <option value=0>SELECIONE</option>
                         <option value="admin">Administrador</option>
                         <option value="professor">Professor</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group col-md-12">
                     <button name="" type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
                 </div>               
             </form>
         </div>
-        
+
         <!--MODAL DE UPDATE DO USUÁRIO-->
         <div class="col-md-12 modal-update">
             <form action="" method="POST" class="form-usuario">
                 <input type="hidden" name="callback" value="usuarios">
                 <div class="form-group col-md-6">
                     <br>
-                    <label>Funcionário</label>
+                    <label>* Nome</label>
+                    <input type="text" name="nome_usuario" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <br>
+                    <label>* Funcionário</label>
                     <select name="idfuncionarios" class="form-control">
                         <option>SELECIONE</option>
                         <?php
@@ -85,59 +97,60 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <br>
-                    <label>E-mail</label>
-                    <input type="email" name="email_usuario" class="form-control" placeholder="email@exemplo.com.br">
+                    <label>* E-mail</label>
+                    <input type="email" name="email_usuario" class="form-control" placeholder="email@exemplo.com.br" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Senha</label>
-                    <input type="password" name="senha_usuario" class="form-control">
+                    <label>* Senha</label>
+                    <input type="password" name="senha_usuario" class="form-control" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Confirme a Senha</label>
-                    <input type="password" name="senha_usuario" class="form-control">
+                    <label>* Confirme a Senha</label>
+                    <input type="password" name="senha_usuario" class="form-control" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Perfil</label>
-                    <select name="perfil_usuario" class="form-control">
+                    <label>* Perfil</label>
+                    <select name="perfil_usuario" class="form-control" required>
                         <option value=0>SELECIONE</option>
                         <option value="admin">Administrador</option>
                         <option value="professor">Professor</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group col-md-12">
                     <button name="" type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
                 </div>               
             </form>
         </div>
-        
+
         <table class="table table-striped modal-table">
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Funcionário</th>
                     <th>E-mail</th>
                     <th>Perfil</th>
-                    <th>Funcionário</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="j-result-usuarios">
                 <?php
                 $ReadUsuario = new Read;
-                $ReadUsuario->ExeRead("usuario");
+                $ReadUsuario->FullRead("SELECT usuario.idusuario, usuario.email_usuario, usuario.perfil_usuario, funcionarios.nome_func " .
+                        "FROM usuario " .
+                        "LEFT JOIN funcionarios ON usuario.idfuncionarios = funcionarios.idfuncionarios");
                 foreach ($ReadUsuario->getResult() as $e):
                     extract($e);
                     echo
                     "<tr id='{$idusuario}'>" .
                     "<td>{$idusuario}</td>" .
+                    "<td>{$nome_func}</td>" .
                     "<td>{$email_usuario}</td>" .
                     "<td>{$perfil_usuario}</td>" .
-                    "<td>{$idfuncionarios}</td>" .
-                    "<td align='right'>".
-                    "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<td align='right'>" .
+                    "<button class='btn btn-success btn-xs open-modal-update' idusuario='{$idusuario}'><i class='glyphicon glyphicon-edit'></i></button> " .
                     "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" .
-                    "</td>".
+                    "</td>" .
                     "</tr>";
                 endforeach;
                 ?>
