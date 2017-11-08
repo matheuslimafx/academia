@@ -2,7 +2,7 @@
 $(function () {
 
     //A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
-    $('.pesquisar-aluno').on('keypress', function (e) {
+    $('.pesquisar-usuario').on('keypress', function (e) {
         return e.which !== 13;
     });
     //FUNÇÃO RESPONSÁVEL POR FAZER CONSULTAS DE ACORDO COM PESQUISAS DO USUÁRIO:
