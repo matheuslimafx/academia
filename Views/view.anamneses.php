@@ -265,12 +265,12 @@
                                        . "LEFT JOIN alunos_cliente ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente");
                 foreach ($ReadAnamnese->getResult() as $e):
                     extract($e);
-                    echo "<tr>" .
+                    echo "<tr id='{$idanamneses}'>" .
                     "<td>{$idanamneses}</td>" .
                     "<td>{$idalunos_cliente}</td>" .
                     "<td>{$nome_aluno}</td>" .
                     "<td align='right'>" .
-                    "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<button class='btn btn-success btn-xs open-modal-update j-update-anamnese'><i class='glyphicon glyphicon-edit'></i></button> " .
                     "<a href='http://localhost/academia/Views/view.anamnese.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " .
                     "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" .
                     "</td>" .

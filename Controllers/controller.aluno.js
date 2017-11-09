@@ -26,7 +26,7 @@ $(function () {
                             "<td>" + value.nome_aluno + "</td>" +
                             "<td>" + value.status_aluno + "</td>" +
                             "<td align='right'>"+
-                            "<button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + value.idalunos_cliente + "' idendereco_aluno='" + value.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-aluno' idalunos_cliente='" + value.idalunos_cliente + "' idendereco_aluno='" + value.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" +
                             "</td>" +
                             "</tr>");
@@ -77,8 +77,8 @@ $(function () {
                             "<td>" + novoAluno.idalunos_cliente + "</td>" +
                             "<td>" + novoAluno.nome_aluno + "</td>" +
                             "<td>" + novoAluno.status_aluno + "</td>" +
-                            "<td><button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + novoAluno.idalunos_cliente + "' idendereco_aluno='" + novoAluno.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button>" +
-                            "&nbsp;&nbsp;&nbsp;<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> " +
+                            "<td align='right'><button class='btn btn-success btn-xs open-modal-update j-open-modal-update-aluno' idalunos_cliente='" + novoAluno.idalunos_cliente + "' idendereco_aluno='" + novoAluno.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " +
                             "</td>" +
                             "</tr>");
                     setTimeout(function () {
@@ -125,8 +125,8 @@ $(function () {
                             "<td>" + alunoEditado.idalunos_cliente + "</td>" +
                             "<td>" + alunoEditado.nome_aluno + "</td>" +
                             "<td>" + alunoEditado.status_aluno + "</td>" +
-                            "<td><button id='aluno-editar' class='btn btn-success btn-xs open-modal-update' idalunos_cliente='" + alunoEditado.idalunos_cliente + "' idendereco_aluno='" + alunoEditado.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button>" +
-                            "&nbsp;&nbsp;&nbsp;<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button id='imprimir' class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-print'></i></button></a> " +
+                            "<td align='right'><button class='btn btn-success btn-xs open-modal-update j-open-modal-update-aluno' idalunos_cliente='" + alunoEditado.idalunos_cliente + "' idendereco_aluno='" + alunoEditado.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " +
                             "</td>" +
                             "</tr>");
                     //ESSA FUNÇÃO EVITA QUE AO ADICIONAR UM NOVO USUÁRIO DIFERENTE GERE EFEITOS EM ELEMENTOS QUE JÁ FORAM CADASTRADOS ANTES.
@@ -141,7 +141,7 @@ $(function () {
     });
 
 //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA ALUNO:
-    $('html').on('click', '.open-modal-update', function () {
+    $('html').on('click', '.j-open-modal-update-aluno', function () {
         var button = $(this);
         var idalunos_cliente = $(button).attr('idalunos_cliente');
         var idendereco_aluno = $(button).attr('idendereco_aluno');
@@ -157,7 +157,7 @@ $(function () {
             success: function (data) {
                 var Form = $('.j-form-update-aluno');
                 $.each(data, function (key, value) {
-                    Form.find("input[name='" + key + "']").val(value);
+                    Form.find("input[name='" + key + "'], select[name='" + key + "'], textarea[name='" + key + "']").val(value);
                 });
             }
         });
