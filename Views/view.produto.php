@@ -244,7 +244,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="j-result-produtos">
                 <?php
                 $ReadProd = new Read;
                 $ReadProd->FullRead("SELECT produtos.idprodutos, produtos.nome_prod, " .

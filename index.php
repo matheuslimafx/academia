@@ -41,6 +41,8 @@
         <script src="Controllers/controller.treino.js"></script>
         <script src="Controllers/controller.usuario.js"></script>
         <script src="Controllers/controller.mensalidade.js"></script>
+        <script src="Controllers/controller.produto.js"></script>
+        <script src="Controllers/controller.venda.js"></script>
         <!--FIM DE SCRIPTS:-->
     </body>
 </html>
