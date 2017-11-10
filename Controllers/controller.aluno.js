@@ -55,22 +55,16 @@ $(function () {
             dataType: 'json',
 //            BEFORE SEND É A FUNÇÃO QUE PERMITE EXECUTAR UM ALGORITMO DO JQUERY ANTES DOS DADOS SEREM ENVIADOS:
             beforeSend: function (xhr) {
-//                PODE-SE NESSA PARTE MOSTRAR E RETIRAR POR EXEMPLO ELEMENTOS DO HTML:
-                alert('enviou');
             },
 //            SUCCESS É A FUNÇÃO DO AJAX RESPONSÁVEL POR EXECUTAR ALGORITMOS DEPOIS QUE OS DADOS RETORNAM DA CONTROLLER, TAIS DADOS PODEM SER ACESSADOS PELA VARIAVEL "(data)":
             success: function (data) {
-
-//                NESSA PARTE É INTERESSANTE EXECUTAR AÇÕES DE ACORDO COM OS RESULTADOS VINDOS DA CONTROLER UTILIZANDO CONDIÇÕES:
-                alert('voltou');
-
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
                 }
                 if (data.clear) {
                     Form.trigger('reset');
                 }
-                $('.modal-create').fadeOut();
+                $('.modal-create').fadeOut(0);
                 if (data.novoaluno) {
                     var novoAluno = data.novoaluno;
                     $('.j-result-alunos').prepend("<tr id='" + novoAluno.idalunos_cliente + "' class='animated zoomInDown'>" +
