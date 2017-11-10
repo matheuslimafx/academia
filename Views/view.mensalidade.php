@@ -31,10 +31,13 @@
         <div class="col-md-12 modal-create">
             <form class="form-mensalidade" action="" method="POST">
                 <input type="hidden" name="callback" value="create-mensalidade">
+                <div class="container">
+                    <h5 class="obrigatorios">* Campos obrigatórios</h5>
+                </div>
                 <div class="form-group col-md-6">
                     <br>
-                    <label>Aluno</label>
-                    <select name="idalunos_cliente" class="form-control">
+                    <label>* Aluno</label>
+                    <select name="idalunos_cliente" class="form-control" required>
                         <option>SELECIONE</option>
                         <?php
                         $ReadAlunos = new Read;
@@ -49,17 +52,17 @@
                 </div>
                 <div class="form-group col-md-3">
                     <br>
-                    <label>Data de Pagamento</label>
-                    <input type="date" name="data_mens_pag" class="form-control">
+                    <label>* Data de Pagamento</label>
+                    <input type="date" name="data_mens_pag" class="form-control" required>
                 </div>
                 <div class="form-group col-md-3">
                     <br>
-                    <label>Valor</label>
-                    <input type="text" name="valor_mensalidades" class="form-control" placeholder="R$" id="moeda">
+                    <label>* Valor</label>
+                    <input type="text" name="valor_mensalidades" class="form-control" placeholder="R$" id="moeda" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Status</label>
-                    <select name="status_mensalidades" class="form-control">
+                    <label>* Status</label>
+                    <select name="status_mensalidades" class="form-control" required>
                         <option value=0>SELECIONE</option>
                         <option value="Em dia">Em dia</option>
                         <option value="Pendente">Pendente</option>
@@ -79,10 +82,14 @@
         <div class="col-md-12 modal-update">
             <form class="form-mensalidade" action="" method="POST">
                 <input type="hidden" name="callback" value="update-mensalidade">
+                <div class="container">
+                    <h5 class="obrigatorios">* Campos obrigatórios</h5>
+                </div>
                 <div class="form-group col-md-6">
                     <br>
-                    <label>Aluno</label>
-                    <select name="idalunos_cliente" class="form-control">
+                    <label>* Aluno</label>
+                    <select name="idalunos_cliente" class="form-control" required>
+                        <option>SELECIONE</option>
                         <?php
                         $ReadAlunos = new Read;
                         $ReadAlunos->ExeRead("alunos_cliente");
@@ -96,17 +103,17 @@
                 </div>
                 <div class="form-group col-md-3">
                     <br>
-                    <label>Data de Pagamento</label>
-                    <input type="date" name="data_mens_pag" class="form-control">
+                    <label>* Data de Pagamento</label>
+                    <input type="date" name="data_mens_pag" class="form-control" required>
                 </div>
                 <div class="form-group col-md-3">
                     <br>
-                    <label>Valor</label>
-                    <input type="text" name="valor_mensalidades" class="form-control" placeholder="R$" id="moeda">
+                    <label>* Valor</label>
+                    <input type="text" name="valor_mensalidades" class="form-control" placeholder="R$" id="moeda" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Status</label>
-                    <select name="status_mensalidades" class="form-control">
+                    <label>* Status</label>
+                    <select name="status_mensalidades" class="form-control" required>
                         <option value=0>SELECIONE</option>
                         <option value="Em dia">Em dia</option>
                         <option value="Pendente">Pendente</option>
@@ -136,16 +143,19 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="j-result-mens-pagas">
                     <?php
                     $ReadMensalidadePaga = new Read;
-                    $ReadMensalidadePaga->ExeRead("mensalidades", "WHERE status_mensalidades = :status_mensalidades", "status_mensalidades=Em dia");
+                    $ReadMensalidadePaga->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
+                            "FROM mensalidades " .
+                            "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
+                            "WHERE status_mensalidades = 'Em dia'");
                     foreach ($ReadMensalidadePaga->getResult() as $e):
                         extract($e);
-                        echo 
+                        echo
                         "<tr id='{$idmensalidades}'>" .
-                        "<td>{$idmensalidades}</td>" .
                         "<td>{$idalunos_cliente}</td>" .
+                        "<td>{$nome_aluno}</td>" .
                         "<td>R$ {$valor_mensalidades}</td>" .
                         "<td>{$data_mens_pag}</td>" .
                         "<td>{$status_mensalidades}</td>" .
@@ -162,7 +172,7 @@
         </div>
         <!--Mensalidades não Pagas-->
         <div class="divs" id="nao_pagas">
-            <table class="table table-striped">
+            <table class="table table-striped modal-table">
                 <thead>
                     <tr>
                         <th>Matricula</th>
@@ -170,19 +180,22 @@
                         <th>Valor da Mensalidade</th>
                         <th>Vencimento</th>
                         <th>Status</th>
-                        <th>Ação</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="j-result-mens-pendente">
                     <?php
                     $ReadMensalidadePend = new Read;
-                    $ReadMensalidadePend->ExeRead("mensalidades", "WHERE status_mensalidades = :status_mensalidades", "status_mensalidades=Pendente");
+                    $ReadMensalidadePend->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
+                            "FROM mensalidades " .
+                            "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
+                            "WHERE status_mensalidades = 'Pendente'");
                     foreach ($ReadMensalidadePend->getResult() as $e):
                         extract($e);
                         echo
                         "<tr id='{$idmensalidades}'>" .
-                        "<td>{$idmensalidades}</td>" .
                         "<td>{$idalunos_cliente}</td>" .
+                        "<td>{$nome_aluno}</td>" .
                         "<td>R$ {$valor_mensalidades}</td>" .
                         "<td>{$data_mens_pag}</td>" .
                         "<td>{$status_mensalidades}</td>" .
@@ -198,7 +211,7 @@
         </div>
         <!--Todas Mensalidades-->
         <div class="divs" id="todas">
-            <table class="table table-striped">
+            <table class="table table-striped modal-table">
                 <thead>
                     <tr>
                         <th>Matricula</th>
@@ -206,19 +219,21 @@
                         <th>Valor da Mensalidade</th>
                         <th>Vencimento</th>
                         <th>Status</th>
-                        <th>Ação</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="j-result-mens-todas">
                     <?php
                     $ReadMensalidadeTodas = new Read;
-                    $ReadMensalidadeTodas->ExeRead("mensalidades");
+                    $ReadMensalidadeTodas->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
+                            "FROM mensalidades " .
+                            "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
                     foreach ($ReadMensalidadeTodas->getResult() as $e):
                         extract($e);
                         echo
                         "<tr id='{$idmensalidades}'>" .
-                        "<td>{$idmensalidades}</td>" .
                         "<td>{$idalunos_cliente}</td>" .
+                        "<td>{$nome_aluno}</td>" .
                         "<td>R$ {$valor_mensalidades}</td>" .
                         "<td>{$data_mens_pag}</td>" .
                         "<td>{$status_mensalidades}</td>" .

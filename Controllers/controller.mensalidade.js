@@ -1,5 +1,48 @@
 //INICIAR JQUERY:
 $(function () {
+
+    //A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
+    $('.pesquisar-mensalidade').on('keypress', function (e) {
+        return e.which !== 13;
+    });
+    //FUNÇÃO RESPONSÁVEL POR FAZER CONSULTAS DE ACORDO COM PESQUISAS DO USUÁRIO:
+    $(".pesquisar-mensalidade").keyup(function (){
+       var termo = $(".pesquisar-mensalidade").val();
+       if(termo === ''){
+           termo = '0';
+       }
+       $.ajax({
+          url: "Controllers/controller.mensalidade.php",
+          data: termo,
+          type: 'POST',
+          dataType: 'json',
+          beforeSend: function (xhr){
+              
+          },
+          success: function (data){
+              $('.j-result-mens-pagas').html('');
+              $(data).each(function (index, value){
+                 $('.j-result-mens-pagas').append(
+                         "<tr id='"+ value.idmensalidades + "'>"+
+                         "<td>"+ value.idalunos_cliente +"</td>"+
+                         "<td>"+ value.nome_aluno +"</td>"+
+                         "<td>"+ value.valor_mensalidades +"</td>"+
+                         "<td>"+ value.data_mensalidades +"</td>"+
+                         "<td>"+ value.status_mensalidades +"</td>"+
+                         "<td align='right'>"+
+                         "<button class='btn btn-success btn-xs open-modal-update' idmensalidades='"+ value.idmensalidades +"'><i class='glyphicon glyphicon-edit'></i></button></a> " +
+                         "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" +
+                         "</td>"+
+                         "</tr>"
+                         ); 
+              });
+          }
+       });
+    });
+    
+    
+    
+    
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
     $(".form_mensalidade").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
@@ -44,8 +87,8 @@ $(function () {
 //        RETURN É A FUNÇÃO PARA NÃO PERMITIR QUE O FORMULÁRIO GERE AÇÃO: 
         return false;
     });
-    
+
 //    SELECIONAR CIDADE DE ACORDO COM O ESTADO:
 
-    
+
 });
