@@ -7,12 +7,12 @@
     <h2>Mensalidades</h2>
     <div>
         <div class="col-md-12" align='right'>
-            <form action="" method="">
+            <form action="" method="POST">
                 <div class="form-group col-md-4">
                     <input type="text" placeholder="Pesquisar" class="form-control pesquisar pesquisar-mensalidade">
                 </div>
                 <div class="form-group col-md-3">
-                    <select name="seleciona_mensalidade" class="form-control modal-select" onchange="$('.divs').hide();$('#' + this.value).show();">
+                    <select class="form-control modal-select" onchange="$('.divs').hide();$('#' + this.value).show();">
                         <option value="pagas">Mensalidades Pagas</option>
                         <option value="nao_pagas">Mensalidades Pendentes</option>
                         <option value="todas">Todas Mensalidades</option>

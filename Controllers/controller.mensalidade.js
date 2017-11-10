@@ -20,14 +20,14 @@ $(function () {
               
           },
           success: function (data){
-              $('.j-result-mens-pagas').html('');
+              $(".j-result-mens-pagas").html("");
               $(data).each(function (index, value){
-                 $('.j-result-mens-pagas').append(
+                 $(".j-result-mens-pagas").append(
                          "<tr id='"+ value.idmensalidades + "'>"+
                          "<td>"+ value.idalunos_cliente +"</td>"+
                          "<td>"+ value.nome_aluno +"</td>"+
                          "<td>"+ value.valor_mensalidades +"</td>"+
-                         "<td>"+ value.data_mensalidades +"</td>"+
+                         "<td>"+ value.data_mens_pag +"</td>"+
                          "<td>"+ value.status_mensalidades +"</td>"+
                          "<td align='right'>"+
                          "<button class='btn btn-success btn-xs open-modal-update' idmensalidades='"+ value.idmensalidades +"'><i class='glyphicon glyphicon-edit'></i></button></a> " +
@@ -66,14 +66,14 @@ $(function () {
 //            BEFORE SEND É A FUNÇÃO QUE PERMITE EXECUTAR UM ALGORITMO DO JQUERY ANTES DOS DADOS SEREM ENVIADOS:
             beforeSend: function (xhr) {
 //                PODE-SE NESSA PARTE MOSTRAR E RETIRAR POR EXEMPLO ELEMENTOS DO HTML:
-                //alert('enviou');
+                alert('enviou');
             },
 
 //            SUCCESS É A FUNÇÃO DO AJAX RESPONSÁVEL POR EXECUTAR ALGORITMOS DEPOIS QUE OS DADOS RETORNAM DA CONTROLLER, TAIS DADOS PODEM SER ACESSADOS PELA VARIAVEL "(data)":
             success: function (data) {
 
 //                NESSA PARTE É INTERESSANTE EXECUTAR AÇÕES DE ACORDO COM OS RESULTADOS VINDOS DA CONTROLER UTILIZANDO CONDIÇÕES:
-                //alert('voltou');
+                alert('voltou');
 
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
@@ -88,7 +88,6 @@ $(function () {
         return false;
     });
 
-//    SELECIONAR CIDADE DE ACORDO COM O ESTADO:
 
 
 });

@@ -38,7 +38,7 @@ $(function () {
     });
 
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
-    $(".form_forn").submit(function () {
+    $(".j-form-create-fornecedor").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
         var Form = $(this);
 //        VARIAVEL ACTION RECEBE O VALOR DO CALLBACK QUE É UM INPUT ESCONDIDO NO FORMULARIO ESSE CALLBACK SERVE COMO GATILHO PARA CONDIÇÕES:
@@ -58,20 +58,39 @@ $(function () {
             dataType: 'json',
 //            BEFORE SEND É A FUNÇÃO QUE PERMITE EXECUTAR UM ALGORITMO DO JQUERY ANTES DOS DADOS SEREM ENVIADOS:
             beforeSend: function (xhr) {
-//                PODE-SE NESSA PARTE MOSTRAR E RETIRAR POR EXEMPLO ELEMENTOS DO HTML:
-                alert('enviou');
+
             },
 //            SUCCESS É A FUNÇÃO DO AJAX RESPONSÁVEL POR EXECUTAR ALGORITMOS DEPOIS QUE OS DADOS RETORNAM DA CONTROLLER, TAIS DADOS PODEM SER ACESSADOS PELA VARIAVEL "(data)":
             success: function (data) {
-
-//                NESSA PARTE É INTERESSANTE EXECUTAR AÇÕES DE ACORDO COM OS RESULTADOS VINDOS DA CONTROLER UTILIZANDO CONDIÇÕES:
-                alert('voltou');
-
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
                 }
                 if (data.clear) {
                     Form.trigger('reset');
+                }
+                $('.modal-create').fadeOut(0);
+                $('.close-modal-create').fadeOut(0);
+                $('.open-modal-create').fadeIn(0);
+                $('.relatorio-geral').fadeIn(0);
+                $('.pesquisar').fadeIn(0);
+                $('.modal-table').fadeIn(0);
+                
+                if(data.novoforn){
+                    var novoForn = data.novoforn;
+                    $('.j-result-fornecedores').prepend(
+                            "<tr id='"+ novoForn.idfornecedores +"'>"+
+                            "<td>"+ novoForn.idfornecedores +"</td>"+
+                            "<td>"+ novoForn.nome_forn +"</td>"+
+                            "<td>"+ novoForn.nome_fantasia_forn +"</td>"+
+                            "<td>"+ novoForn.telefone_forn +"</td>"+
+                            "<td align='right'>"+
+                            "<button class='btn btn-success btn-xs open-modal-update' idfornecedores='"+novoForn.idfornecedores+"' idendereco_forn='"+novoForn.idendereco_forn+"' ><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "</td>"+
+                            "</tr>"
+                            );
+                    setTimeout(function (){
+                       $("tr[id='"+ novoForn.idfornecedores +"']:first").removeClass("animated zoomInDown"); 
+                    }, 1000);
                 }
             }
         });

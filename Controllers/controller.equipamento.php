@@ -54,7 +54,7 @@ else:
         switch ($Action):
 
 //        CONDIÇÃO  'equipamento' ATENDIDA:
-            case 'equipamento':
+            case 'create-equipamento':
 
 //            CRIAÇÃO DE UMA VARIÁVEL RESPONSÁVEL POR RECEBER  O NOME DA TABELA QUE SERÁ INSERIDA OS DADOS NO BANCO:
                 $Tabela = "equipamentos";
@@ -70,14 +70,22 @@ else:
 
 //            CONDIÇÃO PARA VERIFICAR SE FOI CADASTRADO UM NOVO EQUIPAMENTO, UTILIZANDO UM MÉTODO DA CLASSE EQUIPAMENTO:
                 if ($CadastrarEquip->getResult()):
-
-//                CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO ARQUIVO JS:
-                    $jSon['sucesso'] = true;
-
-//                GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS O CADASTRO:
-                    $jSon['clear'] = true;
+                    $idNovoEquip = $CadastrarEquip->getResult();
+                    $equipCadastrado = new Read;
+                    $equipCadastrado->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
+                . "FROM equipamentos "
+                . "LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
+                . "WHERE equipamentos.idequipamentos = :idequipamentos", " idequipamentos={$idNovoEquip}");
+                
+                if($equipCadastrado->getResult()):
+                    $novoEquip = $equipCadastrado->getResult();
+                    $jSon['novoequip'] = $novoEquip[0];
+                    
+                    $json['sucessp'] = true;
+                    
+                    $json['clear'] = true;
                 endif;
-
+                endif;
 
                 break;
 
