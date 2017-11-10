@@ -8,7 +8,6 @@ $jSon = array();
 
 //$getPost É A VARIAVEL QUE RECEBE OS DADOS ENVIADOS DO ARQUIVO JS:
 $getPost = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
 //Verifica se os dados vindos do arquivo js são referentes a função pesquisa por anamnese. Caso o tamanho do array seja igual a 1 é referente a pesquisa. Caso o array seja maior que 1 significa que são dados para realizar o CRUD.
 if (count($getPost) == 1):
 
@@ -51,7 +50,7 @@ else:
         //SWITCH SERÁ AS CONDIÇÕES VERIFICADAS E USADAS PARA TOMAR AÇÕES DE ACORDO COM CADA CALLBACK:
         switch ($Action):
             //CONDIÇÃO 'anamnese' ATENDIDA:
-            case 'anamnese':
+            case 'create-anamnese':
                 //CRIAÇÃO DE UMA VARIAVEL REPONSAVEL POR RECEBER O NOME DA TABELA QUE SERPA INSERIDA OS DADOS
                 $Tabela = "anamneses";
 
@@ -66,11 +65,17 @@ else:
 
                 //CONDIÇÃO PARA VERIFICAR SE FOI CADASTRADO UMA NOVA ANAMNESE, UTILIZANDO UM METODO DA CLASSE ANAMNESE:
                 if ($CadastrarAnamnese->getResult()):
-                    //CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO JS:
-                    $jSon['sucesso'] = true;
-
-                    //GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS CADASTRO:
-                    $jSon['clear'] = true;
+                    $idNovaAnamnese = $CadastrarAnamnese->getResult();
+                    $anamneseCadastrada = new Read;
+                    $anamneseCadastrada->FullRead("SELECT anamneses.idanamneses, anamneses.idalunos_cliente, alunos_cliente.nome_aluno FROM anamneses INNER JOIN alunos_cliente ON alunos_cliente.idalunos_cliente = anamneses.idalunos_cliente WHERE anamneses.idanamneses = :idanamnese", "idanamnese={$idNovaAnamnese}");
+                    if ($anamneseCadastrada->getResult()):
+                        $novaAnamnese = $anamneseCadastrada->getResult();
+                        $jSon['novaanamnese'] = $novaAnamnese[0];
+                        //CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO JS:
+                        $jSon['sucesso'] = true;
+                        //GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS CADASTRO:
+                        $jSon['clear'] = true;
+                    endif;
                 endif;
 
                 break;
@@ -83,5 +88,3 @@ else:
     endif;
 endif;
 echo json_encode($jSon);
-?>
-

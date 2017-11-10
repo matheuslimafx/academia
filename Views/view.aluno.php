@@ -205,7 +205,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
 
                 <div class="form-group col-md-12">
                     <label>Obs.</label>
-                    <input type="text" name="obs_aluno" class="form-control">
+                    <textarea type="text" name="obs_aluno" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-12">
                     <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Salvar</button>
@@ -234,7 +234,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     "<td>{$nome_aluno}</td>" .
                     " <td>{$status_aluno}</td>" .
                     "<td align='right'>".
-                        "<button class='btn btn-success btn-xs open-modal-update' idalunos_cliente='{$idalunos_cliente}' idendereco_aluno='{$idendereco_aluno}'><i class='glyphicon glyphicon-edit'></i></button> ".
+                        "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-aluno' idalunos_cliente='{$idalunos_cliente}' idendereco_aluno='{$idendereco_aluno}'><i class='glyphicon glyphicon-edit'></i></button> ".
                         "<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> ".
                     "</td>" .
                     "</tr>";

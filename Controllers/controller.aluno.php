@@ -83,7 +83,6 @@ else:
                     endif;
 //                CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO ARQUIVO JS:
                     $jSon['sucesso'] = true;
-
 //                GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS O CADASTRO:
                     $jSon['clear'] = true;
                 endif;

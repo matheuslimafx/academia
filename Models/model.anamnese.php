@@ -2,7 +2,7 @@
 
 /**
  * <b>Anamnese.class:</b>
- * Classe reponsável por gerenciamento dos dados da tabela anamneses!
+ * Model por gerenciamento dos dados da tabela anamneses!
  * 
  */
 
