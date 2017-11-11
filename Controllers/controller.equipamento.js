@@ -38,7 +38,7 @@ $(function () {
     });
     
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
-    $(".form_equipamento").submit(function () {
+    $(".j-form-create-equipamento").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
         var Form = $(this);
 //        VARIAVEL ACTION RECEBE O VALOR DO CALLBACK QUE É UM INPUT ESCONDIDO NO FORMULARIO ESSE CALLBACK SERVE COMO GATILHO PARA CONDIÇÕES:
@@ -65,15 +65,35 @@ $(function () {
 
 //            SUCCESS É A FUNÇÃO DO AJAX RESPONSÁVEL POR EXECUTAR ALGORITMOS DEPOIS QUE OS DADOS RETORNAM DA CONTROLLER, TAIS DADOS PODEM SER ACESSADOS PELA VARIAVEL "(data)":
             success: function (data) {
-
-//                NESSA PARTE É INTERESSANTE EXECUTAR AÇÕES DE ACORDO COM OS RESULTADOS VINDOS DA CONTROLER UTILIZANDO CONDIÇÕES:
-                //alert('voltou');
-
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
                 }
                 if (data.clear) {
                     Form.trigger('reset');
+                }
+                $('.modal-create').fadeOut(0);
+                $('.close-modal-create').fadeOut(0);
+                $('.open-modal-create').fadeIn(0);
+                $('.relatorio-geral').fadeIn(0);
+                $('.pesquisar').fadeIn(0);
+                $('.modal-table').fadeIn(0);
+                
+                if(data.novoequip){
+                    var novoEquip = data.novoequip;
+                    $('.j-result-equipamentos').prepend(
+                            "<tr id='"+ novoEquip.idequipamentos +"'>"+
+                            "<td>"+ novoEquip.idequipamentos +"</td>"+
+                            "<td>"+ novoEquip.nome_equip +"</td>"+
+                            "<td>"+ novoEquip.marca_equip +"</td>"+
+                            "<td>"+ novoEquip.nome_forn +"</td>"+
+                            "<td align='right'>"+
+                            "<button class='btn btn-success btn-xs open-modal-update' idequipamentos='"+ novoEquip.idequipamentos +"'><i class='glyphicon glyphicon-edit'></i></button> "+
+                            "</td>"+
+                            "</tr>"
+                            );
+                    setTimeout(function (){
+                       $("tr[id='"+ novoEquip.idequipamentos +"']:first").removeClass("animated xoomInDown"); 
+                    }, 1000);
                 }
             }
         });

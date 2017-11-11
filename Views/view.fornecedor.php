@@ -7,7 +7,7 @@
         <div class="col-md-12" align="right">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control pesquisar-fornecedor" placeholder="Pesquisar">
+                    <input type="text" class="form-control pesquisar pesquisar-fornecedor" placeholder="Pesquisar">
                 </div>
             </form>
             <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Registro</button>
@@ -17,7 +17,10 @@
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
-            <div class='alert alert-success'>Cadastro realizado com sucesso!</div>
+            <div class='alert alert-success'>
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                Cadastro realizado com sucesso!
+            </div>
         </div>
         
         <!--Modal de Create de Fornecedores-->
@@ -25,7 +28,7 @@
             <div class="container">
                 <h5 class="obrigatorios">* Campos obrigatórios</h5>
             </div>
-            <form action="" method="POST" class="form-create j-form-create-fornecedor">
+            <form action="" method="POST" class="form_fornecedor form-create j-form-create-fornecedor">
                 <input type="hidden" name="callback" value="create-fornecedor">
                 <div class="form-group col-md-3">
                     <label>* Nome</label>
@@ -33,11 +36,11 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>* CNPJ / CPF</label>
-                    <input type="text" name="cnpj_cpf_forn" class="form-control" required>
+                    <input type="text" name="cnpj_cpf_forn" class="form-control" required maxlength="14" minlength="11">
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Nome Fantasia</label>
-                    <input type="text" name="nome_fantasia" class="form-control" required>
+                    <input type="text" name="nome_fantasia_forn" class="form-control" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* E-mail</label>
@@ -46,6 +49,41 @@
                 <div class="form-group col-md-3">
                     <label>* Telefone</label>
                     <input type="text" name="telefone_forn" class="form-control" id="telefoneC" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>* Estado</label>
+                    <select name="idestado" class="form-control" required>
+                        <option>SELECIONE</option>
+                        <?php
+                        $ReadEstado = new Read;
+                        $ReadEstado->ExeRead("estado");
+                        foreach ($ReadEstado->getResult() as $i):
+                            extract($i);
+                            echo "<option value='{$idestado}'>{$uf}</option>";
+                        endforeach;
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>* Cidade</label>
+                    <select name="idcidade" class="form-control" required>
+                        <option>SELECIONE</option>
+                        <?php
+                        $ReadCidade = new Read;
+                        $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
+                        foreach ($ReadCidade->getResult() as $i):
+                            extract($i);
+                            echo "<option value='{$idcidade}'>{$desc_cidade}</option>";
+                        endforeach;
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <!--VAZIO-->
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Complementos</label>
+                    <input type="text" name="complementos_forn" class="form-control">
                 </div>
                 <div class="form-group col-md-12">
                     <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>

@@ -1,13 +1,6 @@
 <!--MENU:-->
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
-<?php
-$ReadFornecedor = new Read;
-$ReadFornecedor->ExeRead("fornecedores");
-
-$ReadTreino = new Read;
-$ReadTreino->ExeRead("treinos");
-?>
 <div class="container">
 
     <h2>Equipamentos</h2>
@@ -26,19 +19,24 @@ $ReadTreino->ExeRead("treinos");
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
-            <div class='alert alert-success'>Cadastro realizado com sucesso!</div>
+            <div class='alert alert-success'>
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                Cadastro realizado com sucesso!
+            </div>
         </div>
 
         <!--FORMULÁRIO DE CADASTRO DE TREINOS-->
         <div class="col-md-12 modal-create">
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
-            <form class="form_equipamento" action="" method="POST">
-                <input type="hidden" name="callback" value="equipamento">
+            <form class="form_equipamento form-create j-form-create-equipamento" action="" method="POST">
+                <input type="hidden" name="callback" value="create-equipamento">
                 <div class="form-group col-md-3">
                     <label>* Fornecedor</label>
                     <select class="form-control" name="idfornecedores" required>
-                        <option>SELECIONE</option>
+                        <option value="0">SELECIONE</option>
                         <?php
+                        $ReadFornecedor = new Read;
+                        $ReadFornecedor->ExeRead("fornecedores");
                         foreach ($ReadFornecedor->getResult() as $e):
                             extract($e);
                             echo "<option value='{$idfornecedores}'>{$idfornecedores} - {$nome_forn}</option>";
@@ -48,9 +46,11 @@ $ReadTreino->ExeRead("treinos");
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Treino</label>
-                    <select class="form-control" name="idtreino_equip" required>
-                        <option>SELECIONE</option>
+                    <select class="form-control" name="idtreinos" required>
+                        <option value="0">SELECIONE</option>
                         <?php
+                        $ReadTreino = new Read;
+                        $ReadTreino->ExeRead("treinos");
                         foreach ($ReadTreino->getResult() as $e):
                             extract($e);
                             echo "<option value='{$idtreinos}'>{$idtreinos} - {$nome_treino}</option>";
@@ -91,8 +91,8 @@ $ReadTreino->ExeRead("treinos");
                 </div>
             </form>
         </div>   
-        
-         <!--FORMULÁRIO DE UPDATE DE TREINOS-->
+
+        <!--FORMULÁRIO DE UPDATE DE TREINOS-->
         <div class="col-md-12 modal-update">
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
             <form class="form_equipamento" action="" method="POST">
@@ -169,11 +169,11 @@ $ReadTreino->ExeRead("treinos");
                 <?php
                 $ReadEquipamento = new Read;
                 $ReadEquipamento->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
-                                          ."FROM equipamentos "
-                                          ."LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores;");
+                        . "FROM equipamentos "
+                        . "LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores;");
                 foreach ($ReadEquipamento->getResult() as $e):
                     extract($e);
-                    echo 
+                    echo
                     "<tr id='{$idequipamentos}'>" .
                     "<td>{$idequipamentos}</td>" .
                     "<td>{$nome_equip}</td>" .

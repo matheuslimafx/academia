@@ -2,10 +2,10 @@
 
 /**
  * <b>Fornecedor.class:</b>
- * Classe responsável por gerenciamento dos dados da tabela fornecedor!
+ * Model(Classe) responsável pelo gerenciamento de cadastro de novos alunos no banco de dados!
  * 
  */
-class Fornecedor {
+class ProdutoCreate {
 
     private $Tabela;
     private $Dados;
@@ -16,35 +16,27 @@ class Fornecedor {
 
     /** @var PDO */
     private $Conn;
-    
+
     /* Obtém conexão do banco de dados Singleton */
+
     public function __construct() {
         $this->Conn = Conn::getConn();
     }
 
     /**
-     * <b>novoFornecedor:</b> Executa um cadastro simplificado no banco de dados utilizando prepared statements.
+     * <b>novoAluno:</b> Executa um cadastro simplificado no banco de dados utilizando prepared statements.
      * Basta informar o nome da tabela e um array atribuitivo com nome da coluna e valor!
      * 
      * @param STRING $Tabela = Informe o nome da tabela no banco!
      * @param ARRAY $Dados = Informe um array atribuitivo. ( Nome Da Coluna => Valor ).
      */
-    public function novoFornecedor($Tabela, array $Dados) {
+    public function novoProduto($Tabela, array $Dados) {
         $this->Tabela = (string) $Tabela;
         $this->Dados = $Dados;
 
         $this->getSyntax();
         $this->Execute();
     }
-    
-    public function novoEnderecoForn($Tabela, array $Dados){
-        $this->Tabela = (string) $Tabela;
-        $this->Dados = $Dados;
-        
-        $this->getSyntax();
-        $this->Execute();
-    }
-    
 
     /**
      * <b>ExeCreateMulti:</b> Executa um cadastro múltiplo no banco de dados utilizando prepared statements.
@@ -66,16 +58,16 @@ class Fornecedor {
             $Places .= '(';
             $Places .= str_repeat('?,', $Links);
             $Places .= '),';
-            
+
             foreach ($ValueMult as $ValueSingle):
                 $Inserts[] = $ValueSingle;
-            endforeach;      
+            endforeach;
         endforeach;
-        
+
         $Places = str_replace(',)', ')', $Places);
         $Places = substr($Places, 0, -1);
         $this->Dados = $Inserts;
-        
+
         $this->Create = "INSERT INTO {$this->Tabela} ({$Fileds}) VALUES {$Places}";
         $this->Execute();
     }
