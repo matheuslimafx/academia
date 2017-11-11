@@ -1,8 +1,6 @@
 <!--MENU:-->
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
-
-
 <div class="container">
     <h2>Mensalidades</h2>
     <div>
@@ -10,13 +8,6 @@
             <form action="" method="POST">
                 <div class="form-group col-md-4">
                     <input type="text" placeholder="Pesquisar" class="form-control pesquisar pesquisar-mensalidade">
-                </div>
-                <div class="form-group col-md-3">
-                    <select class="form-control modal-select" onchange="$('.divs').hide();$('#' + this.value).show();">
-                        <option value="pagas">Mensalidades Pagas</option>
-                        <option value="nao_pagas">Mensalidades Pendentes</option>
-                        <option value="todas">Todas Mensalidades</option>
-                    </select>
                 </div>
             </form>
             <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Registro</button>
@@ -129,9 +120,7 @@
             </form>
         </div>
 
-
-        <!--Mensalidades Pagas-->
-        <div class="divs" id="pagas">
+        <div>
             <table class="table table-striped modal-table">
                 <thead>
                     <tr>
@@ -143,92 +132,13 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody class="j-result-mens-pagas">
+                <tbody class="j-result-menssalidades">
                     <?php
                     $ReadMensalidadePaga = new Read;
                     $ReadMensalidadePaga->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                             "FROM mensalidades " .
-                            "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
-                            "WHERE status_mensalidades = 'Em dia'");
-                    foreach ($ReadMensalidadePaga->getResult() as $e):
-                        extract($e);
-                        echo
-                        "<tr id='{$idmensalidades}'>" .
-                        "<td>{$idalunos_cliente}</td>" .
-                        "<td>{$nome_aluno}</td>" .
-                        "<td>R$ {$valor_mensalidades}</td>" .
-                        "<td>{$data_mens_pag}</td>" .
-                        "<td>{$status_mensalidades}</td>" .
-                        "<td align='right'>" .
-                        "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button></a> " .
-                        "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
-                        "</td>" .
-                        "</tr>";
-                    endforeach;
-                    ?>
-
-                </tbody>
-            </table>
-        </div>
-        <!--Mensalidades não Pagas-->
-        <div class="divs" id="nao_pagas">
-            <table class="table table-striped modal-table">
-                <thead>
-                    <tr>
-                        <th>Matricula</th>
-                        <th>Aluno</th>
-                        <th>Valor da Mensalidade</th>
-                        <th>Vencimento</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody class="j-result-mens-pendente">
-                    <?php
-                    $ReadMensalidadePend = new Read;
-                    $ReadMensalidadePend->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
-                            "FROM mensalidades " .
-                            "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
-                            "WHERE status_mensalidades = 'Pendente'");
-                    foreach ($ReadMensalidadePend->getResult() as $e):
-                        extract($e);
-                        echo
-                        "<tr id='{$idmensalidades}'>" .
-                        "<td>{$idalunos_cliente}</td>" .
-                        "<td>{$nome_aluno}</td>" .
-                        "<td>R$ {$valor_mensalidades}</td>" .
-                        "<td>{$data_mens_pag}</td>" .
-                        "<td>{$status_mensalidades}</td>" .
-                        "<td align='right'>" .
-                        "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button></a> " .
-                        "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
-                        "</td>" .
-                        "</tr>";
-                    endforeach;
-                    ?>
-                </tbody>
-            </table>
-        </div>
-        <!--Todas Mensalidades-->
-        <div class="divs" id="todas">
-            <table class="table table-striped modal-table">
-                <thead>
-                    <tr>
-                        <th>Matricula</th>
-                        <th>Aluno</th>
-                        <th>Valor da Mensalidade</th>
-                        <th>Vencimento</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody class="j-result-mens-todas">
-                    <?php
-                    $ReadMensalidadeTodas = new Read;
-                    $ReadMensalidadeTodas->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
-                            "FROM mensalidades " .
                             "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
-                    foreach ($ReadMensalidadeTodas->getResult() as $e):
+                    foreach ($ReadMensalidadePaga->getResult() as $e):
                         extract($e);
                         echo
                         "<tr id='{$idmensalidades}'>" .

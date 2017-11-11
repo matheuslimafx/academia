@@ -15,31 +15,26 @@ if (count($getPost) == 1):
 
     $queryPesquisa = (is_int($getQuery[0]) ? $getQuery[0] : strip_tags(str_replace('_', ' ', $getQuery[0])));
 
-    $buscarMensPag = new Read;
+    $buscarMensalidade = new Read;
 
-    //Mensalidades Em dia
     if ($queryPesquisa >= 1):
-        $buscarMensPag->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
+        $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                 "FROM mensalidades " .
                 "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
-                "WHERE status_mensalidades = 'Em dia' AND alunos_cliente.idalunos_cliente = {$queryPesquisa}");
-        $json = $buscarMensPag->getResult();
-        var_dump($json);
+                "WHERE alunos_cliente.idalunos_cliente = {$queryPesquisa}");
+        $json = $buscarMensalidade->getResult();
         die;
     elseif ($queryPesquisa === 0):
-        $buscarMensPag->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
+        $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                 "FROM mensalidades " .
-                "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
-                "WHERE status_mensalidades = 'Em dia'");
-        $json = $buscarMensPag->getResult();
-        //var_dump($json);
+                "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
+        $json = $buscarMensalidade->getResult();
     elseif (is_string($queryPesquisa)):
-        $buscarMensPag->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
+        $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                 "FROM mensalidades " .
                 "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
-                "WHERE status_mensalidades = 'Em dia' AND alunos_cliente.nome_aluno LIKE '%{$queryPesquisa}%'");
-        $json = $buscarMensPag->getResult();
-        //var_dump($json);
+                "WHERE alunos_cliente.nome_aluno LIKE '%{$queryPesquisa}%'");
+        $json = $buscarMensalidade->getResult();
     endif;
 else:
     //PRIMEIRA CONDIÇÃO - NESSA CONDIÇÃO VERIFICA SE O INDICE CALLBACK FOI PREENCHIDO:

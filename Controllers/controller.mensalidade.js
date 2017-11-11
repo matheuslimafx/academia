@@ -20,9 +20,9 @@ $(function () {
               
           },
           success: function (data){
-              $(".j-result-mens-pagas").html("");
+              $(".j-result-menssalidades").html("");
               $(data).each(function (index, value){
-                 $(".j-result-mens-pagas").append(
+                 $(".j-result-menssalidades").append(
                          "<tr id='"+ value.idmensalidades + "'>"+
                          "<td>"+ value.idalunos_cliente +"</td>"+
                          "<td>"+ value.nome_aluno +"</td>"+
