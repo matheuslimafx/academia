@@ -24,21 +24,22 @@ if (count($getPost) == 1):
                 "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
                 "WHERE status_mensalidades = 'Em dia' AND alunos_cliente.idalunos_cliente = {$queryPesquisa}");
         $json = $buscarMensPag->getResult();
-
+        var_dump($json);
+        die;
     elseif ($queryPesquisa === 0):
         $buscarMensPag->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                 "FROM mensalidades " .
                 "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
                 "WHERE status_mensalidades = 'Em dia'");
         $json = $buscarMensPag->getResult();
-        var_dump($json);
+        //var_dump($json);
     elseif (is_string($queryPesquisa)):
         $buscarMensPag->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                 "FROM mensalidades " .
                 "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
                 "WHERE status_mensalidades = 'Em dia' AND alunos_cliente.nome_aluno LIKE '%{$queryPesquisa}%'");
         $json = $buscarMensPag->getResult();
-        var_dump($json);
+        //var_dump($json);
     endif;
 else:
     //PRIMEIRA CONDIÇÃO - NESSA CONDIÇÃO VERIFICA SE O INDICE CALLBACK FOI PREENCHIDO:
