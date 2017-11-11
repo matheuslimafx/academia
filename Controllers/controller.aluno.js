@@ -61,6 +61,7 @@ $(function () {
             success: function (data) {
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
+                    $('.modal-create').fadeOut();
                 }
                 if (data.clear) {
                     Form.trigger('reset');

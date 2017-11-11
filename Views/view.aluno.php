@@ -24,7 +24,10 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
-            <div class='alert alert-success'>Cadastro realizado com sucesso!</div>
+            <div class='alert alert-success'>
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                Cadastro realizado com sucesso!
+            </div>
         </div>
 
         <!--Modal create de Aluno-->
@@ -120,7 +123,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
         </div>
         
         <!--Modal update Aluno-->
-        <div class="col-md-12 aluno-editar-div modal-update">
+        <div class="col-md-12 modal-update">
             <div class="container">
                 <h5 class="obrigatorios">* Campos obrigatórios</h5>
             </div>

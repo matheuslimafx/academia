@@ -47,14 +47,6 @@
     display: none;
 }
 
-#nao_pagas{
-    display: none;
-}
-
-#todas{
-    display: none;
-}
-
 .obrigatorios{
     color: red;
 }

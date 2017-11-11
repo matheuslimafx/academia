@@ -22,7 +22,7 @@ $(function () {
               $('.j-result-equipamentos').html('');
               $(data).each(function (index, value){
                  $('.j-result-equipamentos').append(
-                    "<tr id='" + value.idequipamentos + "'>" +
+                    "<tr id='" + value.idequipamentos + "' class='animated zoomInDown'>" +
                     "<td>"+ value.idequipamentos +"</td>"+
                     "<td>" + value.nome_equip + "</td>" +
                     "<td>" + value.marca_equip + "</td>" +

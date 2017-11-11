@@ -119,43 +119,40 @@
                 </div>
             </form>
         </div>
-
-        <div>
-            <table class="table table-striped modal-table">
-                <thead>
-                    <tr>
-                        <th>Matricula</th>
-                        <th>Aluno</th>
-                        <th>Valor da Mensalidade</th>
-                        <th>Vencimento</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody class="j-result-menssalidades">
-                    <?php
-                    $ReadMensalidadePaga = new Read;
-                    $ReadMensalidadePaga->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
-                            "FROM mensalidades " .
-                            "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
-                    foreach ($ReadMensalidadePaga->getResult() as $e):
-                        extract($e);
-                        echo
-                        "<tr id='{$idmensalidades}'>" .
-                        "<td>{$idalunos_cliente}</td>" .
-                        "<td>{$nome_aluno}</td>" .
-                        "<td>R$ {$valor_mensalidades}</td>" .
-                        "<td>{$data_mens_pag}</td>" .
-                        "<td>{$status_mensalidades}</td>" .
-                        "<td align='right'>" .
-                        "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button></a> " .
-                        "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
-                        "</td>" .
-                        "</tr>";
-                    endforeach;
-                    ?>
-                </tbody>
-            </table>
-        </div>
+        <table class="table table-striped modal-table">
+            <thead>
+                <tr>
+                    <th>Matricula</th>
+                    <th>Aluno</th>
+                    <th>Valor da Mensalidade</th>
+                    <th>Vencimento</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="j-result-menssalidades">
+                <?php
+                $ReadMensalidadePaga = new Read;
+                $ReadMensalidadePaga->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
+                        "FROM mensalidades " .
+                        "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
+                foreach ($ReadMensalidadePaga->getResult() as $e):
+                    extract($e);
+                    echo
+                    "<tr id='{$idmensalidades}'>" .
+                    "<td>{$idalunos_cliente}</td>" .
+                    "<td>{$nome_aluno}</td>" .
+                    "<td>R$ {$valor_mensalidades}</td>" .
+                    "<td>{$data_mens_pag}</td>" .
+                    "<td>{$status_mensalidades}</td>" .
+                    "<td align='right'>" .
+                    "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button></a> " .
+                    "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
+                    "</td>" .
+                    "</tr>";
+                endforeach;
+                ?>
+            </tbody>
+        </table>
     </div>
 </div>

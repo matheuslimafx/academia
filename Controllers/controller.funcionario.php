@@ -28,7 +28,6 @@ if (count($getPost) == 1):
     endif;
 
 else:
-
 //PRIMEIRA CONDIÇÃO - NESSA CONDIÇÃO VERIFICA SE O INDICE CALLBACK FOI PREENCHIDO:
     if (empty($getPost['callback'])):
 //    CASO NÃO HAJA O INDICE CALLBACK UM GATILHO DE ERRO (TRIGGER) É CRIADO NO ARRAY $jSon:
@@ -40,22 +39,18 @@ else:
 //A VARIAVEL $Action É CRIADA PARA RECEBER O ACTION DO ARRAY QUE VEIO DO JS:
         $Action = $Post['callback'];
 
-        $EnderecoAluno = array();
-        $EnderecoAluno['idcidade'] = $Post['idcidade'];
-        $EnderecoAluno['idestado'] = $Post['idestado'];
-        $EnderecoAluno['complementos_fun'] = $Post['complementos_fun'];
-
-//    O INDICE 'CALLBACK' E O SEU RESPECTIVO VALOR SÃO DESMEMBRADOS DA VARIAVEL POST, ISSO É NECESSÁRIO PARA ENVIAR PARA O BANCO APENAS OS DADOS NECESSÁRIOS:
-        unset($Post['callback']);
-
-        unset($Post['idcidade']);
-        unset($Post['idestado']);
-        unset($Post['complementos_fun']);
 //    SWITCH SERÁ AS CONDIÇÕES VERIFICADAS E USADAS PARA TOMAR AÇÕES DE ACORDO COM CADA CALLBACK:
         switch ($Action):
-
 //        CONDIÇÃO  'funcionario' ATENDIDA:
-            case 'funcionario':
+            case 'create-funcionario':
+
+                $EnderecoFun = array();
+                $EnderecoFun['idcidade'] = $Post['idcidade'];
+                $EnderecoFun['idestado'] = $Post['idestado'];
+                $EnderecoFun['complementos_fun'] = $Post['complementos_fun'];
+                unset($Post['idcidade']);
+                unset($Post['idestado']);
+                unset($Post['complementos_fun']);
 
 //            CRIAÇÃO DE UMA VARIÁVEL RESPONSÁVEL POR RECEBER  O NOME DA TABELA QUE SERÁ INSERIDA OS DADOS NO BANCO:
                 $Tabela = "funcionarios";
@@ -65,10 +60,10 @@ else:
 
 //            INSTÂNCIA DO OBJETO DA CLASSE FUNCIONARIO RESPONSÁVEL POR CADASTRAR NOVOS FUNCIONARIOS NO BANCO DE DADOS:
                 $CadEndFun = new Funcionario;
-                $CadEndFun->novoEnderecoFun("endereco_fun", $EnderecoAluno);
+                $CadEndFun->novoEnderecoFun("endereco_fun", $EnderecoFun);
                 $IdEnderecoFun = $CadEndFun->getResult();
 
-                $Post['idendereco_func'] = $IdEnderecoFun;
+                $Post['idendereco_fun'] = $IdEnderecoFun;
 
                 $CadastrarFun = new Funcionario;
 
@@ -77,14 +72,19 @@ else:
 
 //            CONDIÇÃO PARA VERIFICAR SE FOI CADASTRADO UM NOVO FUNCIONARIO, UTILIZANDO UM MÉTODO DA CLASSE FUNCIONARIO:
                 if ($CadastrarFun->getResult()):
+                    $idNovoFun = $CadEndFun->getResult();
+                    $funCadastrado = new Read;
+                    $funCadastrado->FullRead("SELECT idfuncionarios, nome_func, cargo_func, status_func FROM funcionarios WHERE idfuncionarios = :idfuncionarios", " idfuncionarios={$idNovoFunc}");
 
-//                CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO ARQUIVO JS:
-                    $jSon['sucesso'] = true;
+                    if ($funCadastrado->getResult()):
+                        $novoFun = $funCadastrado->getResult();
+                        $jSon['novofunc'] = $novoFun[0];
 
-//                GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS O CADASTRO:
-                    $jSon['clear'] = true;
+                        $jSon['sucesso'] = true;
+
+                        $jSon['clear'] = true;
+                    endif;
                 endif;
-
 
                 break;
 

@@ -81,9 +81,9 @@ else:
                     $novoEquip = $equipCadastrado->getResult();
                     $jSon['novoequip'] = $novoEquip[0];
                     
-                    $json['sucessp'] = true;
+                    $jSon['sucesso'] = true;
                     
-                    $json['clear'] = true;
+                    $jSon['clear'] = true;
                 endif;
                 endif;
 

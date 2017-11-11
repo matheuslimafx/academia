@@ -24,7 +24,10 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
-            <div class='alert alert-success'>Cadastro realizado com sucesso!</div>
+            <div class='alert alert-success'>
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                Cadastro realizado com sucesso!
+            </div>
         </div>
 
         <!--FORMULÁRIO DE CADASTRO DE FUNCIONÁRIOS-->
@@ -32,7 +35,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
             <div class="container">
                 <h5 class="obrigatorios">* Campos obrigatórios</h5>
             </div>
-            <form action="" method="POST" class="form_funcionario">
+            <form action="" method="POST" class="j-form-create-funcionario">
                 <input type="hidden" name="callback" value="create-funcionario">
                 <div class="form-group col-md-6">
                     <label>* Nome</label>
@@ -63,7 +66,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     <input type="text" name="cpf_func" class="form-control" placeholder="000.000.000-00" id="cpf" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>CTPS</label>
+                    <label>CPTS</label>
                     <input type="text" name="cpts_func" class="form-control" maxlength="7">
                 </div>
                 <div class="form-group col-md-3">

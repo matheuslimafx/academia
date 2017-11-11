@@ -30,7 +30,7 @@
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
             <form class="form_equipamento form-create j-form-create-equipamento" action="" method="POST">
                 <input type="hidden" name="callback" value="create-equipamento">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                     <label>* Fornecedor</label>
                     <select class="form-control" name="idfornecedores" required>
                         <option value="0">SELECIONE</option>
@@ -42,20 +42,6 @@
                             echo "<option value='{$idfornecedores}'>{$idfornecedores} - {$nome_forn}</option>";
                         endforeach;
                         ?>  
-                    </select>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>* Treino</label>
-                    <select class="form-control" name="idtreinos" required>
-                        <option value="0">SELECIONE</option>
-                        <?php
-                        $ReadTreino = new Read;
-                        $ReadTreino->ExeRead("treinos");
-                        foreach ($ReadTreino->getResult() as $e):
-                            extract($e);
-                            echo "<option value='{$idtreinos}'>{$idtreinos} - {$nome_treino}</option>";
-                        endforeach;
-                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
@@ -97,7 +83,7 @@
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
             <form class="form_equipamento" action="" method="POST">
                 <input type="hidden" name="callback" value="equipamento">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                     <label>* Fornecedor</label>
                     <select class="form-control" name="idfornecedores" required>
                         <option>SELECIONE</option>
@@ -107,18 +93,6 @@
                             echo "<option value='{$idfornecedores}'>{$idfornecedores} - {$nome_forn}</option>";
                         endforeach;
                         ?>  
-                    </select>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>* Treino</label>
-                    <select class="form-control" name="idtreino_equip" required>
-                        <option>SELECIONE</option>
-                        <?php
-                        foreach ($ReadTreino->getResult() as $e):
-                            extract($e);
-                            echo "<option value='{$idtreinos}'>{$idtreinos} - {$nome_treino}</option>";
-                        endforeach;
-                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
