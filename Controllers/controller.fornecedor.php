@@ -46,14 +46,28 @@ else:
         switch ($Action):
 
 //        CONDIÇÃO  'fornecedor' ATENDIDA:
-            case 'fornecedor':
+            case 'create-fornecedor':
+                
+                $EnderecoForn = array();
+                $EnderecoForn['idcidade'] = $Post['idcidade'];
+                $EnderecoForn['idestado'] = $Post['idestado'];
+                $EnderecoForn['complementos_forn'] = $Post['complementos_forn'];
+                unset($Post['idcidade']);
+                unset($Post['idestado']);
+                unset($Post['complementos_forn']);
 
 //            CRIAÇÃO DE UMA VARIÁVEL RESPONSÁVEL POR RECEBER  O NOME DA TABELA QUE SERÁ INSERIDA OS DADOS NO BANCO:
                 $Tabela = "fornecedores";
 
 //            INSERIR A CLASSE DA MODEL RESPONSÁVEL PELA INTERAÇÃO COM O BANCO DE DADOS:
                 require '../Models/model.fornecedor.php';
-
+                
+                $CadEndForn = new Fornecedor;
+                $CadEndForn->novoEnderecoForn("endereco_fornecedor", $EnderecoForn);
+                $idEnderecoForn = $CadEndForn->getResult();
+                
+                $Post['idendereco_forn'] = $idEnderecoForn;
+                
 //            INSTÂNCIA DO OBJETO DA CLASSE FORNECEDOR RESPONSÁVEL POR CADASTRAR NOVOS FORNECEDORES NO BANCO DE DADOS:
                 $CadastrarFornecedor = new Fornecedor;
 
@@ -62,17 +76,21 @@ else:
 
 //            CONDIÇÃO PARA VERIFICAR SE FOI CADASTRADO UM NOVO FORNECEDOR, UTILIZANDO UM MÉTODO DA CLASSE FORNECEDOR:
                 if ($CadastrarFornecedor->getResult()):
+                    $idNovoForn = $CadastrarFornecedor->getResult();
+                    $fornCadastrado = new Read;
+                    $fornCadastrado->FullRead("SELECT idfornecedores, nome_forn, nome_fantasia_forn, telefone_forn FROM fornecedores WHERE idfornecedores = :idfornecedores", " idfornecedores={$idNovoForn}");
 
-//                CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO ARQUIVO JS:
-                    $jSon['sucesso'] = true;
+                    if ($fornCadastrado->getResult()):
+                        $novoForn = $fornCadastrado->getResult();
+                        $jSon['novoforn'] = $novoForn[0];
 
-//                GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS O CADASTRO:
-                    $jSon['clear'] = true;
+                        $jSon['sucesso'] = true;
+
+                        $jSon['clear'] = true;
+                    endif;
                 endif;
 
-
                 break;
-
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
             default:
                 $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada!</div>";

@@ -37,6 +37,14 @@ class Fornecedor {
         $this->Execute();
     }
     
+    public function novoEnderecoForn($Tabela, array $Dados){
+        $this->Tabela = (string) $Tabela;
+        $this->Dados = $Dados;
+        
+        $this->getSyntax();
+        $this->Execute();
+    }
+    
 
     /**
      * <b>ExeCreateMulti:</b> Executa um cadastro múltiplo no banco de dados utilizando prepared statements.
