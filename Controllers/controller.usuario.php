@@ -20,20 +20,20 @@ if (count($getPost) == 1):
     if ($queryPesquisa >= 1):
         $buscarUsuario->FullRead("SELECT usuario.idusuario, usuario.email_usuario, usuario.perfil_usuario, funcionarios.nome_func " .
                 "FROM usuario " .
-                "LEFT JOIN funcionarios ON usuario.idfuncionarios = funcionarios.idfuncionarios ".
+                "INNER JOIN funcionarios ON usuario.idfuncionarios = funcionarios.idfuncionarios " .
                 "WHERE usuario.idusuario = {$queryPesquisa}");
         $jSon = $buscarUsuario->getResult();
 
     elseif ($queryPesquisa === 0):
         $buscarUsuario->FullRead("SELECT usuario.idusuario, usuario.email_usuario, usuario.perfil_usuario, funcionarios.nome_func " .
                 "FROM usuario " .
-                "LEFT JOIN funcionarios ON usuario.idfuncionarios = funcionarios.idfuncionarios");
+                "INNER JOIN funcionarios ON usuario.idfuncionarios = funcionarios.idfuncionarios");
         $jSon = $buscarUsuario->getResult();
 
     elseif (is_string($queryPesquisa)):
         $buscarUsuario->FullRead("SELECT usuario.idusuario, usuario.email_usuario, usuario.perfil_usuario, funcionarios.nome_func " .
                 "FROM usuario " .
-                "LEFT JOIN funcionarios ON usuario.idfuncionarios = funcionarios.idfuncionarios ".
+                "INNER JOIN funcionarios ON usuario.idfuncionarios = funcionarios.idfuncionarios " .
                 "WHERE funcionarios.nome_func LIKE '%{$queryPesquisa}%'");
         $jSon = $buscarUsuario->getResult();
 
@@ -58,13 +58,13 @@ else:
         switch ($Action):
 
 //        CONDIÇÃO  'usuarios' ATENDIDA:
-            case 'usuarios':
+            case 'create-usuario':
 
 //            CRIAÇÃO DE UMA VARIÁVEL RESPONSÁVEL POR RECEBER  O NOME DA TABELA QUE SERÁ INSERIDA OS DADOS NO BANCO:
                 $Tabela = "usuario";
 
 //            INSERIR A CLASSE DA MODEL RESPONSÁVEL PELA INTERAÇÃO COM O BANCO DE DADOS:
-                require '../Models/model.usuario.php';
+                require '../Models/model.usuario.create.php';
 
 //            INSTÂNCIA DO OBJETO DA CLASSE USUARIO RESPONSÁVEL POR CADASTRAR NOVOS USUARIOS NO BANCO DE DADOS:
 
@@ -75,17 +75,24 @@ else:
 
 //            CONDIÇÃO PARA VERIFICAR SE FOI CADASTRADO UM NOVO USUARIO, UTILIZANDO UM MÉTODO DA CLASSE USUARIO:
                 if ($CadastrarUsuario->getResult()):
+                    $idNovoUsuario = $CadastrarUsuario->getResult();
+                    $usuarioCadastrado = new Read;
+                    $usuarioCadastrado->FullRead("SELECT usuario.idusuario, usuario.email_usuario, usuario.perfil_usuario, funcionarios.nome_func " .
+                            "FROM usuario " .
+                            "INNER JOIN funcionarios ON usuario.idfuncionarios = funcionarios.idfuncionarios " .
+                            "WHERE usuario.idusuario = :idusuario", " idusuario={$idNovoUsuario}");
 
-//                CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO ARQUIVO JS:
-                    $jSon['sucesso'] = true;
+                    if ($usuarioCadastrado->getResult()):
+                        $novoUsuario = $usuarioCadastrado->getResult();
+                        $jSon['novousuario'] = $novoUsuario[0];
 
-//                GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS O CADASTRO:
-                    $jSon['clear'] = true;
+                        $jSon['sucesso'] = true;
+
+                        $jSon['clear'] = true;
+                    endif;
                 endif;
 
-
                 break;
-
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
             default:
                 $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada!</div>";

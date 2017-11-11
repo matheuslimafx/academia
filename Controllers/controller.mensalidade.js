@@ -44,7 +44,7 @@ $(function () {
     
     
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
-    $(".form_mensalidade").submit(function () {
+    $(".j-form-create-mensalidade").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
         var Form = $(this);
 //        VARIAVEL ACTION RECEBE O VALOR DO CALLBACK QUE É UM INPUT ESCONDIDO NO FORMULARIO ESSE CALLBACK SERVE COMO GATILHO PARA CONDIÇÕES:
@@ -65,29 +65,41 @@ $(function () {
 
 //            BEFORE SEND É A FUNÇÃO QUE PERMITE EXECUTAR UM ALGORITMO DO JQUERY ANTES DOS DADOS SEREM ENVIADOS:
             beforeSend: function (xhr) {
-//                PODE-SE NESSA PARTE MOSTRAR E RETIRAR POR EXEMPLO ELEMENTOS DO HTML:
-                alert('enviou');
+
             },
 
 //            SUCCESS É A FUNÇÃO DO AJAX RESPONSÁVEL POR EXECUTAR ALGORITMOS DEPOIS QUE OS DADOS RETORNAM DA CONTROLLER, TAIS DADOS PODEM SER ACESSADOS PELA VARIAVEL "(data)":
             success: function (data) {
-
-//                NESSA PARTE É INTERESSANTE EXECUTAR AÇÕES DE ACORDO COM OS RESULTADOS VINDOS DA CONTROLER UTILIZANDO CONDIÇÕES:
-                alert('voltou');
-
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
                 }
                 if (data.clear) {
                     Form.trigger('reset');
                 }
+                $('.modal-create').fadeOut(0);
+                if(data.novamens){
+                    var novaMens = data.novamens;
+                    $('.j-result-menssalidades').prepend(
+                            "<tr id='"+ novaMens.idmensalidades + "' class='animated zoomInDown'>"+
+                            "<td>"+ novaMens.idmensalidades + "</td>"+
+                            "<td>"+ novaMens.nome_aluno + "</td>"+
+                            "<td>"+ novaMens.valor_mensalidades +"</td>"+
+                            "<td>"+ novaMens.data_mens_pag +"</td>"+
+                            "<td>"+ novaMens.status_mensalidades +"</td>"+
+                            "<td>"+
+                            "<button class='btn btn-success btn-xs open-modal-update' idmensalidades='"+ novaMens.idmensalidades +"'><i class='glyphicon glyphicon-edit'></i></button></a> " +
+                         "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" +
+                            "</td>"+
+                            "</tr>"
+                            );
+                    setTimeout(function (){
+                       $("tr[id='"+ novaMens.idmensalidades +"']:first").removeClass("animated zoomInDown"); 
+                    }, 1000);
+                }
             }
         });
-
 //        RETURN É A FUNÇÃO PARA NÃO PERMITIR QUE O FORMULÁRIO GERE AÇÃO: 
         return false;
     });
-
-
 
 });

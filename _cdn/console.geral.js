@@ -42,4 +42,5 @@ $(function (){
        $('.close-modal-update').fadeOut(0);
        $('.modal-update').fadeOut(0);
     });
+    
 });

@@ -62,12 +62,17 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>* Nome do Exercício</label>
-                    <input type="text" name="nome_exercicio_treino" class="form-control" required>
+                    <label>* Grupo Muscular</label>
+                    <select name="" class="form-control">
+                        <option>SELECIONE</option>
+                    </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Grupo Muscular</label>
-                    <input type="text" name="grp_musc_treino" class="form-control">
+                    <label>* Nome do Exercício</label>
+                    <select name="" class="form-control">
+                        <option>SELECIONE</option>
+                        <option></option>
+                    </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label>Número de Series</label>

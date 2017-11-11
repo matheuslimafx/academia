@@ -59,14 +59,10 @@ $(function () {
             dataType: 'json',
 //            BEFORE SEND É A FUNÇÃO QUE PERMITE EXECUTAR UM ALGORITMO DO JQUERY ANTES DOS DADOS SEREM ENVIADOS:
             beforeSend: function (xhr) {
-//                PODE-SE NESSA PARTE MOSTRAR E RETIRAR POR EXEMPLO ELEMENTOS DO HTML:
-                alert('enviou');
+
             },
 //            SUCCESS É A FUNÇÃO DO AJAX RESPONSÁVEL POR EXECUTAR ALGORITMOS DEPOIS QUE OS DADOS RETORNAM DA CONTROLLER, TAIS DADOS PODEM SER ACESSADOS PELA VARIAVEL "(data)":
             success: function (data) {
-
-//                NESSA PARTE É INTERESSANTE EXECUTAR AÇÕES DE ACORDO COM OS RESULTADOS VINDOS DA CONTROLER UTILIZANDO CONDIÇÕES:
-                alert('voltou');
 
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
@@ -81,8 +77,8 @@ $(function () {
                 $('.pesquisar').fadeIn(0);
                 $('.modal-table').fadeIn(0);
 
-                if (data.novoFunc) {
-                    var novoFunc = data.novoFunc;
+                if (data.novofunc) {
+                    var novoFunc = data.novofunc;
                     $(".j-result-funcionarios").prepend(
                             "<tr id='" + novoFunc.idfuncionarios + "' class='animated zoomInDown'>" +
                             "<td>" + novoFunc.idfuncionarios + "</td>" +
@@ -90,13 +86,13 @@ $(function () {
                             "<td>" + novoFunc.cargo_func + "</td>" +
                             "<td>" + novoFunc.status_func + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idfuncionarios='" + novoFunc.idfuncionarios + "' idendereco_fun='{$idendereco_func}'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update' idfuncionarios='" + novoFunc.idfuncionarios + "' idendereco_func='{$idendereco_func}'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" +
                             "</td>" +
                             "</tr>"
                             );
                     setTimeout(function () {
-                        $("<tr[id='" + novoFunc.idfuncionarios + "']:first").removeClass("animated zoomInDown");
+                        $("tr[id='" + novoFunc.idfuncionarios + "']:first").removeClass("animated zoomInDown");
                     }, 1000);
                 }
             }

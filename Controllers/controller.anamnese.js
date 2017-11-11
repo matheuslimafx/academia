@@ -77,7 +77,8 @@ $(function () {
                 $('.modal-table').fadeIn(0);
                 if (data.novaanamnese) {
                     var novaAnamnese = data.novaanamnese;
-                    $('.j-result-anamneses').prepend("<tr id='" + novaAnamnese.idanamneses + "' class='animated zoomInDown'>" +
+                    $('.j-result-anamneses').prepend(
+                            "<tr id='" + novaAnamnese.idanamneses + "' class='animated zoomInDown'>" +
                             "<td>" + novaAnamnese.idanamneses + "</td>" +
                             "<td>" + novaAnamnese.idalunos_cliente + "</td>" +
                             "<td>" + novaAnamnese.nome_aluno + "</td>" +

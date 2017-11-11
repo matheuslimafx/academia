@@ -28,10 +28,10 @@ $(function () {
                             "<td>" + value.nome_func + "</td>" +
                             "<td>" + value.email_usuario + "</td>" +
                             "<td>" + value.perfil_usuario + "</td>" +
-                            "<td align='right'>"+
-                            "<button class='btn btn-success btn-xs open-modal-update' idusuario='"+value.idusuario+"'><i class='glyphicon glyphicon-edit'></i></button> "+
-                            "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>"+
-                            "</td>"+
+                            "<td align='right'>" +
+                            "<button class='btn btn-success btn-xs open-modal-update' idusuario='" + value.idusuario + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" +
+                            "</td>" +
                             "</tr>"
                             );
                 });
@@ -41,7 +41,7 @@ $(function () {
 
 
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
-    $(".form_usuario").submit(function () {
+    $(".j-form-create-usuario").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
         var Form = $(this);
 //        VARIAVEL ACTION RECEBE O VALOR DO CALLBACK QUE É UM INPUT ESCONDIDO NO FORMULARIO ESSE CALLBACK SERVE COMO GATILHO PARA CONDIÇÕES:
@@ -61,20 +61,41 @@ $(function () {
             dataType: 'json',
 //            BEFORE SEND É A FUNÇÃO QUE PERMITE EXECUTAR UM ALGORITMO DO JQUERY ANTES DOS DADOS SEREM ENVIADOS:
             beforeSend: function (xhr) {
-//                PODE-SE NESSA PARTE MOSTRAR E RETIRAR POR EXEMPLO ELEMENTOS DO HTML:
-                alert('enviou');
+
             },
 //            SUCCESS É A FUNÇÃO DO AJAX RESPONSÁVEL POR EXECUTAR ALGORITMOS DEPOIS QUE OS DADOS RETORNAM DA CONTROLLER, TAIS DADOS PODEM SER ACESSADOS PELA VARIAVEL "(data)":
             success: function (data) {
-
-//                NESSA PARTE É INTERESSANTE EXECUTAR AÇÕES DE ACORDO COM OS RESULTADOS VINDOS DA CONTROLER UTILIZANDO CONDIÇÕES:
-                alert('voltou');
 
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
                 }
                 if (data.clear) {
                     Form.trigger('reset');
+                }
+                $('.modal-create').fadeOut(0);
+                $('.close-modal-create').fadeOut(0);
+                $('.open-modal-create').fadeIn(0);
+                $('.relatorio-geral').fadeIn(0);
+                $('.pesquisar').fadeIn(0);
+                $('.modal-table').fadeIn(0);
+
+                if (data.novousuario) {
+                    var novoUsuario = data.novousuario;
+                    $('.j-result-usuarios').prepend(
+                            "<tr id='" + novoUsuario.idusuario + "' class='animated zoomInDown'>" +
+                            "<td>" + novoUsuario.idusuario + "</td>" +
+                            "<td>" + novoUsuario.nome_func + "</td>" +
+                            "<td>" + novoUsuario.email_usuario + "</td>" +
+                            "<td>" + novoUsuario.perfil_usuario + "</td>" +
+                            "<td align='right'>" +
+                            "<button class='btn btn-success btn-xs open-modal-update' idusuario='" + novoUsuario.idusuario + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" +
+                            "</td>" +
+                            "</tr>"
+                            );
+                    setTimeout(function (){
+                        $("tr[id='"+novoUsuario.idusuario+"']:first").removeClass("animated zoomInDown");
+                    }, 1000);
                 }
             }
         });

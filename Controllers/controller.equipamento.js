@@ -81,7 +81,7 @@ $(function () {
                 if(data.novoequip){
                     var novoEquip = data.novoequip;
                     $('.j-result-equipamentos').prepend(
-                            "<tr id='"+ novoEquip.idequipamentos +"'>"+
+                            "<tr id='"+ novoEquip.idequipamentos +"' class='animated zoomInDown'>"+
                             "<td>"+ novoEquip.idequipamentos +"</td>"+
                             "<td>"+ novoEquip.nome_equip +"</td>"+
                             "<td>"+ novoEquip.marca_equip +"</td>"+
@@ -92,7 +92,7 @@ $(function () {
                             "</tr>"
                             );
                     setTimeout(function (){
-                       $("tr[id='"+ novoEquip.idequipamentos +"']:first").removeClass("animated xoomInDown"); 
+                       $("tr[id='"+ novoEquip.idequipamentos +"']:first").removeClass("animated zoomInDown"); 
                     }, 1000);
                 }
             }

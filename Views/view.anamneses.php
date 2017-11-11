@@ -19,7 +19,10 @@
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
-            <div class="alert alert-success">Cadastro realizado com sucesso!</div>
+            <div class='alert alert-success'>
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                Cadastro realizado com sucesso!
+            </div>
         </div>
 
         <!--Modal create de Anamneses-->

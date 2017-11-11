@@ -3,7 +3,6 @@
 <!--FIM MENU-->
 <div class="container">
     <h2>Mensalidades</h2>
-    <div>
         <div class="col-md-12" align='right'>
             <form action="" method="POST">
                 <div class="form-group col-md-4">
@@ -16,15 +15,18 @@
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.mensalidades.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
-        <div class="alert alert-success mensagens-alerta">Cadastro Realizado com sucesso!</div>
+        <div class="form-group col-md-12 mensagens-retorno">
+            <div class='alert alert-success'>
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                Cadastro realizado com sucesso!
+            </div>
+        </div>
 
         <!--FORMULÁRIO DE CADASTRO DE MENSALIDADE-->
         <div class="col-md-12 modal-create">
-            <form class="form-mensalidade" action="" method="POST">
+            <div class="container"><h5 class="obrigatorios">* Campos obrigatórios</h5></div>
+            <form class="form-mensalidade form-create j-form-create-mensalidade" action="" method="POST">
                 <input type="hidden" name="callback" value="create-mensalidade">
-                <div class="container">
-                    <h5 class="obrigatorios">* Campos obrigatórios</h5>
-                </div>
                 <div class="form-group col-md-6">
                     <br>
                     <label>* Aluno</label>
@@ -64,7 +66,7 @@
                     <textarea name="obs_mensalidades" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-12">
-                    <button name="Cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
+                    <button name="Cadastrar" class="btn btn-primary form-enviar"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
                 </div>
             </form>
         </div>
@@ -154,5 +156,4 @@
                 ?>
             </tbody>
         </table>
-    </div>
 </div>

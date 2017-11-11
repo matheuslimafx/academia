@@ -175,8 +175,6 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
             </div>
             <form action="" method="POST" class="j-form-update-funcionario form-update">
                 <input type="hidden" name="callback" value="update-funcionario">
-                <input type="hidden" name="idfuncionarios" value="">
-                <input type="hidden" name="idendereco_fun" value="">
                 <div class="form-group col-md-6">
                     <label>* Nome</label>
                     <input type="text" name="nome_func" class="form-control" required>
@@ -332,7 +330,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     "<td>{$cargo_func}</td>" .
                     "<td>{$status_func}</td>" .
                     "<td align='right'>".
-                        "<button class='btn btn-success btn-xs open-modal-update' idfuncionarios='{$idfuncionarios}' idendereco_fun='{$idendereco_func}'><i class='glyphicon glyphicon-edit'></i></button> ".
+                        "<button class='btn btn-success btn-xs open-modal-update' idfuncionarios='{$idfuncionarios}' idendereco_func='{$idendereco_func}'><i class='glyphicon glyphicon-edit'></i></button> ".
                         "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" .
                     "</td>" .
                     "</tr>";

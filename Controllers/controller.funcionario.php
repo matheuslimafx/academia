@@ -38,6 +38,8 @@ else:
 
 //A VARIAVEL $Action É CRIADA PARA RECEBER O ACTION DO ARRAY QUE VEIO DO JS:
         $Action = $Post['callback'];
+        
+        unset($Post['callback']);
 
 //    SWITCH SERÁ AS CONDIÇÕES VERIFICADAS E USADAS PARA TOMAR AÇÕES DE ACORDO COM CADA CALLBACK:
         switch ($Action):
@@ -61,9 +63,9 @@ else:
 //            INSTÂNCIA DO OBJETO DA CLASSE FUNCIONARIO RESPONSÁVEL POR CADASTRAR NOVOS FUNCIONARIOS NO BANCO DE DADOS:
                 $CadEndFun = new Funcionario;
                 $CadEndFun->novoEnderecoFun("endereco_fun", $EnderecoFun);
-                $IdEnderecoFun = $CadEndFun->getResult();
+                $IdEnderecoFunc = $CadEndFun->getResult();
 
-                $Post['idendereco_fun'] = $IdEnderecoFun;
+                $Post['idendereco_func'] = $IdEnderecoFunc;
 
                 $CadastrarFun = new Funcionario;
 
@@ -72,7 +74,7 @@ else:
 
 //            CONDIÇÃO PARA VERIFICAR SE FOI CADASTRADO UM NOVO FUNCIONARIO, UTILIZANDO UM MÉTODO DA CLASSE FUNCIONARIO:
                 if ($CadastrarFun->getResult()):
-                    $idNovoFun = $CadEndFun->getResult();
+                    $idNovoFunc = $CadEndFun->getResult();
                     $funCadastrado = new Read;
                     $funCadastrado->FullRead("SELECT idfuncionarios, nome_func, cargo_func, status_func FROM funcionarios WHERE idfuncionarios = :idfuncionarios", " idfuncionarios={$idNovoFunc}");
 

@@ -36,7 +36,49 @@ if (count($getPost) == 1):
         $jSon = $buscarMensalidade->getResult();
     endif;
 else:
-    
+    if (empty($getPost['callback'])):
+        $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada!</div>";
+    else:
+
+        $Post = array_map("strip_tags", $getPost);
+        $Action = $Post['callback'];
+        unset($Post['callback']);
+
+        switch ($Action):
+            case 'create-mensalidade':
+
+                $Tabela = 'mensalidades';
+
+                require '../Models/model.mensalidade.create.php';
+
+                $CadMensalidade = new Mensalidade;
+                $CadMensalidade->novoMensalidade($Tabela, $Post);
+
+                if ($CadMensalidade->getResult()):
+                    $idNovaMens = $CadMensalidade->getResult();
+                    $mensCadastrada = new Read;
+                    $mensCadastrada->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
+                            "FROM mensalidades " .
+                            "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
+                            "WHERE mensalidades.idmensalidades = :idmensalidades", "idmensalidades={$idNovaMens}");
+
+                    if ($mensCadastrada->getResult()):
+                        $novaMens = $mensCadastrada->getResult();
+                        $jSon['idmensalidades'] = $novaMens[0];
+
+                        $jSon['sucesso'] = true;
+
+                        $jSon['clear'] = true;
+                    endif;
+                endif;
+
+                break;
+        
+            default :
+                $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada!</div>";
+                break;
+        endswitch;
+    endif;
 endif;
 //USANDO O ECHO OS GATILHOS VOLTA VIA AJAX UTILIZANDO JSON PARA O ARQUIVO JS E LÁ SERÁ INTERPRETADO:
 echo json_encode($jSon);
