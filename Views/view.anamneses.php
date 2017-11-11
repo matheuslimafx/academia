@@ -46,77 +46,77 @@
                 <div class="form-group col-md-2">
                     <br>
                     <label>* Peso</label>
-                    <input type="number" name="peso_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="peso_anamnese" class="form-control input-peso-anamnese" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <br>
                     <label>* Altura</label>
-                    <input type="number" name="altura_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="altura_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <br>
                     <label>* IMC</label>
-                    <input type="number" name="imc_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="imc_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Pescoço</label>
-                    <input type="number" name="pescoco_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="pescoco_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Ombro</label>
-                    <input type="number" name="ombro_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="ombro_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Torax</label>
-                    <input type="number" name="torax_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="torax_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Abdome</label>
-                    <input type="number" name="abdome_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="abdome_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Cintura</label>
-                    <input type="number" name="cintura_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="cintura_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Quadril</label>
-                    <input type="number" name="quadril_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="quadril_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Braço D.</label>
-                    <input type="number" name="bd_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="bd_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Braço E.</label>
-                    <input type="number" name="be_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="be_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>B.E. Contraido</label>
-                    <input type="number" name="bec_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="bec_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>B.D. Contraido</label>
-                    <input type="number" name="bdc_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="bdc_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Antebraço E.</label>
-                    <input type="number" name="aec_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="aec_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Antebraço D.</label>
-                    <input type="number" name="adc_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="adc_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Coxa Esquerda</label>
-                    <input type="number" name="ce_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="ce_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Coxa Direita</label>
-                    <input type="number" name="cd_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="cd_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Pamturilha E.</label>
-                    <input type="number" name="pe_anamnese" class="form-control" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="pe_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Panturilha D.</label>

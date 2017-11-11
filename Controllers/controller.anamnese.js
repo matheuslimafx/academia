@@ -39,7 +39,7 @@ $(function () {
     });
 
 
-    //SELECIONAR O FORMULÁRIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
+    //FUNÇÃO RESPONSÁVEL POR CADASTRAR UMA NOVA ANAMNESE NO BANCO DE DADOS:
     $(".j-form-create-anamnese").submit(function () {
         //VARIVEL FORM RECEBE O PROPRIO FORMULÁRIO USANDO O METODO DO JQUERY "THIS":
         var Form = $(this);
