@@ -56,21 +56,39 @@ if (count($getPost) == 1):
     endif;
 
 else:
-
     $Post = array_map("strip_tags", $getPost);
-
-    $Action = $Post['calback'];
-
-    unset($Post['calback']);
-
+    $Action = $Post['callback'];
+    unset($Post['callback']);
     switch ($Action):
-
-        case 'produto';
-
-            require '../Models/model.produto.php';
-
-            $cadastarProduto = new ProdutoCreate;
-            $cadastarProduto->novoProduto("produtos", $produtos);
+        case 'create-produto':
+            require '../Models/model.produto.create.php';
+            $CadEstoque = array();
+            $CadEstoque['quant_estoque'] = $Post['quant_estoque'];
+            unset($Post['quant_estoque']);
+            $CadProduto = new CreateProduto;
+            $CadProduto->novoProduto('produtos', $Post);
+            if($CadProduto->getResult()):
+                $CadEstoque['idprodutos'] = $CadProduto->getResult();
+                $produtoEstoque = new CreateProduto;
+                $produtoEstoque->inserirProdutoEstoque('estoq_prod', $CadEstoque);
+                if($produtoEstoque->getResult()):
+                     $produtoInserido = new Read;
+                     $produtoInserido->FullRead("SELECT produtos.idprodutos, cat_produto.descricao, fornecedores.nome_forn, produtos.nome_prod, estoq_prod.quant_estoque "
+                             . "FROM produtos "
+                             . "INNER JOIN cat_produto ON cat_produto.idcate_produto = produtos.idcate_produto "
+                             . "INNER JOIN fornecedores ON fornecedores.idfornecedores = produtos.idfornecedores "
+                             . "INNER JOIN estoq_prod ON estoq_prod.idprodutos = produtos.idprodutos "
+                             . "WHERE produtos.idprodutos = :idprodutos", "idprodutos={$CadProduto->getResult()}");
+                     if($produtoInserido->getResult()):
+                         $dadosProdutoNovo = $produtoInserido->getResult();
+                         $jSon['novoproduto'] = $dadosProdutoNovo[0];
+                         $jSon['sucesso'] = true;
+                         $jSon['clear'] = true;
+                     endif;
+                     
+                endif;
+            endif;
+            break;
     endswitch;
 endif;
 echo json_encode($jSon);  

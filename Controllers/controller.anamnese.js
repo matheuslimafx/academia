@@ -68,13 +68,13 @@ $(function () {
                 }
                 if (data.clear) {
                     Form.trigger('reset');
+                    $('.modal-create').fadeOut(0);
+                    $('.close-modal-create').fadeOut(0);
+                    $('.open-modal-create').fadeIn(0);
+                    $('.relatorio-geral').fadeIn(0);
+                    $('.pesquisar').fadeIn(0);
+                    $('.modal-table').fadeIn(0);
                 }
-                $('.modal-create').fadeOut(0);
-                $('.close-modal-create').fadeOut(0);
-                $('.open-modal-create').fadeIn(0);
-                $('.relatorio-geral').fadeIn(0);
-                $('.pesquisar').fadeIn(0);
-                $('.modal-table').fadeIn(0);
                 if (data.novaanamnese) {
                     var novaAnamnese = data.novaanamnese;
                     $('.j-result-anamneses').prepend("<tr id='" + novaAnamnese.idanamneses + "' class='animated zoomInDown'>" +
@@ -149,7 +149,7 @@ $(function () {
 
         return false;
     });
-    
+
     //FUNÇÃO RESPONSÁVEL POR DELETAR REGISTROS DE ANAMNESES NO BANCO DE DADOS.
     $('html').on('click', '.j-btn-del-anamnese', function () {
         var delButton = $(this);
@@ -163,8 +163,8 @@ $(function () {
             beforeSend: function (xhr) {
             },
             success: function (data) {
-                if(data.delete){
-                    $('html').find("tr[id='"+data.idanamneses+"']").addClass("animated zoomOutDown").fadeOut(720);
+                if (data.delete) {
+                    $('html').find("tr[id='" + data.idanamneses + "']").addClass("animated zoomOutDown").fadeOut(720);
                 }
             }
         });
