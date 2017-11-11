@@ -1,6 +1,5 @@
 //INICIAR JQUERY:
 $(function () {
-    //Teste
     //A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
     $('.pesquisar-aluno').on('keypress', function (e) {
         return e.which !== 13;
@@ -26,7 +25,7 @@ $(function () {
                             "<td>" + value.idalunos_cliente + "</td>" +
                             "<td>" + value.nome_aluno + "</td>" +
                             "<td>" + value.status_aluno + "</td>" +
-                            "<td align='right'>"+
+                            "<td align='right'>" +
                             "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-aluno' idalunos_cliente='" + value.idalunos_cliente + "' idendereco_aluno='" + value.idendereco_aluno + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" +
                             "</td>" +
@@ -61,7 +60,16 @@ $(function () {
             success: function (data) {
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
+<<<<<<< HEAD
                     $('.modal-create').fadeOut();
+=======
+                    $('.modal-create').fadeOut(0);
+                    $('.close-modal-create').fadeOut(0);
+                    $('.open-modal-create').fadeIn(0);
+                    $('.relatorio-geral').fadeIn(0);
+                    $('.pesquisar').fadeIn(0);
+                    $('.modal-table').fadeIn(0);
+>>>>>>> dad2c0fa5d3f579808beabc7daec5920f2907f26
                 }
                 if (data.clear) {
                     Form.trigger('reset');

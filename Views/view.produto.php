@@ -10,7 +10,7 @@
                     <input type="text" class="form-control pesquisar pesquisar-produto" placeholder="Pesquisar">
                 </div>
             </form>
-            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Registro</button>
+            <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Produto</button>
             <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
             <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.produtos.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório</button></a>
@@ -18,7 +18,8 @@
 
         <!--Modal de Create de Produto-->
         <div class="col-md-12 modal-create">
-            <form action="" method="POST">
+            <form action="" method="POST" class="form-create j-form-create-produto">
+                <input type="hidden" name="callback" value="create-produto" />
                 <div class="container">
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
                 </div>
@@ -32,7 +33,7 @@
                     $ReadCatProd = new Read;
                     $ReadCatProd->FullRead("SELECT idcate_produto, descricao FROM cat_produto");
                     ?>
-                    <select class="form-control" name="idcate_prod">
+                    <select class="form-control" name="idcate_produto">
                         <option>SELECIONE</option>
                         <?php
                         foreach ($ReadCatProd->getResult() as $e):
@@ -93,10 +94,6 @@
                 <div class="form-group col-md-2">
                     <label>Data Entrada</label>
                     <input type="date" name="dt_entr_prod" class="form-control">
-                </div>
-                <div class="form-group col-md-2">
-                    <label>Data Saida</label>
-                    <input type="date" name="dt_saida_prod" class="form-control">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Data de Validade</label>
@@ -141,7 +138,7 @@
                     $ReadCatProd = new Read;
                     $ReadCatProd->FullRead("SELECT idcate_produto, descricao FROM cat_produto");
                     ?>
-                    <select class="form-control" name="idcate_prod">
+                    <select class="form-control" name="idcate_produto">
                         <option>SELECIONE</option>
                         <?php
                         foreach ($ReadCatProd->getResult() as $e):
@@ -204,10 +201,6 @@
                     <input type="date" name="dt_entr_prod" class="form-control">
                 </div>
                 <div class="form-group col-md-2">
-                    <label>Data Saida</label>
-                    <input type="date" name="dt_saida_prod" class="form-control">
-                </div>
-                <div class="form-group col-md-2">
                     <label>Data de Validade</label>
                     <input type="date" name="validade_prod" class="form-control">
                 </div>
@@ -247,15 +240,13 @@
             <tbody class="j-result-produtos">
                 <?php
                 $ReadProd = new Read;
-                $ReadProd->FullRead("SELECT produtos.idprodutos, produtos.nome_prod, " .
-                        "cat_produto.descricao, " .
-                        "fornecedores.nome_forn, " .
-                        "estoq_prod.quant_estoque " .
-                        "FROM produtos " .
-                        "LEFT JOIN cat_produto ON  produtos.idprodutos = cat_produto.idcate_produto " .
-                        "LEFT JOIN fornecedores ON produtos.idfornecedores = fornecedores.idfornecedores " .
-                        "LEFT JOIN estoq_prod ON produtos.idprodutos = estoq_prod.idestoques");
+                $ReadProd->FullRead("SELECT produtos.idprodutos, cat_produto.descricao, fornecedores.nome_forn, produtos.nome_prod, estoq_prod.quant_estoque "
+                             . "FROM produtos "
+                             . "INNER JOIN cat_produto ON cat_produto.idcate_produto = produtos.idcate_produto "
+                             . "INNER JOIN fornecedores ON fornecedores.idfornecedores = produtos.idfornecedores "
+                             . "INNER JOIN estoq_prod ON estoq_prod.idprodutos = produtos.idprodutos");
                 foreach ($ReadProd->getResult() as $e):
+//                    var_dump($ReadProd->getResult()); die;
                     extract($e);
                     echo
                     "<tr id='{$idprodutos}'>" .

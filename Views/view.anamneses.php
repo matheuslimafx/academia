@@ -49,17 +49,17 @@
                 <div class="form-group col-md-2">
                     <br>
                     <label>* Peso</label>
-                    <input type="number" name="peso_anamnese" class="form-control input-peso-anamnese" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="peso_anamnese" id="peso_anamnese" class="form-control input-peso-anamnese" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <br>
                     <label>* Altura</label>
-                    <input type="number" name="altura_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="altura_anamnese" id="altura_anamnese" class=" form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <br>
                     <label>* IMC</label>
-                    <input type="number" name="imc_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="imc_anamnese" id="imc_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Pescoço</label>
@@ -123,7 +123,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label>Panturilha D.</label>
-                    <input type="number" name="pd_anamnese" class="form-control col-md-2" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
+                    <input type="number" name="pd_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-4">
 
@@ -142,12 +142,14 @@
         <div class="col-md-12 modal-update">
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
             <!--Form update de Anamneses-->
-            <form action="" method="POST" class="form_anamnese form-update">
-                <input type="hidden" name="callback" value="anamnese">
+            <form action="" method="POST" class="j-form-update-anamnese form_anamnese form-update">
+                <input type="hidden" name="callback" value="update-anamnese">
+                <input type="hidden" name="idanamneses" value="">
+                <input type="hidden" name="idalunos_cliente" value="">
                 <div class="form-group col-md-6">
                     <br>
                     <label>* Aluno</label>
-                    <select name="idalunos_cliente" class="form-control">
+                    <select name="idalunos_cliente" class="form-control" disabled>
                         <option value="0">SELECIONE</option>
                         <?php
                         $ReadAlunos = new Read;
@@ -162,81 +164,81 @@
                 <div class="form-group col-md-2">
                     <br>
                     <label>* Peso</label>
-                    <input type="number" name="peso_anamnese" class="form-control">
+                    <input type="number" name="peso_anamnese" id="peso_anamnese_edit" class="form-control input-peso-anamnese" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <br>
                     <label>* Altura</label>
-                    <input type="number" name="altura_anamnese" class="form-control">
+                    <input type="number" name="altura_anamnese" id="altura_anamnese_edit" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <br>
                     <label>* IMC</label>
-                    <input type="number" name="imc_anamnese" class="form-control">
+                    <input type="number" name="imc_anamnese" id="imc_anamnese_edit" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Pescoço</label>
-                    <input type="number" name="pescoco_anamnese" class="form-control">
+                    <input type="number" name="pescoco_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Ombro</label>
-                    <input type="number" name="ombro_anamnese" class="form-control">
+                    <input type="number" name="ombro_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Torax</label>
-                    <input type="number" name="torax_anamnese" class="form-control">
+                    <input type="number" name="torax_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Abdome</label>
-                    <input type="number" name="abdome_anamnese" class="form-control">
+                    <input type="number" name="abdome_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Cintura</label>
-                    <input type="number" name="cintura_anamnese" class="form-control">
+                    <input type="number" name="cintura_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Quadril</label>
-                    <input type="number" name="quadril_anamnese" class="form-control">
+                    <input type="number" name="quadril_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Braço D.</label>
-                    <input type="number" name="bd_anamnese" class="form-control">
+                    <input type="number" name="bd_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Braço E.</label>
-                    <input type="number" name="be_anamnese" class="form-control">
+                    <input type="number" name="be_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>B.E. Contraido</label>
-                    <input type="number" name="bec_anamnese" class="form-control">
+                    <input type="number" name="bec_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>B.D. Contraido</label>
-                    <input type="number" name="bdc_anamnese" class="form-control">
+                    <input type="number" name="bdc_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Antebraço E.</label>
-                    <input type="number" name="aec_anamnese" class="form-control">
+                    <input type="number" name="aec_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Antebraço D.</label>
-                    <input type="number" name="adc_anamnese" class="form-control">
+                    <input type="number" name="adc_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Coxa Esquerda</label>
-                    <input type="number" name="ce_anamnese" class="form-control">
+                    <input type="number" name="ce_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Coxa Direita</label>
-                    <input type="number" name="cd_anamnese" class="form-control">
+                    <input type="number" name="cd_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Pamturilha E.</label>
-                    <input type="number" name="pe_anamnese" class="form-control">
+                    <input type="number" name="pe_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Panturilha D.</label>
-                    <input type="number" name="pd_anamnese" class="form-control col-md-2">
+                    <input type="number" name="pd_anamnese" class="form-control input-decimal" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                 </div>
                 <div class="form-group col-md-4">
 
@@ -246,7 +248,7 @@
                     <textarea name="obs_anamnese" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-12">
-                    <button type="submit" name="cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
+                    <button type="submit" name="cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Atualizar</button>
                 </div>
             </form>
         </div>
@@ -273,9 +275,9 @@
                     "<td>{$idalunos_cliente}</td>" .
                     "<td>{$nome_aluno}</td>" .
                     "<td align='right'>" .
-                    "<button class='btn btn-success btn-xs open-modal-update j-update-anamnese' idanamneses={$idanamneses}><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-anamnese' idanamneses={$idanamneses}><i class='glyphicon glyphicon-edit'></i></button> " .
                     "<a href='http://localhost/academia/Views/view.anamnese.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " .
-                    "<button class='btn btn-danger btn-xs open-delete' idanamneses={$idanamneses}><i class='glyphicon glyphicon-trash'></i></button>" .
+                    "<button class='btn btn-danger btn-xs open-delete j-btn-del-anamnese' idanamneses={$idanamneses}><i class='glyphicon glyphicon-trash'></i></button>" .
                     "</td>" .
                     "</tr>";
                 endforeach;

@@ -1,11 +1,10 @@
 <?php
-
 /**
- * <b>Fornecedor.class:</b>
+ * <b>Produto.class:</b>
  * Model(Classe) responsável pelo gerenciamento de cadastro de novos alunos no banco de dados!
  * 
  */
-class ProdutoCreate {
+class CreateProduto {
 
     private $Tabela;
     private $Dados;
@@ -24,13 +23,28 @@ class ProdutoCreate {
     }
 
     /**
-     * <b>novoAluno:</b> Executa um cadastro simplificado no banco de dados utilizando prepared statements.
+     * <b>novoProduto:</b> Executa um cadastro simplificado no banco de dados utilizando prepared statements.
      * Basta informar o nome da tabela e um array atribuitivo com nome da coluna e valor!
      * 
      * @param STRING $Tabela = Informe o nome da tabela no banco!
      * @param ARRAY $Dados = Informe um array atribuitivo. ( Nome Da Coluna => Valor ).
      */
     public function novoProduto($Tabela, array $Dados) {
+        $this->Tabela = (string) $Tabela;
+        $this->Dados = $Dados;
+
+        $this->getSyntax();
+        $this->Execute();
+    }
+    
+    /**
+     * <b>inserirProdutoEstoque:</b> Insere um novo produto no estoque com os dados vindos do front-end prepared statements.
+     * Basta informar o nome da tabela e um array atribuitivo com nome da coluna e valor!
+     * 
+     * @param STRING $Tabela = Informe o nome da tabela no banco!
+     * @param ARRAY $Dados = Informe um array atribuitivo. ( Nome Da Coluna => Valor ).
+     */
+    public function inserirProdutoEstoque($Tabela, array $Dados) {
         $this->Tabela = (string) $Tabela;
         $this->Dados = $Dados;
 
