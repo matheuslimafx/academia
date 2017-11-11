@@ -17,11 +17,16 @@ if (count($getPost) == 1):
 
     $buscarAnamnese = new Read;
 
-    if (is_int($queryPesquisa)):
+    if ($queryPesquisa >= 1):
         $buscarAnamnese->FullRead("SELECT anamneses.idanamneses, anamneses.idalunos_cliente, alunos_cliente.nome_aluno "
                 . "FROM anamneses "
                 . "LEFT JOIN alunos_cliente ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente "
                 . "WHERE anamneses.idalunos_cliente = {$queryPesquisa}");
+        $jSon = $buscarAnamnese->getResult();
+    elseif ($queryPesquisa === 0):
+        $buscarAnamnese->FullRead("SELECT anamneses.idanamneses, anamneses.idalunos_cliente, alunos_cliente.nome_aluno "
+                . "FROM anamneses "
+                . "LEFT JOIN alunos_cliente ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente");
         $jSon = $buscarAnamnese->getResult();
     elseif (is_string($queryPesquisa)):
         $buscarAnamnese->FullRead("SELECT anamneses.idanamneses, anamneses.idalunos_cliente, alunos_cliente.nome_aluno "
@@ -55,7 +60,7 @@ else:
                 $Tabela = "anamneses";
 
                 //INSERIR A CLASSE DA MODEL RESPONSAVEL PELA INTERAÇÃO COM O BANCO DE DADOS:
-                require '../Models/model.anamnese.php';
+                require '../Models/model.anamnese.create.php';
 
                 //INSTANCIA DO OBJETO DA CLASSE ANAMNESE RESPONSAVEL POR CADASTRAR NOVAS ANAMNESES:
                 $CadastrarAnamnese = new Anamnese;
@@ -79,6 +84,46 @@ else:
                 endif;
 
                 break;
+
+            case 'povoar-edit':
+                $DadosAnamnese = new Read;
+                $DadosAnamnese->FullRead("SELECT * FROM anamneses WHERE anamneses.idanamneses = :idanamneses", "idanamneses={$Post['idanamneses']}");
+                if ($DadosAnamnese->getResult()):
+                    foreach ($DadosAnamnese->getResult() as $e):
+                        $Resultado = $e;
+                    endforeach;
+                    $jSon = $Resultado;
+                endif;
+
+                break;
+
+            case 'update-anamnese':
+                require '../Models/model.anamnese.update.php';
+                $updateAnamnese = new AtualizarAnamnese;
+                $updateAnamnese->atualizarAnamnese('anamneses', $Post, "WHERE anamneses.idanamneses = :idanamneses", "idanamneses={$Post['idanamneses']}");
+                if ($updateAnamnese->getResult()):
+                    $readNameAnamnese = new Read;
+                    $readNameAnamnese->FullRead("SELECT alunos_cliente.nome_aluno FROM alunos_cliente INNER JOIN anamneses ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente WHERE anamneses.idalunos_cliente = :idalunos_cliente", "idalunos_cliente={$Post['idalunos_cliente']}");
+                    $nameAlunoAnamneseUpdated = $readNameAnamnese->getResult();
+                    $jSon['sucesso'] = ['true'];
+                    $jSon['clear'] = ['true'];
+                    $jSon['content']['idanamneses'] = $Post['idanamneses'];
+                    $jSon['content']['idalunos_cliente'] = $Post['idalunos_cliente'];
+                    $jSon['content']['nome_aluno'] = $nameAlunoAnamneseUpdated[0]['nome_aluno'];
+                endif;
+
+                break;
+
+            case 'delete-anamnese':
+                require '../Models/model.anamnese.delete.php';
+                $deletarAnamnese = new DeletarAnamnese;
+                $deletarAnamnese->ExeDelete('anamneses', "WHERE anamneses.idanamneses = :idanamneses", "idanamneses={$Post['idanamneses']}");
+                if($deletarAnamnese->getResult()):
+                    $jSon['delete'] = true;
+                    $jSon['idanamneses'] = $Post['idanamneses'];
+                endif;
+                break;
+
             //CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSAVEL POR RETORNAR O ERRO AO JS:
             default :
                 $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada 2!</div>";

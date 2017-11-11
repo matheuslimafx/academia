@@ -19,13 +19,13 @@ if (count($getPost) == 1):
     $buscarAluno = new Read;
 
     //CONDIÇÃO PARA VERIFICAR SE O TERMO DE PESQUISA É INT, CASO SEJA SERÁ REALIZADO UMA CONSULTA NO BANCO DE DADOS PELA MATRÍCULA OU CASO SEJA STRING SERÁ FEITA A CONSULTA NO BANCO DE DADOS PELO NOME DO ALUNO.
-    if ($queryPesquisa >= 1):
+    if ($queryPesquisa >= 1)://FAZ A BUSCA DE UM ALUNO PELO ID, POIS O TERMO DA PESQUISA É UM NÚMERO
         $buscarAluno->FullRead("SELECT idalunos_cliente, idendereco_aluno, nome_aluno, status_aluno FROM alunos_cliente WHERE idalunos_cliente = {$queryPesquisa}");
         $jSon = $buscarAluno->getResult();
     elseif ($queryPesquisa === 0): //CASO O USUÁRIO NÃO TENHA DIGITADO NADA NO CAMPO DE PESQUISA O RESULTADO SERÁ TODOS OS ALUNOS.
         $buscarAluno->FullRead("SELECT idalunos_cliente, idendereco_aluno, nome_aluno, status_aluno FROM alunos_cliente");
         $jSon = $buscarAluno->getResult();
-    elseif (is_string($queryPesquisa)):
+    elseif (is_string($queryPesquisa))://FAZ UMA BUSCA PELO NOME, POIS O QUE FOI DIGITADO FOI UMA STRING E NÃO UM NÚMERO OU O CAMPO VAZIO.
         $buscarAluno->FullRead("SELECT idalunos_cliente, idendereco_aluno, nome_aluno, status_aluno FROM alunos_cliente WHERE nome_aluno LIKE '%{$queryPesquisa}%'");
         $jSon = $buscarAluno->getResult();
     endif;
