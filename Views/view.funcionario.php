@@ -11,7 +11,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
     <h2>Funcionários</h2>
     <div>
         <div class="col-md-12" align="right">
-           <form action="" method="POST">
+            <form action="" method="POST">
                 <div class="form-group col-md-4">
                     <input type="text" placeholder="Pesquisar" class="form-control pesquisar pesquisar-funcionario">
                 </div>
@@ -63,7 +63,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
                 <div class="form-group col-md-3">
                     <label>* CPF</label>
-                    <input type="text" name="cpf_func" class="form-control" placeholder="000.000.000-00" id="cpf" required>
+                    <input type="text" name="cpf_func" class="form-control cpf" placeholder="000.000.000-00" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>CPTS</label>
@@ -75,7 +75,14 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Estado Civil</label>
-                    <input type="text" name="estado_civil_func" class="form-control" required>
+                    <select name="estado_civil_func" class="form-control" required>
+                        <option value="0">SELECIONE</option>
+                        <option value="Casado">Casado</option>
+                        <option value="Divorciado">Divorciado</option>
+                        <option value="Separado">Separado</option>
+                        <option value="Solteiro">Solteiro</option>
+                        <option value="Viúvo">Viúvo</option>
+                    </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label>Nacionalidade</label>
@@ -95,13 +102,13 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                         <option value="Recepcionista">Recepcionista</option>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-12">
                     <label>Função</label>
                     <input type="text" name="funcao_func" class="form-control">
                 </div>
                 <div class="form-group col-md-2">
                     <label>* Salário</label>
-                    <input type="text" name="salario_func" class="form-control" placeholder="R$" id="salario" required>
+                    <input type="text" name="salario_func" class="form-control salario" placeholder="R$" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label>* Hr. de entrada</label>
@@ -111,7 +118,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     <label>* Hr. de saída</label>
                     <input type="time" name="saida_func" class="form-control" required>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     <label>* Status</label>
                     <select class="form-control" name="status_func" required>
                         <option value="Ativo">Ativo</option>
@@ -124,11 +131,11 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
                 <div class="form-group col-md-3">
                     <label>Telefone Celular</label>
-                    <input type="text" name="celular_func" class="form-control" placeholder="(00) 0 00000-0000" id="telefoneC">
+                    <input type="text" name="celular_func" class="form-control telefoneC" placeholder="(00) 0 00000-0000">
                 </div>
                 <div class="form-group col-md-3">
                     <label>Telefone Residencial</label>
-                    <input type="text" name="residencial_func" class="form-control" placeholder="(00)00000-0000" id="telefoneR">
+                    <input type="text" name="residencial_func" class="form-control telefoneR" placeholder="(00)00000-0000">
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Estado</label>
@@ -142,7 +149,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                         ?>
                     </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label>* Cidade</label>
                     <select name="idcidade" class="form-control" required>
                         <option>SELECIONE</option>
@@ -167,7 +174,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
             </form>
         </div>
-        
+
         <!--FORMULÁRIO DE CADASTRO DE FUNCIONÁRIOS-->
         <div class="col-md-12 modal-update">
             <div class="container">
@@ -201,10 +208,10 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
                 <div class="form-group col-md-3">
                     <label>* CPF</label>
-                    <input type="text" name="cpf_func" class="form-control" placeholder="000.000.000-00" id="cpf" required>
+                    <input type="text" name="cpf_func" class="form-control cpf" placeholder="000.000.000-00" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>CTPS</label>
+                    <label>CPTS</label>
                     <input type="text" name="cpts_func" class="form-control" maxlength="7">
                 </div>
                 <div class="form-group col-md-3">
@@ -213,7 +220,14 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Estado Civil</label>
-                    <input type="text" name="estado_civil_func" class="form-control" required>
+                    <select name="estado_civil_func" class="form-control" required>
+                        <option value="0">SELECIONE</option>
+                        <option value="Casado">Casado</option>
+                        <option value="Divorciado">Divorciado</option>
+                        <option value="Separado">Separado</option>
+                        <option value="Solteiro">Solteiro</option>
+                        <option value="Viúvo">Viúvo</option>
+                    </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label>Nacionalidade</label>
@@ -233,13 +247,13 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                         <option value="Recepcionista">Recepcionista</option>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-12">
                     <label>Função</label>
                     <input type="text" name="funcao_func" class="form-control">
                 </div>
                 <div class="form-group col-md-2">
                     <label>* Salário</label>
-                    <input type="text" name="salario_func" class="form-control" placeholder="R$" id="salario" required>
+                    <input type="text" name="salario_func" class="form-control salario" placeholder="R$" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label>* Hr. de entrada</label>
@@ -249,7 +263,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     <label>* Hr. de saída</label>
                     <input type="time" name="saida_func" class="form-control" required>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     <label>* Status</label>
                     <select class="form-control" name="status_func" required>
                         <option value="Ativo">Ativo</option>
@@ -262,11 +276,11 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
                 <div class="form-group col-md-3">
                     <label>Telefone Celular</label>
-                    <input type="text" name="celular_func" class="form-control" placeholder="(00) 0 00000-0000" id="telefoneC">
+                    <input type="text" name="celular_func" class="form-control telefoneC" placeholder="(00) 0 00000-0000">
                 </div>
                 <div class="form-group col-md-3">
                     <label>Telefone Residencial</label>
-                    <input type="text" name="residencial_func" class="form-control" placeholder="(00)00000-0000" id="telefoneR">
+                    <input type="text" name="residencial_func" class="form-control telefoneR" placeholder="(00)00000-0000">
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Estado</label>
@@ -280,7 +294,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                         ?>
                     </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label>* Cidade</label>
                     <select name="idcidade" class="form-control" required>
                         <option>SELECIONE</option>
@@ -301,12 +315,12 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     <textarea name="obs_func" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-12">
-                    <button type="submit" name="" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
+                    <button type="submit" name="" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Atualizar</button>
                 </div>
             </form>
         </div>
-        
-        
+
+
         <table class="table table-striped modal-table">
             <thead>
                 <tr>
@@ -329,9 +343,9 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     "<td>{$nome_func}</td>" .
                     "<td>{$cargo_func}</td>" .
                     "<td>{$status_func}</td>" .
-                    "<td align='right'>".
-                        "<button class='btn btn-success btn-xs open-modal-update' idfuncionarios='{$idfuncionarios}' idendereco_func='{$idendereco_func}'><i class='glyphicon glyphicon-edit'></i></button> ".
-                        "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" .
+                    "<td align='right'>" .
+                    "<button class='btn btn-success btn-xs open-modal-update' idfuncionarios='{$idfuncionarios}' idendereco_func='{$idendereco_func}'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" .
                     "</td>" .
                     "</tr>";
                 endforeach;

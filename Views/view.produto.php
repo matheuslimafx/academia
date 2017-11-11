@@ -69,7 +69,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label>Peso</label>
-                    <input type="text" name="peso_prod" class="form-control" id="peso">
+                    <input type="text" name="peso_prod" class="form-control peso">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Cor</label>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Valor</label>
-                    <input type="text" name="valor_prod" id="moeda" class="form-control" placeholder="R$" required>
+                    <input type="text" name="valor_prod" class="form-control moeda" placeholder="R$" required>
                 </div>
                 
                 <div class="form-group col-md-12">
@@ -117,7 +117,7 @@
                     <textarea name="obs_prod" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
                 </div>
             </form>
         </div>
@@ -174,7 +174,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label>Peso</label>
-                    <input type="text" name="peso_prod" class="form-control" id="peso">
+                    <input type="text" name="peso_prod" class="form-control peso">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Cor</label>
@@ -214,14 +214,14 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Valor</label>
-                    <input type="text" name="valor_prod" id="moeda" class="form-control" placeholder="R$" required>
+                    <input type="text" name="valor_prod" class="form-control moeda" placeholder="R$" required>
                 </div>
                 <div class="form-group col-md-12">
                     <label>Observações</label>
                     <textarea name="obs_prod" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Atualizar</button>
                 </div>
             </form>
         </div>

@@ -67,11 +67,11 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
                 <div class="form-group col-md-3">
                     <label>Telefone Celular</label>
-                    <input type="text" name="celular_aluno" class="form-control" id="telefoneC">
+                    <input type="text" name="celular_aluno" class="form-control telefoneC">
                 </div>
                 <div class="form-group col-md-3">
                     <label>Telefone Residencial</label>
-                    <input type="text" name="residencial_aluno" class="form-control" id="telefoneR">
+                    <input type="text" name="residencial_aluno" class="form-control telefoneR">
                 </div>
                 <div class="form-group col-md-2">
                     <label>* Dt. Nascimento</label>
@@ -161,11 +161,11 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
                 <div class="form-group col-md-3">
                     <label>Telefone Celular</label>
-                    <input type="text" name="celular_aluno" class="form-control" id="telefoneC">
+                    <input type="text" name="celular_aluno" class="form-control telefoneC">
                 </div>
                 <div class="form-group col-md-3">
                     <label>Telefone Residencial</label>
-                    <input type="text" name="residencial_aluno" class="form-control" id="telefoneR">
+                    <input type="text" name="residencial_aluno" class="form-control telefoneR">
                 </div>
                 <div class="form-group col-md-2">
                     <label>* Dt. Nascimento</label>
@@ -211,7 +211,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     <textarea type="text" name="obs_aluno" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Salvar</button>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Atualizar</button>
                 </div>
             </form>
         </div>

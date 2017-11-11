@@ -51,7 +51,7 @@
                 <div class="form-group col-md-3">
                     <br>
                     <label>* Valor</label>
-                    <input type="text" name="valor_mensalidades" class="form-control" placeholder="R$" id="moeda" required>
+                    <input type="text" name="valor_mensalidades" class="form-control moeda" placeholder="R$" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Status</label>
@@ -102,7 +102,7 @@
                 <div class="form-group col-md-3">
                     <br>
                     <label>* Valor</label>
-                    <input type="text" name="valor_mensalidades" class="form-control" placeholder="R$" id="moeda" required>
+                    <input type="text" name="valor_mensalidades" class="form-control moeda" placeholder="R$" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Status</label>
@@ -117,7 +117,7 @@
                     <textarea name="obs_mensalidades" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-12">
-                    <button name="Cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
+                    <button name="Cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Atualizar</button>
                 </div>
             </form>
         </div>

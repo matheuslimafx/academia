@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 22-Out-2017 às 21:28
+-- Generation Time: 11-Nov-2017 às 22:07
 -- Versão do servidor: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -25,43 +25,59 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `agenda_treino`
+--
+
+CREATE TABLE `agenda_treino` (
+  `idagenda` int(11) NOT NULL,
+  `idtreino` int(11) NOT NULL,
+  `idalunos_cliente` int(11) NOT NULL,
+  `idfuncionarios` int(11) NOT NULL,
+  `data` date NOT NULL,
+  `horario` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `agenda_treino`
+--
+
+INSERT INTO `agenda_treino` (`idagenda`, `idtreino`, `idalunos_cliente`, `idfuncionarios`, `data`, `horario`) VALUES
+(1, 1, 1, 7, '2017-11-11', '13:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `alunos_cliente`
 --
 
 CREATE TABLE `alunos_cliente` (
   `idalunos_cliente` int(11) NOT NULL,
-  `idendereco_aluno` int(11) DEFAULT NULL,
-  `nome_aluno` varchar(85) NOT NULL,
-  `cpf_aluno` varchar(45) DEFAULT NULL,
-  `rg_aluno` varchar(45) DEFAULT NULL,
-  `nome_mae` varchar(95) DEFAULT NULL,
-  `nome_pai` varchar(65) DEFAULT NULL,
-  `email_aluno` varchar(100) DEFAULT NULL,
-  `celular_aluno` varchar(50) DEFAULT NULL,
-  `residencial_aluno` varchar(50) DEFAULT NULL,
+  `idendereco_aluno` int(11) NOT NULL,
+  `nome_aluno` varchar(100) NOT NULL,
+  `cpf_aluno` varchar(14) NOT NULL,
+  `rg_aluno` varchar(7) NOT NULL,
+  `nome_mae` varchar(100) DEFAULT NULL,
+  `nome_pai` varchar(100) DEFAULT NULL,
+  `email_aluno` varchar(50) NOT NULL,
+  `celular_aluno` varchar(16) DEFAULT NULL,
+  `residencial_aluno` varchar(15) DEFAULT NULL,
   `data_nascimento_aluno` date NOT NULL,
-  `obs_aluno` varchar(500) NOT NULL,
-  `status_aluno` varchar(50) NOT NULL
+  `status_aluno` varchar(50) NOT NULL,
+  `obs_aluno` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `alunos_cliente`
 --
 
-INSERT INTO `alunos_cliente` (`idalunos_cliente`, `idendereco_aluno`, `nome_aluno`, `cpf_aluno`, `rg_aluno`, `nome_mae`, `nome_pai`, `email_aluno`, `celular_aluno`, `residencial_aluno`, `data_nascimento_aluno`, `obs_aluno`, `status_aluno`) VALUES
-(1, NULL, 'João da Silva', '890809890809', '9808098', 'Maria Joana', 'Manoel da Silva', '', '', '', '2017-09-01', '', 'Inativo'),
-(2, NULL, 'Renato Jose', '89890809809', '98098098', 'Joana Maria', 'Mario Jose', '', '', '', '0000-00-00', '', 'Ativo'),
-(3, NULL, 'teste', '78676876786', '543546464', 'teste', 'teste', 'teste@email.com', '534364645', '4354546', '2017-10-06', 'teste', 'Inativo'),
-(4, NULL, 'teste2', '8789798789', '45674898', 'teste2', 'teste2', 'teste2@email.com', '798798798', '87987987', '1998-08-12', 'teste', 'Ativo'),
-(5, NULL, 'Lucas Ferreira', '757657', '6575767', 'Luana Ferreira', 'Daniel Ferreira', '', '', '', '0000-00-00', '', 'Inativo'),
-(6, NULL, 'matin', '55555555555', '666666666', 'martinha', 'martao', 'martin@mail.com', '09090900', '32323232', '2017-12-18', 'aluno necessita ganhar massa.', 'Ativo'),
-(7, 1, 'matin', '55555555555', '666666666', 'martinha', 'martao', 'martin@mail.com', '09090900', '32323232', '2017-12-18', 'aluno necessita ganhar massa.', 'Inativo'),
-(8, 2, 'Helloisa Christina', '8989890889', '898908098', 'Suelene da Costa', 'Jamir Sebastião', 'helloisa011@gmail.com', '98090988098', '9809809800', '2003-10-01', 'Nova aluna da academia cadastrada no dia 07/10/2017, com plano básico de treinos.', 'Ativo'),
-(9, 3, 'Diego Humberto', '70867678', '784546789', 'Maria Almeida', 'Manoel', 'testediego@email.com', '7867756757', '6764557689', '1998-06-13', 'teste', 'Ativo'),
-(10, 4, '', '', '', '', '', '', '', '', '0000-00-00', '', 'Ativo'),
-(11, 5, 'Renato Almeida', '8978689', '9098979097', 'Mariana Silva', 'Geovane Silva', 'renato@email.com', '787978979', '980989890', '1980-01-12', 'Teste', 'Ativo'),
-(12, 6, '', '', '', '', '', '', '', '', '0000-00-00', '', 'Ativo'),
-(13, 7, 'wwwB', 'hj', 'bh', 'jbhj', 'vbjh', 'jhv@gmaolco.com', '(hj', '(', '2017-10-03', 'jv', 'Ativo');
+INSERT INTO `alunos_cliente` (`idalunos_cliente`, `idendereco_aluno`, `nome_aluno`, `cpf_aluno`, `rg_aluno`, `nome_mae`, `nome_pai`, `email_aluno`, `celular_aluno`, `residencial_aluno`, `data_nascimento_aluno`, `status_aluno`, `obs_aluno`) VALUES
+(1, 1, 'Diego Humberto da Costa Oliveira', '00000000000', '0000000', 'Suelene da Costa', 'Jamir Sebastião', 'diego@email.com', '(00)00000-0000', '(00)0000-0000', '1998-06-13', 'Ativo', 'não disponíveis'),
+(2, 2, 'Matheus Lima 1', '00000000000', '0000000', 'Maria Julia', 'João da Silva', 'matheuslima@email.com', '(00)00000-0000', '(00)0000-0000', '1993-03-12', 'Ativo', 'Não Disponíveis'),
+(3, 3, 'Renato Almeida dos Santos', '999.999.999-99', '9999999', 'Vânia Perreira Almeida', 'Manoel da Silva', 'renato@email.com', '(99) 9 9999-9000', '(99) 9999-9900', '1980-09-12', 'Ativo', 'Nenhuma Obs...'),
+(4, 7, 'Jose Perreira', '321.313.123-13', '2324324', 'Adriana Silva', 'Pablo Escobar', 'jose@email.com', '(83) 2 1938-1093', '(98) 3908-1239', '1990-10-29', 'Inativo', 'TESTE'),
+(5, 8, 'Nayara Lima de Souza', '443.412.342-34', '4234576', 'Mariana de Souza', 'Fernando de Lima', 'nayara@lima.com.br', '(98) 9 8983-4324', '(09) 0434-3248', '1998-03-12', 'Ativo', 'Não possui.'),
+(6, 9, 'Meiriely Christina da Silva', '404.048.204-80', '4040340', 'Fabiana da Silva', 'Cristiano Ronaldo Silva', 'meiriely@email.com', '(84) 8 7486-2578', '(98) 4927-5957', '2000-02-12', 'Ativo', 'Não possui.'),
+(7, 10, 'Carla Maria Costa', '348.409.284-02', '9809809', 'Carla Maria Silva Costa', 'Carlos Henrique Costa', 'carla@email.com', '(22) 3 2323-4234', '(32) 3242-3423', '1990-06-12', 'Inativo', 'Não possui');
 
 -- --------------------------------------------------------
 
@@ -91,7 +107,7 @@ CREATE TABLE `anamneses` (
   `cd_anamnese` float DEFAULT NULL,
   `pe_anamnese` float DEFAULT NULL,
   `pd_anamnese` float DEFAULT NULL,
-  `obs_anamnese` float DEFAULT NULL
+  `obs_anamnese` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -99,8 +115,11 @@ CREATE TABLE `anamneses` (
 --
 
 INSERT INTO `anamneses` (`idanamneses`, `idalunos_cliente`, `peso_anamnese`, `altura_anamnese`, `imc_anamnese`, `pescoco_anamnese`, `ombro_anamnese`, `torax_anamnese`, `abdome_anamnese`, `cintura_anamnese`, `quadril_anamnese`, `bd_anamnese`, `be_anamnese`, `bec_anamnese`, `bdc_anamnese`, `aec_anamnese`, `adc_anamnese`, `ce_anamnese`, `cd_anamnese`, `pe_anamnese`, `pd_anamnese`, `obs_anamnese`) VALUES
-(1, 1, 60, 1.7, 25, 12, 30, 40, 40, 50, 40, 20, 20, 20, 30, 30, 30, 40, 40.43, 39.9, 54, 0),
-(2, 8, 12, 121, 12, 121, 12, 12, 12, 12, 12, 12, 12, 12, 12, 121, 212, 12121, 2121, 12, 12, 12);
+(1, 1, 100, 1, 25, 12, 12, 12, 12, 12, 12, 12, 12, 12, 22, 22, 22, 22, 22, 22, 22, '0'),
+(2, 2, 90, 1, 26, 20, 20, 20, 20, 20, 20, 20, 20, 89, 20, 20, 20, 20, 20, 20, 20, '90'),
+(3, 3, 120, 12, 12, 12, 21, 22, 22, 12, 12, 12, 21, 21, 12, 12, 12, 21, 12, 12, 21, '0'),
+(4, 5, 65, 1.7, 25, 3.45, 2.65, 6.56, 56.56, 56.56, 6.65, 56.56, 56, 66.56, 56.56, 56.5678, 78.676, 56.75, 65.76, 57.67, 65, '0'),
+(5, 4, 79, 1.8, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, '0');
 
 -- --------------------------------------------------------
 
@@ -5726,13 +5745,17 @@ CREATE TABLE `endereco_aluno` (
 --
 
 INSERT INTO `endereco_aluno` (`idendereco_aluno`, `idcidade`, `idestado`, `complementos_aluno`) VALUES
-(1, 1927, 9, 'Rua goiás, qd. 18, lt.23'),
-(2, 271, 9, 'Rua Doutor Juares Tavares de Azevedo Junior Qd-09 Lt-30'),
-(3, 32, 9, 'teste'),
-(4, 1, 1, ''),
-(5, 3823, 9, 'Rua n8'),
-(6, 1, 1, ''),
-(7, 2510, 1, 'jv');
+(1, 1, 1, 'não disponíveis'),
+(2, 1, 1, 'Não Disponíveis'),
+(3, 465, 9, 'Avenida São Miguel nº20'),
+(4, 1526, 9, 'Teste...'),
+(5, 1641, 9, '...'),
+(6, 1737, 9, 'teste'),
+(7, 272, 9, 'TESTE'),
+(8, 1526, 9, 'Condômino Águas vivas, Santa Rita, Damianópolis '),
+(9, 1927, 9, 'Parque dos Buritis '),
+(10, 5423, 9, 'Não possui'),
+(11, 271, 9, 'Baitola');
 
 -- --------------------------------------------------------
 
@@ -5746,6 +5769,19 @@ CREATE TABLE `endereco_fornecedor` (
   `idestado` int(11) DEFAULT NULL,
   `complementos_forn` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `endereco_fornecedor`
+--
+
+INSERT INTO `endereco_fornecedor` (`idendereco_forn`, `idcidade`, `idestado`, `complementos_forn`) VALUES
+(1, 271, 9, 'não disponíveis'),
+(2, 1, 9, 'Não disponíveis'),
+(3, 1526, 9, 'Pepsi rede de refrigerantes internacionais.'),
+(4, 271, 9, 'TESTE.'),
+(5, 1880, 9, 'TESTE'),
+(6, 1737, 9, 'TESTE'),
+(7, 1526, 9, 'TESTE3');
 
 -- --------------------------------------------------------
 
@@ -5765,12 +5801,13 @@ CREATE TABLE `endereco_fun` (
 --
 
 INSERT INTO `endereco_fun` (`idendereco_fun`, `idcidade`, `idestado`, `complementos_fun`) VALUES
-(1, 32, 9, 'Teste'),
-(2, 32, 9, 'Teste'),
-(3, 1, 1, ''),
-(4, 271, 9, 'Teste'),
-(5, 32, 9, 'T]'),
-(6, 1, 1, 'teste');
+(1, 271, 9, 'dados não disponíveis '),
+(2, 1927, 9, 'Não Disponíveis'),
+(3, 271, 9, 'Rua Dr Juarez Qd-30 Lt-3, Terra Prometida'),
+(13, 1, 9, 'TESTE'),
+(15, 1, 9, 'Não possui'),
+(16, 271, 9, 'TESTE'),
+(17, 1737, 9, 'TESTE');
 
 -- --------------------------------------------------------
 
@@ -5781,11 +5818,10 @@ INSERT INTO `endereco_fun` (`idendereco_fun`, `idcidade`, `idestado`, `complemen
 CREATE TABLE `equipamentos` (
   `idequipamentos` int(11) NOT NULL,
   `idfornecedores` int(11) NOT NULL,
-  `idtreino_equip` int(11) DEFAULT NULL,
   `nome_equip` varchar(45) DEFAULT NULL,
   `data_equip_entr` datetime DEFAULT NULL,
   `data_equip_saida` datetime DEFAULT NULL,
-  `preco_equip_entr` float DEFAULT NULL,
+  `preco_equip_entr` decimal(8,2) DEFAULT NULL,
   `marca_equip` varchar(45) DEFAULT NULL,
   `funcionalidade_equip` varchar(145) DEFAULT NULL,
   `data_manutencao_equip` datetime DEFAULT NULL
@@ -5795,12 +5831,17 @@ CREATE TABLE `equipamentos` (
 -- Extraindo dados da tabela `equipamentos`
 --
 
-INSERT INTO `equipamentos` (`idequipamentos`, `idfornecedores`, `idtreino_equip`, `nome_equip`, `data_equip_entr`, `data_equip_saida`, `preco_equip_entr`, `marca_equip`, `funcionalidade_equip`, `data_manutencao_equip`) VALUES
-(1, 1, NULL, 'Barra', '2017-09-01 00:00:00', NULL, 50, 'Ferrobraz', 'Supino', '2017-09-01 00:00:00'),
-(2, 1, 1, 'Teste de Equipamento', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 'Brasil Academia', 'Teste', '0000-00-00 00:00:00'),
-(3, 3, 1, 'Supino Reto', '2017-10-12 00:00:00', '0000-00-00 00:00:00', 90, 'IFITNES', 'Fazer treino alongado de supino reto', '2018-10-12 00:00:00'),
-(4, 1, 1, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '', '', '0000-00-00 00:00:00'),
-(5, 1, 1, 'teste', '2017-10-22 00:00:00', '2017-10-23 00:00:00', 88, 'teste', 'teste', '0000-00-00 00:00:00');
+INSERT INTO `equipamentos` (`idequipamentos`, `idfornecedores`, `nome_equip`, `data_equip_entr`, `data_equip_saida`, `preco_equip_entr`, `marca_equip`, `funcionalidade_equip`, `data_manutencao_equip`) VALUES
+(1, 2, 'Barra 2m', '2017-11-02 00:00:00', NULL, '20.00', 'Companhia Fitnes', 'Não disponíveis', '2018-11-02 00:00:00'),
+(2, 2, 'Banco de Supino', '2017-11-04 00:00:00', NULL, '50.00', 'IFITNES', 'Não Disponível', '2018-11-04 00:00:00'),
+(3, 4, 'Banco de Supino Reto', '2017-11-11 00:00:00', '0000-00-00 00:00:00', '50.00', 'IFTNES', 'TESTE', '2018-11-11 00:00:00'),
+(4, 4, 'Esteira de 50 velocidades', '2017-11-11 00:00:00', '0000-00-00 00:00:00', '279.00', 'Casa FITNES', 'Aquecimento.', '2018-11-11 00:00:00'),
+(5, 2, 'Bicicleta eletrica', '2017-11-11 00:00:00', '0000-00-00 00:00:00', '100.00', 'Não especificada', 'Aquecimento.', '2018-11-11 00:00:00'),
+(6, 7, 'Supino Reto', '2017-11-11 00:00:00', '0000-00-00 00:00:00', '30.00', 'TESTE3', 'TESTE3', '2019-11-11 00:00:00'),
+(7, 5, 'Peso 20kg', '2017-11-11 00:00:00', '0000-00-00 00:00:00', '15.00', 'Não possui', 'Levantamento de peso.', '2017-11-11 00:00:00'),
+(8, 6, 'Peso 40kg', '2017-11-11 00:00:00', '2018-11-18 00:00:00', '50.00', 'Não Possui', 'Levantamento de peso', '2018-11-11 00:00:00'),
+(9, 2, 'Peso 30kg', '2017-11-11 00:00:00', '2017-11-11 00:00:00', '34.00', 'Não possui', 'Levantamento de peso', '2018-11-11 00:00:00'),
+(10, 2, 'Peso 10kg', '2017-11-11 00:00:00', '0000-00-00 00:00:00', '23.00', 'Não possui', 'Levantamento de peso.', '2018-11-11 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -5856,6 +5897,8 @@ INSERT INTO `estado` (`idestado`, `desc_estado`, `uf`) VALUES
 CREATE TABLE `estoq_prod` (
   `idestoques` int(11) NOT NULL,
   `idprodutos` int(11) NOT NULL,
+  `quant_entrada` int(11) NOT NULL,
+  `quant_saida` int(11) NOT NULL,
   `quant_estoque` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -5863,8 +5906,31 @@ CREATE TABLE `estoq_prod` (
 -- Extraindo dados da tabela `estoq_prod`
 --
 
-INSERT INTO `estoq_prod` (`idestoques`, `idprodutos`, `quant_estoque`) VALUES
-(1, 1, 30);
+INSERT INTO `estoq_prod` (`idestoques`, `idprodutos`, `quant_entrada`, `quant_saida`, `quant_estoque`) VALUES
+(1, 1, 0, 0, 498),
+(2, 2, 0, 0, 100),
+(3, 4, 0, 0, 100),
+(4, 5, 0, 0, 300),
+(5, 6, 0, 0, 90);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `exercicios`
+--
+
+CREATE TABLE `exercicios` (
+  `idexercicios` int(11) NOT NULL,
+  `descricao_exe` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `grupo_muscular_exe` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `exercicios`
+--
+
+INSERT INTO `exercicios` (`idexercicios`, `descricao_exe`, `grupo_muscular_exe`) VALUES
+(1, 'TESTE', 'TESTE');
 
 -- --------------------------------------------------------
 
@@ -5875,11 +5941,11 @@ INSERT INTO `estoq_prod` (`idestoques`, `idprodutos`, `quant_estoque`) VALUES
 CREATE TABLE `fornecedores` (
   `idfornecedores` int(11) NOT NULL,
   `idendereco_forn` int(11) DEFAULT NULL,
-  `nome_forn` varchar(45) DEFAULT NULL,
-  `cnpj_cpf_forn` varchar(45) DEFAULT NULL,
+  `nome_forn` varchar(45) NOT NULL,
+  `cnpj_cpf_forn` varchar(15) NOT NULL,
   `nome_fantasia_forn` varchar(45) DEFAULT NULL,
   `email_forn` varchar(100) NOT NULL,
-  `telefone_forn` varchar(50) NOT NULL
+  `telefone_forn` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -5887,9 +5953,13 @@ CREATE TABLE `fornecedores` (
 --
 
 INSERT INTO `fornecedores` (`idfornecedores`, `idendereco_forn`, `nome_forn`, `cnpj_cpf_forn`, `nome_fantasia_forn`, `email_forn`, `telefone_forn`) VALUES
-(1, NULL, 'Companhia da Musculação', '8798797987', 'Companhia da Musculação', '', ''),
-(2, NULL, 'Sallo', '705555789', NULL, 'sallo@sallo.com.br', '62999878898'),
-(3, NULL, 'Teste01', '787979797', 'Teste01', 'teste01@email.com', '980980890');
+(1, 1, 'Coca Cola LTDA', '000000000000000', 'Coca-Cola', 'cocacola@email.com', '(00)0000-0000'),
+(2, 2, 'Companhia Fitnes LTDA', '00000000000000', 'Companhia Fitnes', 'companhiafitnes@email.com', '(00)0000-0000'),
+(3, 3, 'Pepsi refrigerantes LTDA', '45345453453445', 'Pepsi', 'pepsi@email.com', '(99) 9 9999-9999'),
+(4, 4, 'Casa Fitnes LTDA', '23424234324234', 'Casa Fitnes', 'casa@fitnes.com.br', '(62) 3 3333-8888'),
+(5, 5, 'TESTE', '4242342424333', 'TESTE', 'teste01@email.com', '(42) 4 2344-2344'),
+(6, 6, 'TESTE2', '32312323231323', 'TESTE2', 'teste2@email.com', '(33) 3 3333-3333'),
+(7, 7, 'TESTE3', '42424343432432', 'TESTE3', 'teste3@email.com', '(23) 2 3321-3233');
 
 -- --------------------------------------------------------
 
@@ -5899,29 +5969,29 @@ INSERT INTO `fornecedores` (`idfornecedores`, `idendereco_forn`, `nome_forn`, `c
 
 CREATE TABLE `funcionarios` (
   `idfuncionarios` int(11) NOT NULL,
-  `idendereco_func` int(11) DEFAULT NULL,
-  `nome_func` varchar(45) DEFAULT NULL,
+  `idendereco_func` int(11) NOT NULL,
+  `nome_func` varchar(100) NOT NULL,
   `nome_pai_func` varchar(100) DEFAULT NULL,
   `nome_mae_func` varchar(100) DEFAULT NULL,
   `dt_nasc_func` date NOT NULL,
   `tipo_san_func` varchar(6) DEFAULT NULL,
-  `rg_func` varchar(45) DEFAULT NULL,
-  `cpf_func` varchar(45) DEFAULT NULL,
-  `cpts_func` varchar(45) DEFAULT NULL,
-  `pis_func` varchar(45) DEFAULT NULL,
+  `rg_func` varchar(7) NOT NULL,
+  `cpf_func` varchar(14) NOT NULL,
+  `cpts_func` varchar(7) DEFAULT NULL,
+  `pis_func` varchar(11) DEFAULT NULL,
   `estado_civil_func` varchar(45) DEFAULT NULL,
   `nacionalidade_func` varchar(45) DEFAULT NULL,
   `naturalidade_func` varchar(45) DEFAULT NULL,
-  `cargo_func` varchar(45) DEFAULT NULL,
+  `cargo_func` varchar(45) NOT NULL,
   `funcao_func` varchar(145) DEFAULT NULL,
-  `salario_func` float DEFAULT NULL,
+  `salario_func` decimal(8,2) NOT NULL,
   `entrada_func` time DEFAULT NULL,
   `saida_func` time DEFAULT NULL,
-  `email_func` varchar(50) DEFAULT NULL,
-  `celular_func` varchar(45) DEFAULT NULL,
-  `residencial_func` varchar(45) DEFAULT NULL,
+  `email_func` varchar(50) NOT NULL,
+  `celular_func` varchar(16) DEFAULT NULL,
+  `residencial_func` varchar(15) DEFAULT NULL,
   `status_func` varchar(50) NOT NULL,
-  `obs_func` varchar(145) DEFAULT NULL
+  `obs_func` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -5929,11 +5999,12 @@ CREATE TABLE `funcionarios` (
 --
 
 INSERT INTO `funcionarios` (`idfuncionarios`, `idendereco_func`, `nome_func`, `nome_pai_func`, `nome_mae_func`, `dt_nasc_func`, `tipo_san_func`, `rg_func`, `cpf_func`, `cpts_func`, `pis_func`, `estado_civil_func`, `nacionalidade_func`, `naturalidade_func`, `cargo_func`, `funcao_func`, `salario_func`, `entrada_func`, `saida_func`, `email_func`, `celular_func`, `residencial_func`, `status_func`, `obs_func`) VALUES
-(1, NULL, 'Pedro Silva', 'Rafael Lima', 'Fernanda Lima', '0000-00-00', 'A', '798798789', '897987980', '980898908', '898098908', 'casado', 'brasileiro', 'Bahia', 'Professor', 'Instrui Alunos', 900, '00:00:00', NULL, NULL, '98908098809', '98908098089', 'Ativo', 'Funcionário novo'),
-(2, 3, 'Mariana Silva', '', '', '0000-00-00', '', '', '', '', '', '', '', '', 'Gerente', '', 0, '00:00:00', '00:00:00', '', '', '', 'Ativo', ''),
-(3, 4, 'Diego Humberto', 'Jamir Sebastião', 'Suelene da Costa', '1999-12-12', 'A', '4534636', '435465473', '5344564747', '546454747', 'Solteiro', 'Brasileiro', 'Goiânia', 'Professor', 'Teste', 1.2, '10:00:00', '18:00:00', 'diego@email.com', '5676876574', '5445657567', 'Inativo', 'Teste'),
-(4, 5, 'Matheus', 'Pedro', 'Joana', '1980-10-01', 'C', '3423435', '5453535', '54546565', '4535453452', 'Casado', 'Brasileiro', 'São Paulo', 'Gerente', 'gerenciar', 5, '09:00:00', '17:30:00', 'matheus@hotmail.com', '897866447', '56758786', 'Ativo', 'Teste'),
-(5, 6, 'Teste diego', 'diego', 'daniela', '2017-10-05', 'a', '5555555', '555.555.555-55', '5555555', '55555555555', 'Solteiro', 'Brasileiro', 'Goiânia', 'Administrador', 'teste', 444, '12:00:00', '22:00:00', 'teste@email.com', '(99) 9 9999-9999', '(99) 9999-9999', 'Ativo', 'teste');
+(1, 1, 'Administrador', 'Admin Pai', 'Admin Mãe', '2017-11-02', 'A', '0000000', '00000000000', '0000000', '0000000', 'não disponíveis', 'não disponíveis', 'não disponíveis', 'não disponíveis', 'não disponíveis', '0.00', '01:00:00', '23:00:00', 'admin@email.com', '000000000', '00000000', 'Ativo', 'não disponíveis'),
+(2, 2, 'João da Silva de Oliveira', 'Diego Humberto', 'Mariana da Silva', '1990-02-01', 'A', '9999999', '99999999999', '9999999', '9999999', 'solteiro', 'brasileiro', 'goiânia', 'Professor', 'Orientado físico dos alunos', '1.30', '10:00:00', '16:00:00', 'joao@email.com', '999999999', '99999999', 'Ativo', 'Não Disponíveis'),
+(3, 13, 'TESTE', 'TESTE', 'TESTE', '1212-12-12', 'T', '3333333', '33333333333333', '3333333', '33333333333', 'Solteiro', 'Brasileiro', 'Goiânia', 'Professor', 'TESTE', '3.33', '10:00:00', '16:00:00', 'TESTE@email.com', '(33) 3 3333-3333', '(33) 3333-3333', 'Ativo', 'TESTE'),
+(5, 15, 'Pedro da Silva Junior', 'Pedro Primeiro Silva', 'Julieta da Silva', '1989-03-12', 'E', '4234231', '23223434343', '4343434', '23333333333', 'Casado', 'Brasileiro', 'Goiânia', 'Gerente', 'Gerência', '4.00', '10:00:00', '14:00:00', 'pedro@email.com', '(99) 9 9999-9999', '(99) 9999-9999', 'Ativo', 'Não possui'),
+(6, 16, 'Gabriel Cardoso', 'Gabriel Cardoso Silva', 'Gabriele da Silva', '1988-03-12', 'D', '3333333', '333333333333', '3333333', '33333333333', 'Casado', 'Brasileiro', 'Goiânia', 'Gerente', 'Gerenciar', '3.00', '10:00:00', '16:00:00', 'gabriel@cardoso.com', '(99) 9 9999-9999', '(99) 9999-9999', 'Inativo', 'TESTE'),
+(7, 17, 'Matheus Lima', 'Matheus Pai', 'Maria de Lima', '1996-11-11', 'B', '4444444', '4444444444444', '4444444', '44444444444', 'Solteiro', 'Brasileiro', 'Goiânia', 'Gerente', 'Gerência', '1.40', '10:00:00', '17:00:00', 'matheus@email.com', '(99) 9 9999-9999', '(99) 9999-9999', 'Ativo', 'TESTE');
 
 -- --------------------------------------------------------
 
@@ -5944,20 +6015,24 @@ INSERT INTO `funcionarios` (`idfuncionarios`, `idendereco_func`, `nome_func`, `n
 CREATE TABLE `mensalidades` (
   `idmensalidades` int(11) NOT NULL,
   `idalunos_cliente` int(11) NOT NULL,
-  `data_mens_pag` date DEFAULT NULL,
-  `valor_mensalidades` float DEFAULT NULL,
-  `obs_mensalidades` varchar(500) DEFAULT NULL,
-  `status_mensalidades` varchar(45) NOT NULL
+  `data_mens_pag` date NOT NULL,
+  `valor_mensalidades` decimal(8,2) NOT NULL,
+  `status_mensalidades` varchar(45) NOT NULL,
+  `obs_mensalidades` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `mensalidades`
 --
 
-INSERT INTO `mensalidades` (`idmensalidades`, `idalunos_cliente`, `data_mens_pag`, `valor_mensalidades`, `obs_mensalidades`, `status_mensalidades`) VALUES
-(1, 1, '2017-09-01', 50, 'Pago a matricula no valor de R$10,00', 'Em dia'),
-(2, 5, '2017-10-12', 60, 'Teste', 'Pendente'),
-(3, 2, '2017-10-09', 40, 'Teste', 'Em dia');
+INSERT INTO `mensalidades` (`idmensalidades`, `idalunos_cliente`, `data_mens_pag`, `valor_mensalidades`, `status_mensalidades`, `obs_mensalidades`) VALUES
+(1, 1, '2017-11-02', '50.00', 'Em dia', 'Não disponível'),
+(2, 2, '2017-11-05', '50.00', 'Pendente', 'Não Disponíveis'),
+(3, 3, '2017-11-11', '50.00', 'Em dia', 'Não há observações.'),
+(4, 4, '2017-11-11', '50.00', 'Pendente', 'Jose Pereira está com a mensalidade Pendente na academia.'),
+(5, 5, '2017-11-11', '45.00', 'Pendente', 'Nayara está com a mensalidade Pendente na academia.'),
+(6, 6, '2017-11-11', '45.00', 'Em dia', 'Meiriely esta em dia na academia.'),
+(7, 7, '2017-11-11', '55.00', 'Pendente', 'Caral está com a mensalidade Pendente na academia.');
 
 -- --------------------------------------------------------
 
@@ -5969,26 +6044,30 @@ CREATE TABLE `produtos` (
   `idprodutos` int(11) NOT NULL,
   `idcate_produto` int(11) NOT NULL,
   `idfornecedores` int(11) NOT NULL,
-  `nome_prod` varchar(45) DEFAULT NULL,
+  `nome_prod` varchar(100) NOT NULL,
   `peso_prod` float DEFAULT NULL,
   `cor_prod` varchar(45) DEFAULT NULL,
-  `tamanho_prod` varchar(45) DEFAULT NULL,
-  `numero_prod` int(11) DEFAULT NULL,
-  `con_indicacao_prod` varchar(45) DEFAULT NULL,
-  `obs_prod` varchar(500) DEFAULT NULL,
+  `tamanho_prod` varchar(2) DEFAULT NULL,
+  `numero_prod` int(3) DEFAULT NULL,
+  `con_indicacao_prod` varchar(100) DEFAULT NULL,
   `dt_entr_prod` date DEFAULT NULL,
-  `dt_saida_prod` date DEFAULT NULL,
-  `marca_prod` varchar(45) DEFAULT NULL,
+  `marca_prod` varchar(45) NOT NULL,
   `fabricante_prod` varchar(45) DEFAULT NULL,
-  `validade_prod` datetime DEFAULT NULL
+  `validade_prod` datetime DEFAULT NULL,
+  `valor_prod` decimal(8,2) NOT NULL,
+  `obs_prod` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `produtos`
 --
 
-INSERT INTO `produtos` (`idprodutos`, `idcate_produto`, `idfornecedores`, `nome_prod`, `peso_prod`, `cor_prod`, `tamanho_prod`, `numero_prod`, `con_indicacao_prod`, `obs_prod`, `dt_entr_prod`, `dt_saida_prod`, `marca_prod`, `fabricante_prod`, `validade_prod`) VALUES
-(1, 1, 1, 'Passoca', 0.3, 'branco', 'médio', 0, '0', '0', '2017-09-01', '2017-09-01', 'Passoca', 'IBA', '2018-02-01 00:00:00');
+INSERT INTO `produtos` (`idprodutos`, `idcate_produto`, `idfornecedores`, `nome_prod`, `peso_prod`, `cor_prod`, `tamanho_prod`, `numero_prod`, `con_indicacao_prod`, `dt_entr_prod`, `marca_prod`, `fabricante_prod`, `validade_prod`, `valor_prod`, `obs_prod`) VALUES
+(1, 1, 1, 'Coca Cola 600ml', 0, 'preto', 'nã', 0, 'não disponível', '2017-11-02', 'Coca Cola', 'Coca Cola Goiânia LTDA', '2018-11-02 00:00:00', '6.00', 'não disponível'),
+(2, 2, 2, 'Luvas de luta', 0, 'azul', 'M', 0, 'Não Disponíveis', '2017-11-05', 'IFTNES', 'IFTNES', NULL, '20.00', 'Não Disponíveis'),
+(4, 2, 2, 'Camiseta Regata', 0, 'Verde', 'G', 0, 'Não possui', '2017-11-11', 'Oklay', 'Oklay', '2017-11-11 00:00:00', '35.00', 'Camiseta Regata Oklay G'),
+(5, 1, 3, 'PEPSI lata 600ml', 0, 'Azul', '', 0, 'Não possui', '2017-11-11', 'PEPSI', 'PEPSI', '2018-11-11 00:00:00', '6.00', 'PEPSI lata 600ml'),
+(6, 1, 1, 'Gatorade de laranja 500ml', 0, 'Laranja', '', 0, 'Não possui', '2017-11-11', 'Gatorade', 'Coca Cola GO', '2018-11-11 00:00:00', '10.00', 'Gatorade de laranja 500ml');
 
 -- --------------------------------------------------------
 
@@ -5997,31 +6076,22 @@ INSERT INTO `produtos` (`idprodutos`, `idcate_produto`, `idfornecedores`, `nome_
 --
 
 CREATE TABLE `treinos` (
-  `idtreinos` int(11) NOT NULL,
-  `idalunos_cliente` int(11) NOT NULL,
-  `idfuncionarios` int(11) NOT NULL,
-  `idequipamento` int(11) NOT NULL,
-  `nome_treino` varchar(45) DEFAULT NULL,
-  `nome_exercicio_treino` varchar(45) DEFAULT NULL,
-  `grp_musc_treino` varchar(45) DEFAULT NULL,
-  `num_series_treino` int(11) DEFAULT NULL,
-  `turno_treino` varchar(45) DEFAULT NULL,
-  `domingo_treino` int(11) NOT NULL,
-  `segunda_treino` int(11) NOT NULL,
-  `terca_treino` int(11) NOT NULL,
-  `quarta_treino` int(11) NOT NULL,
-  `quinta_treino` int(11) NOT NULL,
-  `sexta_treino` int(11) NOT NULL,
-  `sabado_treino` int(11) NOT NULL,
-  `obs_treino` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idtreino` int(11) NOT NULL,
+  `idexercicio` int(11) NOT NULL,
+  `idequipamentos` int(11) NOT NULL,
+  `nome_treino` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `sigla_treino` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `grupos_muscular_treino` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `series_treino` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `obs_treino` varchar(500) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `treinos`
 --
 
-INSERT INTO `treinos` (`idtreinos`, `idalunos_cliente`, `idfuncionarios`, `idequipamento`, `nome_treino`, `nome_exercicio_treino`, `grp_musc_treino`, `num_series_treino`, `turno_treino`, `domingo_treino`, `segunda_treino`, `terca_treino`, `quarta_treino`, `quinta_treino`, `sexta_treino`, `sabado_treino`, `obs_treino`) VALUES
-(1, 1, 1, 0, 'Peitoral', 'Supino Reto', 'Peito', 100, 'Matutinio', 0, 0, 0, 0, 0, 0, 0, 'Supino Reto na Quarta-feira');
+INSERT INTO `treinos` (`idtreino`, `idexercicio`, `idequipamentos`, `nome_treino`, `sigla_treino`, `grupos_muscular_treino`, `series_treino`, `obs_treino`) VALUES
+(1, 1, 1, 'TESTE', 'TESTE', 'TESTE', 'TESTE', 'TESTE');
 
 -- --------------------------------------------------------
 
@@ -6043,8 +6113,12 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `nome_usuario`, `senha_usuario`, `email_usuario`, `perfil_usuario`, `idfuncionarios`) VALUES
-(1, 'Pedro', '827ccb0eea8a706c4c34a16891f84e7b', 'pedro@email.com.br', 'administrador', 1),
-(2, 'admin', 'admin', 'admin@email.com', 'administrador', 1);
+(1, 'Administrador', 'admin', 'admin@email.com', 'administrador', 1),
+(2, 'João da Silva de Oliveira', '12345', 'joao@email.com', 'basico', 2),
+(3, 'Pedro da Silva Junior', '123456', 'junior@email.com', 'admin', 5),
+(4, 'Gabriel Cardoso', '123456', 'gabriel@email.com', 'professor', 6),
+(5, 'Matheus Lima', '123456', 'matheus@email.com', 'professor', 7),
+(6, 'TESTE', '123', 'teste@email.com', 'admin', 3);
 
 -- --------------------------------------------------------
 
@@ -6055,9 +6129,10 @@ INSERT INTO `usuario` (`idusuario`, `nome_usuario`, `senha_usuario`, `email_usua
 CREATE TABLE `vendas` (
   `idvendas` int(11) NOT NULL,
   `idprodutos` int(11) NOT NULL,
+  `idestoques` int(11) NOT NULL,
   `idalunos_cliente` int(11) NOT NULL,
   `data_venda` datetime DEFAULT NULL,
-  `valor_vendas` float DEFAULT NULL,
+  `valor_vendas` decimal(8,2) DEFAULT NULL,
   `qt_vendas` int(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -6065,12 +6140,21 @@ CREATE TABLE `vendas` (
 -- Extraindo dados da tabela `vendas`
 --
 
-INSERT INTO `vendas` (`idvendas`, `idprodutos`, `idalunos_cliente`, `data_venda`, `valor_vendas`, `qt_vendas`) VALUES
-(1, 1, 1, '2017-09-01 00:00:00', 0, 1);
+INSERT INTO `vendas` (`idvendas`, `idprodutos`, `idestoques`, `idalunos_cliente`, `data_venda`, `valor_vendas`, `qt_vendas`) VALUES
+(1, 4, 3, 7, '2017-11-11 15:00:00', '35.00', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `agenda_treino`
+--
+ALTER TABLE `agenda_treino`
+  ADD PRIMARY KEY (`idagenda`),
+  ADD KEY `treinos_idx` (`idtreino`),
+  ADD KEY `alunos_idx` (`idalunos_cliente`),
+  ADD KEY `professor_idx` (`idfuncionarios`);
 
 --
 -- Indexes for table `alunos_cliente`
@@ -6128,8 +6212,7 @@ ALTER TABLE `endereco_fun`
 --
 ALTER TABLE `equipamentos`
   ADD PRIMARY KEY (`idequipamentos`),
-  ADD KEY `fk_equipamentos_fornecedores1_idx` (`idfornecedores`),
-  ADD KEY `treino_idx` (`idtreino_equip`);
+  ADD KEY `fk_equipamentos_fornecedores1_idx` (`idfornecedores`);
 
 --
 -- Indexes for table `estado`
@@ -6143,6 +6226,12 @@ ALTER TABLE `estado`
 ALTER TABLE `estoq_prod`
   ADD PRIMARY KEY (`idestoques`),
   ADD KEY `fk_estoques_produtos1_idx` (`idprodutos`);
+
+--
+-- Indexes for table `exercicios`
+--
+ALTER TABLE `exercicios`
+  ADD PRIMARY KEY (`idexercicios`);
 
 --
 -- Indexes for table `fornecedores`
@@ -6177,11 +6266,9 @@ ALTER TABLE `produtos`
 -- Indexes for table `treinos`
 --
 ALTER TABLE `treinos`
-  ADD PRIMARY KEY (`idtreinos`),
-  ADD KEY `fk_treinos_alunos_cliente1_idx` (`idalunos_cliente`),
-  ADD KEY `fk_treinos_funcionarios1_idx` (`idfuncionarios`),
-  ADD KEY `id_equipamento_idx` (`idequipamento`),
-  ADD KEY `fk_equipamento_idx` (`idequipamento`);
+  ADD PRIMARY KEY (`idtreino`),
+  ADD KEY `exercicios_idx` (`idexercicio`),
+  ADD KEY `equipamentos_idx` (`idequipamentos`);
 
 --
 -- Indexes for table `usuario`
@@ -6196,22 +6283,28 @@ ALTER TABLE `usuario`
 ALTER TABLE `vendas`
   ADD PRIMARY KEY (`idvendas`),
   ADD KEY `fk_vendas_produtos1_idx` (`idprodutos`),
-  ADD KEY `fk_vendas_alunos_cliente1_idx` (`idalunos_cliente`);
+  ADD KEY `fk_vendas_alunos_cliente1_idx` (`idalunos_cliente`),
+  ADD KEY `venda_estoque_idx` (`idestoques`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `agenda_treino`
+--
+ALTER TABLE `agenda_treino`
+  MODIFY `idagenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `alunos_cliente`
 --
 ALTER TABLE `alunos_cliente`
-  MODIFY `idalunos_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idalunos_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `anamneses`
 --
 ALTER TABLE `anamneses`
-  MODIFY `idanamneses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idanamneses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `cat_produto`
 --
@@ -6226,22 +6319,22 @@ ALTER TABLE `cidade`
 -- AUTO_INCREMENT for table `endereco_aluno`
 --
 ALTER TABLE `endereco_aluno`
-  MODIFY `idendereco_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idendereco_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `endereco_fornecedor`
 --
 ALTER TABLE `endereco_fornecedor`
-  MODIFY `idendereco_forn` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idendereco_forn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `endereco_fun`
 --
 ALTER TABLE `endereco_fun`
-  MODIFY `idendereco_fun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idendereco_fun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `equipamentos`
 --
 ALTER TABLE `equipamentos`
-  MODIFY `idequipamentos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idequipamentos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `estado`
 --
@@ -6251,32 +6344,42 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT for table `estoq_prod`
 --
 ALTER TABLE `estoq_prod`
-  MODIFY `idestoques` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idestoques` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `exercicios`
+--
+ALTER TABLE `exercicios`
+  MODIFY `idexercicios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `fornecedores`
 --
 ALTER TABLE `fornecedores`
-  MODIFY `idfornecedores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idfornecedores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `funcionarios`
 --
 ALTER TABLE `funcionarios`
-  MODIFY `idfuncionarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idfuncionarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  MODIFY `idmensalidades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idmensalidades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `idprodutos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idprodutos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `treinos`
+--
+ALTER TABLE `treinos`
+  MODIFY `idtreino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `vendas`
 --
@@ -6285,6 +6388,14 @@ ALTER TABLE `vendas`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Limitadores para a tabela `agenda_treino`
+--
+ALTER TABLE `agenda_treino`
+  ADD CONSTRAINT `alunos` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `professor` FOREIGN KEY (`idfuncionarios`) REFERENCES `funcionarios` (`idfuncionarios`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `treinos` FOREIGN KEY (`idtreino`) REFERENCES `treinos` (`idtreino`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `alunos_cliente`
@@ -6329,8 +6440,7 @@ ALTER TABLE `endereco_fun`
 -- Limitadores para a tabela `equipamentos`
 --
 ALTER TABLE `equipamentos`
-  ADD CONSTRAINT `fk_equipamentos_fornecedores1` FOREIGN KEY (`idfornecedores`) REFERENCES `fornecedores` (`idfornecedores`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `treino` FOREIGN KEY (`idtreino_equip`) REFERENCES `treinos` (`idtreinos`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_equipamentos_fornecedores1` FOREIGN KEY (`idfornecedores`) REFERENCES `fornecedores` (`idfornecedores`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `estoq_prod`
@@ -6367,8 +6477,8 @@ ALTER TABLE `produtos`
 -- Limitadores para a tabela `treinos`
 --
 ALTER TABLE `treinos`
-  ADD CONSTRAINT `fk_treinos_alunos_cliente1` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_treinos_funcionarios1` FOREIGN KEY (`idfuncionarios`) REFERENCES `funcionarios` (`idfuncionarios`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `equipamentos` FOREIGN KEY (`idequipamentos`) REFERENCES `equipamentos` (`idequipamentos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `exercicios` FOREIGN KEY (`idexercicio`) REFERENCES `exercicios` (`idexercicios`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `usuario`
@@ -6381,7 +6491,8 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `vendas`
   ADD CONSTRAINT `fk_vendas_alunos_cliente1` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_vendas_produtos1` FOREIGN KEY (`idprodutos`) REFERENCES `produtos` (`idprodutos`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_vendas_produtos1` FOREIGN KEY (`idprodutos`) REFERENCES `produtos` (`idprodutos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `venda_estoque` FOREIGN KEY (`idestoques`) REFERENCES `estoq_prod` (`idestoques`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

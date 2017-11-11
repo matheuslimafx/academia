@@ -122,7 +122,7 @@
             </div>
 
             <div class="form-group col-md-12">
-                <button name="" type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
+                <button name="" type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Atualizar</button>
             </div>               
         </form>
     </div>

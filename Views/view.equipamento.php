@@ -58,7 +58,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label>Preço de entrada</label>
-                    <input type="text" name="preco_equip_entr" class="form-control" id="moeda">
+                    <input type="text" name="preco_equip_entr" class="form-control moeda">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Data de Manutenção</label>
@@ -68,7 +68,7 @@
                     <label>* Marca</label>
                     <input type="text" name="marca_equip" class="form-control" required>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <label>Funcionalidade</label>
                     <input type="text" name="funcionalidade_equip" class="form-control">
                 </div>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label>Preço de entrada</label>
-                    <input type="text" name="preco_equip_entr" class="form-control" id="moeda">
+                    <input type="text" name="preco_equip_entr" class="form-control moeda">
                 </div>
                 <div class="form-group col-md-2">
                     <label>Data de Manutenção</label>
@@ -119,12 +119,12 @@
                     <label>* Marca</label>
                     <input type="text" name="marca_equip" class="form-control" required>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <label>Funcionalidade</label>
                     <input type="text" name="funcionalidade_equip" class="form-control">
                 </div>
                 <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Atualizar</button>
                 </div>
             </form>
         </div>   

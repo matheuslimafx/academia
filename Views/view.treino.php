@@ -12,6 +12,8 @@
                 </div>
             </form>
             <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Registro</button>
+            <button type="button" class="btn btn-primary open-modal-agenda"><i class="glyphicon glyphicon-plus"></i> Agendar Treino</button>
+            <button type="button" class="btn btn-danger close-modal-agenda"><i class="glyphicon glyphicon-remove"></i></button>
             <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
             <button type="button" class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.treinos.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório</button></a>
@@ -27,107 +29,33 @@
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
                 </div>
                 <div class="form-group col-md-6">
-                    <br><br>
-                    <label>* Nome do Treino</label>
-                    <input type="text" name="treino_nome" class="form-control" required>
+                    <label>* Nome</label>
+                    <input type="text" name="nome_treino" class="form-control">
                 </div>
                 <div class="form-group col-md-3">
-                    <br><br>
-                    <label>* Aluno</label>
-                    <select class="form-control" name="idalunos_cliente" required>
-                        <option>SELECIONE</option>
-                        <?php
-                        $ReadAlunos = new Read;
-                        $ReadAlunos->ExeRead("alunos_cliente");
-                        foreach ($ReadAlunos->getResult() as $e):
-                            extract($e);
-                            echo "<option value='{$idalunos_cliente}'>{$idalunos_cliente} - {$nome_aluno}</option>";
-                        endforeach;
-                        ?>
-                    </select>
+                    <label>* Sigla</label>
+                    <input type="text" name="sigla_treino" class="form-control" maxlength="5" placeholder="ABCDE">
                 </div>
                 <div class="form-group col-md-3">
-                    <br><br>
-                    <label>* Professor</label>
-                    <select class="form-control" name="idfuncionarios" required>
-                        <option>SELECIONE</option>
-                        <?php
-                        $ReadFun = new Read;
-                        $ReadFun->ExeRead("funcionarios", "WHERE cargo_func = :cargo_func", "cargo_func=Professor");
-                        foreach ($ReadFun->getResult() as $e):
-                            extract($e);
-                            echo "<option value='{$idfuncionarios}'>{$idfuncionarios} - {$nome_func}</option>";
-                        endforeach;
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>* Grupo Muscular</label>
-                    <select name="" class="form-control">
+                    <label>* Exercicío</label>
+                    <select name="idexercicio" class="form-control">
                         <option>SELECIONE</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>* Nome do Exercício</label>
-                    <select name="" class="form-control">
-                        <option>SELECIONE</option>
-                        <option></option>
-                    </select>
+                    <label>* Grupos Musculares</label>
+                    <input type="text" name="grupos_muscular_treino" class="form-control">
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Número de Series</label>
-                    <input type="text" name="num_series_treino" class="form-control">
-                </div>
-                <div class="form-group col-md-3">
-                    <label>* Turno</label>
-                    <select name="turno_treino" class="form-control" required>
-                        <option>SELECIONE</option>
-                        <option>Matutino</option>
-                        <option>Vespertino</option>
-                        <option>Noturno</option>
-                        <option>Qualquer</option>
-                    </select>
+                    <label>* Series</label>
+                    <input type="text" name="series_treino" class="form-control" placeholder="00 X 00" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Equipamento</label>
-                    <select name="idequipamento" class="form-control" required>
+                    <select name="idequipamentos" class="form-control">
                         <option>SELECIONE</option>
-                        <?php
-                        $ReadEquipamento = new Read;
-                        $ReadEquipamento->ExeRead("equipamentos");
-                        foreach ($ReadEquipamento->getResult() as $e):
-                            extract($e);
-                            echo "<option value='{$idequipamentos}'>{$idequipamentos} - {$nome_equip}</option>";
-                        endforeach;
-                        ?>
                     </select>
                 </div>
-                <div class="form-group col-md-9">
-                    <label>* Dias da Semana</label><br>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="domingo_treino" value=1> Domingo
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="segunda_treino" value=2> Segunda-Feira
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="terca_treino" value=3> Terça-Feira
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="quarta_treino" value=4> Quarta-Feira
-                    </div>
-                    <br>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="quinta_treino" value=5> Quinta-Feira
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="sexta_treino" value=6> Sexta-Feira
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="sabado_treino" value=7> Sabado
-                    </div>
-                </div>
-                <br>
                 <div class="form-group col-md-12">
                     <label>Observações</label>
                     <textarea name="obs_treino" class="form-control"></textarea>
@@ -146,108 +74,70 @@
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
                 </div>
                 <div class="form-group col-md-6">
-                    <br><br>
-                    <label>* Nome do Treino</label>
-                    <input type="text" name="treino_nome" class="form-control" required>
+                    <label>* Nome</label>
+                    <input type="text" name="nome_treino" class="form-control">
                 </div>
                 <div class="form-group col-md-3">
-                    <br><br>
-                    <label>* Aluno</label>
-                    <select class="form-control" name="idalunos_cliente" required>
+                    <label>* Sigla</label>
+                    <input type="text" name="sigla_treino" class="form-control" maxlength="5" placeholder="ABCDE">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>* Exercicío</label>
+                    <select name="idexercicio" class="form-control">
                         <option>SELECIONE</option>
-                        <?php
-                        $ReadAlunos = new Read;
-                        $ReadAlunos->ExeRead("alunos_cliente");
-                        foreach ($ReadAlunos->getResult() as $e):
-                            extract($e);
-                            echo "<option value='{$idalunos_cliente}'>{$idalunos_cliente} - {$nome_aluno}</option>";
-                        endforeach;
-                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <br><br>
-                    <label>* Professor</label>
-                    <select class="form-control" name="idfuncionarios" required>
-                        <option>SELECIONE</option>
-                        <?php
-                        $ReadFun = new Read;
-                        $ReadFun->ExeRead("funcionarios", "WHERE cargo_func = :cargo_func", "cargo_func=Professor");
-                        foreach ($ReadFun->getResult() as $e):
-                            extract($e);
-                            echo "<option value='{$idfuncionarios}'>{$idfuncionarios} - {$nome_func}</option>";
-                        endforeach;
-                        ?>
-                    </select>
+                    <label>* Grupos Musculares</label>
+                    <input type="text" name="grupos_muscular_treino" class="form-control">
                 </div>
                 <div class="form-group col-md-3">
-                    <label>* Nome do Exercício</label>
-                    <input type="text" name="nome_exercicio_treino" class="form-control" required>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>Grupo Muscular</label>
-                    <input type="text" name="grp_musc_treino" class="form-control">
-                </div>
-                <div class="form-group col-md-3">
-                    <label>Número de Series</label>
-                    <input type="text" name="num_series_treino" class="form-control">
-                </div>
-                <div class="form-group col-md-3">
-                    <label>* Turno</label>
-                    <select name="turno_treino" class="form-control" required>
-                        <option>SELECIONE</option>
-                        <option>Matutino</option>
-                        <option>Vespertino</option>
-                        <option>Noturno</option>
-                        <option>Qualquer</option>
-                    </select>
+                    <label>* Series</label>
+                    <input type="text" name="series_treino" class="form-control" placeholder="00 X 00" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Equipamento</label>
-                    <select name="idequipamento" class="form-control" required>
+                    <select name="idequipamentos" class="form-control">
                         <option>SELECIONE</option>
-                        <?php
-                        $ReadEquipamento = new Read;
-                        $ReadEquipamento->ExeRead("equipamentos");
-                        foreach ($ReadEquipamento->getResult() as $e):
-                            extract($e);
-                            echo "<option value='{$idequipamentos}'>{$idequipamentos} - {$nome_equip}</option>";
-                        endforeach;
-                        ?>
                     </select>
                 </div>
-                <div class="form-group col-md-9">
-                    <label>* Dias da Semana</label><br>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="domingo_treino" value=1> Domingo
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="segunda_treino" value=2> Segunda-Feira
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="terca_treino" value=3> Terça-Feira
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="quarta_treino" value=4> Quarta-Feira
-                    </div>
-                    <br>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="quinta_treino" value=5> Quinta-Feira
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="sexta_treino" value=6> Sexta-Feira
-                    </div>
-                    <div class="checkbox-inline">
-                        <input type="checkbox" name="sabado_treino" value=7> Sabado
-                    </div>
-                </div>
-                <br>
                 <div class="form-group col-md-12">
                     <label>Observações</label>
                     <textarea name="obs_treino" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-12">
-                    <button type="submit" name="" value="Cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Salvar</button>
+                    <button type="submit" name="" value="Cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Atualizar</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="form-group col-md-12 modal-agenda">
+            <form action="" method="POST" class="">
+                <div class="container">
+                    <h5 class="obrigatorios">* Campos obrigatórios</h5>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>* Aluno</label>
+                    <select name="idalunos_cliente" class="form-control" required>
+                        <option value="0">SELECIONE</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>* Professor</label>
+                    <select name="idfuncionarios" class="form-control">
+                        <option value="0">SELECIONE</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>* Data</label>
+                    <input type="date" name="data" class="form-control" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>* Horário</label>
+                    <input type="time" name="horario" class="form-control" required>
+                </div>
+                <div class="form-group col-md-12">
+                    <button type="submit" name="" value="Agendar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Agendar</button>
                 </div>
             </form>
         </div>
@@ -257,30 +147,25 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome do Treino</th>
-                    <th>Professor</th>
-                    <th>Aluno</th>
-                    <th>Turno</th>
+                    <th>Sigla</th>
+                    <th>Exercicío</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody class="j-result-treinos">
                 <?php
                 $ReadTreinos = new Read;
-                $ReadTreinos->FullRead("SELECT treinos.idtreinos, treinos.nome_treino, treinos.turno_treino, funcionarios.nome_func, alunos_cliente.nome_aluno ".
-                                        "FROM treinos ".
-                                        "LEFT JOIN funcionarios ON treinos.idfuncionarios = funcionarios.idfuncionarios ".
-                                        "LEFT JOIN alunos_cliente ON treinos.idalunos_cliente = alunos_cliente.idalunos_cliente");
+                $ReadTreinos->FullRead("SELECT treinos.idtreino, treinos.nome_treino, treinos.sigla_treino, exercicios.descricao_exe FROM treinos INNER JOIN exercicios ON treinos.idexercicio = exercicios.idexercicios");
                 foreach ($ReadTreinos->getResult() as $e):
                     extract($e);
                     echo
-                    "<tr id='{$idtreinos}'>" .
-                    "<td>{$idtreinos}</td>" .
+                    "<tr id='{$idtreino}'>" .
+                    "<td>{$idtreino}</td>" .
                     "<td>{$nome_treino}</td>" .
-                    "<td>{$nome_func}</td>" .
-                    "<td>{$nome_aluno}</td>" .
-                    "<td>{$turno_treino}</td>" .
+                    "<td>{$sigla_treino}</td>" .
+                    "<td>{$descricao_exe}</td>" .
                     "<td align='right'>" .
-                    "<button class='btn btn-success btn-xs open-modal-update' idtreinos='{$idtreinos}'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<button class='btn btn-success btn-xs open-modal-update' idtreino='{$idtreino}'><i class='glyphicon glyphicon-edit'></i></button> " .
                     "<a href='http://localhost/academia/Views/view.treino.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " .
                     "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" .
                     "</td>" .

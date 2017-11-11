@@ -7,7 +7,7 @@
         <div class="col-md-12" align="right">
             <form action="" method="POST">
                 <div class="form-group col-md-4">
-                    <input type="text" name="pesquisa" class="form-control pesquisar" placeholder="Pesquisar">
+                    <input type="text" class="form-control pesquisar pesquisar-venda" placeholder="Pesquisar por ID e Cliente">
                 </div>
             </form>
             <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Nova Venda</button>
@@ -15,9 +15,15 @@
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.vendas.relatorio.php" target="_blank"><button type="" class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
         </div>
 
-        <div class="alert alert-success mensagens-retorno">Venda realizada com sucesso!</div>
+        <div class="form-group col-md-12 mensagens-retorno">
+            <div class='alert alert-success'>
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                Cadastro realizado com sucesso!
+            </div>
+        </div>
 
         <div class="col-md-12 modal-create">
+            <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
             <form action="" method="POST">
                 <input type="hidden" name="callback" value="vendas">
                 <div class="form-group col-md-3">
@@ -46,7 +52,7 @@
 
                 <div class="form-group col-md-3">
                     <label>Valor Total</label>
-                    <input type="text" name="valor_vendas" class="form-control" placeholder="R$" disabled>
+                    <input type="text" name="valor_vendas" class="form-control moeda" placeholder="R$">
                 </div>
 
                 <div class="form-group col-md-12">
@@ -70,12 +76,12 @@
                 <tbody>
                     <?php
                     $ReadVenda = new Read;
-                    $ReadVenda->FullRead("SELECT vendas.idvendas, vendas.data_venda, vendas.valor_vendas, vendas.qt_vendas, ".
-                                        "produtos.nome_prod, ". 
-                                        "alunos_cliente.nome_aluno ".
-                                        "FROM vendas ".
-                                        "LEFT JOIN produtos ON  vendas.idprodutos = produtos.idprodutos ".
-                                        "LEFT JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente");
+                    $ReadVenda->FullRead("SELECT vendas.idvendas, vendas.data_venda, vendas.valor_vendas, vendas.qt_vendas, " .
+                            "produtos.nome_prod, " .
+                            "alunos_cliente.nome_aluno " .
+                            "FROM vendas " .
+                            "INNER JOIN produtos ON  vendas.idprodutos = produtos.idprodutos " .
+                            "INNER JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente");
                     foreach ($ReadVenda->getResult() as $e):
                         extract($e);
                         echo

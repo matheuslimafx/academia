@@ -88,6 +88,10 @@
     width: 40px;
 }
 
+.close-modal-agenda{
+    display: none;
+    width: 40px;
+}
 /* Estilos das modals de Create e Update */
 .modal-create{
     display: none;
@@ -95,6 +99,11 @@
 }
 
 .modal-update{
+    display: none;
+    background-color: #f2f2f2;
+}
+
+.modal-agenda{
     display: none;
     background-color: #f2f2f2;
 }
