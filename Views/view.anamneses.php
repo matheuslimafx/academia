@@ -15,7 +15,7 @@
             <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Registro</button>
             <button class="btn btn-danger close-modal-create" ><i class="glyphicon glyphicon-remove"></i></button>
             <button class="btn btn-danger close-modal-update" ><i class="glyphicon glyphicon-remove"></i></button>
-            <a class="relatorio-geral" href="http://localhost/academia/Views/view.anamneses.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
+            <a class="relatorio-geral" href="http://localhost/academia/Views/view.anamneses.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio Geral</button></a>
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
@@ -276,7 +276,7 @@
                     "<td>{$nome_aluno}</td>" .
                     "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-anamnese' idanamneses={$idanamneses}><i class='glyphicon glyphicon-edit'></i></button> " .
-                    "<a href='http://localhost/academia/Views/view.anamnese.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " .
+                    "<a href='http://localhost/academia/Views/view.anamnese.relatorio.php?idanamneses={$idanamneses}' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " .
                     "<button class='btn btn-danger btn-xs open-delete j-btn-del-anamnese' idanamneses={$idanamneses}><i class='glyphicon glyphicon-trash'></i></button>" .
                     "</td>" .
                     "</tr>";

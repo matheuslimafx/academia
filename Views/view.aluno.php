@@ -20,7 +20,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
             <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Registro</button>
             <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
             <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
-            <a href="http://localhost/academia/Views/view.alunos.relatorio.php" target="_blank" class="relatorio-geral"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
+            <a href="http://localhost/academia/Views/view.alunos.relatorio.php" target="_blank" class="relatorio-geral"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio Geral</button></a>
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
@@ -238,7 +238,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     " <td>{$status_aluno}</td>" .
                     "<td align='right'>".
                         "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-aluno' idalunos_cliente='{$idalunos_cliente}' idendereco_aluno='{$idendereco_aluno}'><i class='glyphicon glyphicon-edit'></i></button> ".
-                        "<a href='http://localhost/academia/Views/view.aluno.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> ".
+                        "<a href='http://localhost/academia/Views/view.aluno.relatorio.php?idalunos_cliente={$idalunos_cliente}' target='_blank'><button class='btn btn-warning btn-xs open-imprimir relatorio-aluno'><i class='glyphicon glyphicon-print'></i></button></a> ".
                     "</td>" .
                     "</tr>";
                 endforeach;

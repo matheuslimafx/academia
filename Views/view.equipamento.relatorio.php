@@ -2,6 +2,11 @@
 
 require '../_app/Config.inc.php';
 
+$RelatorioEquip = new Read;
+$RelatorioEquip->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.data_equip_entr, equipamentos.data_equip_saida, equipamentos.preco_equip_entr, equipamentos.marca_equip, equipamentos.funcionalidade_equip, equipamentos.data_manutencao_equip, fornecedores.nome_forn
+FROM equipamentos
+INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores");
+
 require 'Relatorios/autoload.inc.php';
 
 use Dompdf\Dompdf;
@@ -22,62 +27,57 @@ th, td {
 
             <h1>Performance Academia</h1>
 
-            <h2>Relátorio de Equipamentos</h2>";
+            <h2>Relátorio de Equipamentos</h2>
+            
+            <table  style='width:100%'>";
 
+foreach ($RelatorioEquip->getResult() as $e):
 
-$html .= "<table  style='width:100%'>"
-        
-        . "<tr>"
-        . "<th>ID</th>"
-        . "<td></td>"
-        ."</tr>"
-        
-        . "<tr>"
-        . "<th>Fornecedor</th>"
-        . "<td></td>"
-        ."</tr>"
-        
-        . "<tr>"
-        . "<th>Treino</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Nome do equipamento</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Data de entrada</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Data de Saida</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Preço de entrada</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Marca</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Funcionalidade</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Data de manutenção</th>"
-        . "<td></td>"
-        . "</tr>"
+    extract($e);
 
-        . "</table>";
+    $html .= "<tr>"
+            . "<th>ID</th>"
+            . "<td>{$idequipamentos}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Nome do equipamento</th>"
+            . "<td>{$nome_equip}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Fornecedor</th>"
+            . "<td>{$nome_forn}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Data de entrada</th>"
+            . "<td>{$data_equip_entr}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Data de Saida</th>"
+            . "<td>{$data_equip_saida}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Preço de entrada</th>"
+            . "<td>{$preco_equip_entr}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Marca</th>"
+            . "<td>{$marca_equip}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Funcionalidade</th>"
+            . "<td>{$funcionalidade_equip}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Data de manutenção</th>"
+            . "<td>{$data_manutencao_equip}</td>"
+            . "</tr>"
+            . "<tr style='background-color: red;'>"
+            . "<th></th>"
+            . "<td></td>"
+            . "</tr>";
+
+endforeach;
+$html .= "</table>";
 
 $dompdf = new Dompdf();
 
