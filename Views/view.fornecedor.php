@@ -13,7 +13,7 @@
             <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-user"></i> Novo Registro</button>
             <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
             <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
-            <a class="relatorio-geral" href="http://localhost/academia/Views/view.fornecedor.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório</button></a>
+            <a class="relatorio-geral" href="http://localhost/academia/Views/view.fornecedores.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório Geral</button></a>
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">

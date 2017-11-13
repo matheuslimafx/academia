@@ -345,7 +345,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     "<td>{$status_func}</td>" .
                     "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update' idfuncionarios='{$idfuncionarios}' idendereco_func='{$idendereco_func}'><i class='glyphicon glyphicon-edit'></i></button> " .
-                    "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" .
+                    "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php?idfuncionarios={$idfuncionarios}' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" .
                     "</td>" .
                     "</tr>";
                 endforeach;

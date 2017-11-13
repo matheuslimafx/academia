@@ -49,6 +49,7 @@ $(function (){
        $('.modal-update').fadeOut(0);
     });
     
+    //Botão para gerar uma nova agenda de Treinos
     $('html').on('click', '.open-modal-agenda', function(){
        $('.modal-agenda').fadeIn(0);
        $('.close-modal-agenda').fadeIn(0);
@@ -59,6 +60,7 @@ $(function (){
        $('.modal-table').fadeOut(0);
     });
     
+    //Botão de fechar o formulário de uma nova Agenda de treinos
     $('html').on('click', '.close-modal-agenda', function(){
        $('.modal-agenda').fadeOut(0);
        $('.close-modal-agenda').fadeOut(0);
@@ -69,4 +71,32 @@ $(function (){
        $('.modal-table').fadeIn(0);
     });
     
+    //Botão que abre uma nova modal para pagamento de mensalidades
+    $('html').on('click', '.open-modal-pagamento', function (){
+       $('.pagar-mensalidade').fadeIn(0);
+       $('.close-modal-pagamento').fadeIn(0);
+       $('.open-modal-agenda').fadeOut(0);
+       $('.pesquisar').fadeOut(0);
+       $('.open-modal-create').fadeOut(0);
+       $('.relatorio-geral').fadeOut(0);
+       $('.modal-table').fadeOut(0);
+    });
+    
+    //Botão para fechar a modal de pagamentos
+    $('html').on('click', '.close-modal-pagamento', function (){
+       $('.pagar-mensalidade').fadeOut(0);
+       $('.close-modal-pagamento').fadeOut(0);
+       $('.comprovante-mensalidade').fadeOut(0); 
+       $('.open-modal-agenda').fadeIn(0);
+       $('.pesquisar').fadeIn(0);
+       $('.open-modal-create').fadeIn(0);
+       $('.relatorio-geral').fadeIn(0);
+       $('.modal-table').fadeIn(0);
+    });
+    
+    //Botão de pagamento de mensalidade
+    $('html').on('click', '.pagamento-mensalidade', function (){
+       $('.comprovante-mensalidade').fadeIn(0); 
+       $('.alert-mensalidade').fadeIn(0);
+    });
 });
