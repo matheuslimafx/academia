@@ -4,7 +4,6 @@
  * Upload.class [ HELPER ]
  * Reponsável por executar upload de imagens, arquivos e mídias no sistema!
  * 
- * @copyright (c) 2014, Robson V. Leite UPINSIDE TECNOLOGIA
  */
 class Upload {
 

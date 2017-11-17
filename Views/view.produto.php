@@ -105,13 +105,13 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label>* Qtd. Estoque</label>
-                    <input type="number" name="quant_estoque" class="form-control" required>
+                    <input type="number" name="quant_estoque" class="form-control" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Valor</label>
                     <input type="text" name="valor_prod" class="form-control moeda" placeholder="R$" required>
                 </div>
-                
+
                 <div class="form-group col-md-12">
                     <label>Observações</label>
                     <textarea name="obs_prod" class="form-control"></textarea>
@@ -124,7 +124,9 @@
 
         <!--Modal de UPDATE de Produto-->
         <div class="col-md-12 modal-update">
-            <form action="" method="POST">
+            <form action="" method="POST" class="j-form-update-produto">
+                <input type="hidden" name="callback" value="update-produto" />
+                <input type="hidden" name="idprodutos" value="">
                 <div class="container">
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
                 </div>
@@ -210,7 +212,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label>* Qtd. Estoque</label>
-                    <input type="number" name="quant_estoque" class="form-control" required>
+                    <input type="number" name="quant_estoque" class="form-control" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Valor</label>
@@ -230,10 +232,10 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Categoria</th>
-                    <th>Fornecedor</th>
                     <th>Nome</th>
                     <th>Qtd. Estoque</th>
+                    <th>Categoria</th>
+                    <th>Fornecedor</th>
                     <th></th>
                 </tr>
             </thead>
@@ -241,22 +243,22 @@
                 <?php
                 $ReadProd = new Read;
                 $ReadProd->FullRead("SELECT produtos.idprodutos, cat_produto.descricao, fornecedores.nome_forn, produtos.nome_prod, estoq_prod.quant_estoque "
-                             . "FROM produtos "
-                             . "INNER JOIN cat_produto ON cat_produto.idcate_produto = produtos.idcate_produto "
-                             . "INNER JOIN fornecedores ON fornecedores.idfornecedores = produtos.idfornecedores "
-                             . "INNER JOIN estoq_prod ON estoq_prod.idprodutos = produtos.idprodutos");
+                        . "FROM produtos "
+                        . "INNER JOIN cat_produto ON cat_produto.idcate_produto = produtos.idcate_produto "
+                        . "INNER JOIN fornecedores ON fornecedores.idfornecedores = produtos.idfornecedores "
+                        . "INNER JOIN estoq_prod ON estoq_prod.idprodutos = produtos.idprodutos");
                 foreach ($ReadProd->getResult() as $e):
 //                    var_dump($ReadProd->getResult()); die;
                     extract($e);
                     echo
                     "<tr id='{$idprodutos}'>" .
                     "<td>{$idprodutos}</td>" .
-                    "<td>{$descricao}</td>" .
-                    "<td>{$nome_forn}</td>" .
                     "<td>{$nome_prod}</td>" .
                     "<td>{$quant_estoque}</td>" .
+                    "<td>{$descricao}</td>" .
+                    "<td>{$nome_forn}</td>" .
                     "<td align='right'>" .
-                    "<button class='btn btn-success btn-xs open-modal-update' idprodutos='{$idprodutos}'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-produto' idprodutos='{$idprodutos}'><i class='glyphicon glyphicon-edit'></i></button> " .
                     "</td>" .
                     "</tr>";
                 endforeach;

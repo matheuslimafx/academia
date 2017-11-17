@@ -2,9 +2,9 @@
 
 /**
  * <b>Update.class:</b>
- * Model(Classe) responsável por atualizações de Anamneses no banco de dados!
+ * Model(Classe) responsável por atualizações de Produtos no banco de dados!
  */
-class AtualizarAnamnese {
+class AtualizarProduto {
 
     private $Tabela;
     private $Dados;
@@ -25,7 +25,7 @@ class AtualizarAnamnese {
     }
 
     /**
-     * <b>atualizarAnamnese:</b> Executa uma atualização simplificada com Prepared Statments. Basta informar o 
+     * <b>atualizarProduto:</b> Executa uma atualização simplificada com Prepared Statments. Basta informar o 
      * nome da tabela, os dados a serem atualizados em um Array Atribuitivo, as condições e uma 
      * analize em cadeia (ParseString) para executar.
      * @param STRING $Tabela = Nome da tabela
@@ -33,7 +33,26 @@ class AtualizarAnamnese {
      * @param STRING $Termos = WHERE coluna = :link AND.. OR..
      * @param STRING $ParseString = link={$link}&link2={$link2}
      */
-    public function atualizarAnamnese($Tabela, array $Dados, $Termos, $ParseString) {
+    public function atualizarProduto($Tabela, array $Dados, $Termos, $ParseString) {
+        $this->Tabela = (string) $Tabela;
+        $this->Dados = $Dados;
+        $this->Termos = (string) $Termos;
+
+        parse_str($ParseString, $this->Places);
+        $this->getSyntax();
+        $this->Execute();
+    }
+    
+        /**
+     * <b>atualizarQtdProduto:</b> Executa uma atualização simplificada com Prepared Statments. Basta informar o 
+     * nome da tabela, os dados a serem atualizados em um Array Atribuitivo, as condições e uma 
+     * analize em cadeia (ParseString) para executar.
+     * @param STRING $Tabela = Nome da tabela
+     * @param ARRAY $Dados = [ NomeDaColuna ] => Valor ( Atribuição )
+     * @param STRING $Termos = WHERE coluna = :link AND.. OR..
+     * @param STRING $ParseString = link={$link}&link2={$link2}
+     */
+    public function atualizarQtdProduto($Tabela, array $Dados, $Termos, $ParseString) {
         $this->Tabela = (string) $Tabela;
         $this->Dados = $Dados;
         $this->Termos = (string) $Termos;

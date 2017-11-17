@@ -3,8 +3,7 @@
 /**
  * Check.class [ HELPER ]
  * Classe responável por manipular e validar dados do sistema!
- * 
- * @copyright (c) 2014, Robson V. Leite UPINSIDE TECNOLOGIA
+ *
  */
 class Check {
 

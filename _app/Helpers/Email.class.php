@@ -7,7 +7,7 @@ require_once __DIR__ . '/../Library/PHPMailer/class.smtp.php';
  * Email [ MODEL ]
  * Modelo responsável por configurar a PHPMailer, validar os dados e disparar e-mails do sistema!
  * 
- * @copyright (c) year, Robson V. Leite UPINSIDE TECNOLOGIA
+ *
  */
 class Email {
 

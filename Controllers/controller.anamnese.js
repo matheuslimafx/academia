@@ -100,7 +100,7 @@ $(function () {
         return false;
     });
 
-    //    FUNÇÃO RESPONSÁVEL POR ATUALIZAR OS DADOS NO BANCO DE DADOS:
+    //    FUNÇÃO RESPONSÁVEL POR ATUALIZAR OS DADOS DE UMA ANAMNESE NO BANCO DE DADOS:
     $('.j-form-update-anamnese').submit(function () {
         var Form = $(this);
         var Data = Form.serialize();
