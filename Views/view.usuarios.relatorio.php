@@ -2,6 +2,12 @@
 
 require '../_app/Config.inc.php';
 
+$RelatorioUsuarios = new Read;
+$RelatorioUsuarios->FullRead("SELECT usuario.idusuario, usuario.nome_usuario, usuario.email_usuario, usuario.perfil_usuario, funcionarios.nome_func 
+FROM usuario
+INNER JOIN funcionarios ON usuario.idfuncionarios = funcionarios.idfuncionarios");
+
+
 require 'Relatorios/autoload.inc.php';
 
 use Dompdf\Dompdf;
@@ -22,32 +28,40 @@ th, td {
 
             <h1>Performance Academia</h1>
 
-            <h2>Relátorio de Usuários</h2>";
+            <h2>Relátorio de Usuários</h2>
+            
+<table  style='width:100%'>";
 
+foreach ($RelatorioUsuarios->getResult() as $e):
+    extract($e);
 
-$html .= "<table  style='width:100%'>"
-        
-        . "<tr>"
-        . "<th>ID</th>"
-        . "<td></td>"
-        ."</tr>"
-        
-        . "<tr>"
-        . "<th>Nome do Funcionário</th>"
-        . "<td></td>"
-        ."</tr>"
-        
-        . "<tr>"
-        . "<th>E-mail</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Perfil</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "</table>";
+    $html .= "<tr>"
+            . "<th>ID</th>"
+            . "<td>{$idusuario}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Nome do Usuário</th>"
+            . "<td>{$nome_usuario}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Nome do Funcionário</th>"
+            . "<td>{$nome_func}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>E-mail</th>"
+            . "<td>{$email_usuario}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Perfil</th>"
+            . "<td>{$perfil_usuario}</td>"
+            . "</tr>"
+            . "<tr style='background-color: red;'>"
+            . "<th></th>"
+            . "<td></td>"
+            . "</tr>";
+endforeach;
+
+$html .= "</table>";
 
 $dompdf = new Dompdf();
 

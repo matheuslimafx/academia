@@ -16,7 +16,7 @@
             <button type="button" class="btn btn-danger close-modal-agenda"><i class="glyphicon glyphicon-remove"></i></button>
             <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
             <button type="button" class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
-            <a class="relatorio-geral" href="http://localhost/academia/Views/view.treinos.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório</button></a>
+            <a class="relatorio-geral" href="http://localhost/academia/Views/view.treinos.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório Geral</button></a>
         </div>
 
         <div class="alert alert-success">Cadastro Realizado com sucesso!</div>
@@ -116,15 +116,21 @@
                 <div class="container">
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                     <label>* Aluno</label>
                     <select name="idalunos_cliente" class="form-control" required>
                         <option value="0">SELECIONE</option>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                     <label>* Professor</label>
                     <select name="idfuncionarios" class="form-control">
+                        <option value="0">SELECIONE</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>* Treino</label>
+                    <select name="idtreino" class="form-control" required>
                         <option value="0">SELECIONE</option>
                     </select>
                 </div>
@@ -132,7 +138,7 @@
                     <label>* Data</label>
                     <input type="date" name="data" class="form-control" required>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label>* Horário</label>
                     <input type="time" name="horario" class="form-control" required>
                 </div>

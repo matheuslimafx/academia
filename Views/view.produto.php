@@ -13,7 +13,7 @@
             <button class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Produto</button>
             <button class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
             <button class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
-            <a class="relatorio-geral" href="http://localhost/academia/Views/view.produtos.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório</button></a>
+            <a class="relatorio-geral" href="http://localhost/academia/Views/view.produtos.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório Geral</button></a>
         </div>
 
         <!--Modal de Create de Produto-->

@@ -2,6 +2,12 @@
 
 require '../_app/Config.inc.php';
 
+$RelatorioTreinos = new Read;
+$RelatorioTreinos->FullRead("SELECT treinos.idtreino, treinos.nome_treino, treinos.sigla_treino, treinos.grupos_muscular_treino, treinos.series_treino, treinos.obs_treino, exercicios.descricao_exe, equipamentos.nome_equip
+FROM treinos 
+INNER JOIN exercicios ON treinos.idexercicio = exercicios.idexercicios
+INNER JOIN equipamentos ON treinos.idequipamentos = equipamentos.idequipamentos");
+
 require 'Relatorios/autoload.inc.php';
 
 use Dompdf\Dompdf;
@@ -22,97 +28,53 @@ th, td {
 
             <h1>Performance Academia</h1>
 
-            <h2>Relátorio de Treinos</h2>";
+            <h2>Relátorio de Treinos</h2>
+            
+            <table  style='width:100%'>";
+
+foreach ($RelatorioTreinos->getResult() as $e):
+    extract($e);
+
+    $html .= "<tr>"
+            . "<th>ID</th>"
+            . "<td>{$idtreino}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Nome do Treino</th>"
+            . "<td>{$nome_treino}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Exercicio</th>"
+            . "<td>{$descricao_exe}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Equipamento</th>"
+            . "<td>{$nome_equip}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Sigla do Treino</th>"
+            . "<td>{$sigla_treino}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Grupo muscular</th>"
+            . "<td>{$grupos_muscular_treino}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>número de series</th>"
+            . "<td>{$series_treino}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Observações</th>"
+            . "<td>{$obs_treino}</td>"
+            . "</tr>"
+            . "<tr style='background-color: red;'>"
+            . "<th></th>"
+            . "<td></td>"
+            . "</tr>";
+endforeach;
 
 
-$html .= "<table  style='width:100%'>"
-        
-        . "<tr>"
-        . "<th>ID</th>"
-        . "<td></td>"
-        ."</tr>"
-        
-        . "<tr>"
-        . "<th>Matricula do Aluno</th>"
-        . "<td></td>"
-        ."</tr>"
-        
-        . "<tr>"
-        . "<th>Professor</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Equipamento</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Nome do Treino</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Exercicio</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Grupo muscular</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>número de series</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Turno/Horário</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Treino no Domingo</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Treino na Segunda-feira</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Treino na Terça-feira</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Treino na Quarta-feira</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Treino na Quinta-feira</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Treino na Sexta-feira</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Treino no Sábado</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "<tr>"
-        . "<th>Observações</th>"
-        . "<td></td>"
-        . "</tr>"
-        
-        . "</table>";
+$html .= "</table>";
 
 $dompdf = new Dompdf();
 

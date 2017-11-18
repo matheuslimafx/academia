@@ -12,7 +12,7 @@
             </form>
             <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Nova Venda</button>
             <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
-            <a class="relatorio-geral" href="http://localhost/academia/Views/view.vendas.relatorio.php" target="_blank"><button type="" class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio</button></a>
+            <a class="relatorio-geral" href="http://localhost/academia/Views/view.vendas.relatorio.php" target="_blank"><button type="" class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio Geral</button></a>
         </div>
 
         <div class="form-group col-md-12 mensagens-retorno">
@@ -93,7 +93,7 @@
                         "<td>R$ {$valor_vendas}</td>" .
                         "<td>{$qt_vendas}</td>" .
                         "<td align='right'>" .
-                        "<a href='http://localhost/academia/Views/view.venda.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" .
+                        "<a href='http://localhost/academia/Views/view.venda.relatorio.php?idvendas={$idvendas}' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" .
                         "</td>" .
                         "</tr>";
                     endforeach;
