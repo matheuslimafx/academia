@@ -73,6 +73,18 @@ else:
                 endif;
 
                 break;
+                
+                case 'povoar-edit':
+                $DadosMensalidade = new Read;
+                $DadosMensalidade->FullRead("SELECT * FROM mensalidades WHERE mensalidades.idmensalidades = :idmensalidades", "idmensalidades={$Post['idmensalidades']}");
+                if ($DadosMensalidade->getResult()):
+                    foreach ($DadosMensalidade->getResult() as $e):
+                        $Resultado = $e;
+                    endforeach;
+                    $jSon = $Resultado;
+                endif;
+
+                break;
         
             default :
                 $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada!</div>";

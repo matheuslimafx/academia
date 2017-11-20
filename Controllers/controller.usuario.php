@@ -93,6 +93,31 @@ else:
                 endif;
 
                 break;
+
+            case 'povoar-edit':
+                $DadosUsuario = new Read;
+                $DadosUsuario->FullRead("SELECT * FROM usuario WHERE usuario.idusuario = :idusuario", "idusuario={$Post['idusuario']}");
+                if ($DadosUsuario->getResult()):
+                    foreach ($DadosUsuario->getResult() as $e):
+                        $Resultado = $e;
+                    endforeach;
+                    $jSon = $Resultado;
+                endif;
+
+                break;
+
+            case 'delete-usuario':
+
+                require '../Models/model.usuario.delete.php';
+                $deletarUsuario = new DeletarUsuario;
+                $deletarUsuario->ExeDelete('usuario', "WHERE usuario.idusuario = :idusuario", "idusuario={$Post['idusuario']}");
+                if ($deletarUsuario->getResult()):
+                    $jSon['delete'] = true;
+                    $jSon['idusuario'] = $Post['idusuario'];
+                endif;
+
+                break;
+
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
             default:
                 $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada!</div>";
