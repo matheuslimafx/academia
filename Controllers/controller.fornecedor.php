@@ -91,6 +91,19 @@ else:
                 endif;
 
                 break;
+                
+                case 'povoar-edit':
+                    $DadosForn = new Read;
+                    $DadosForn->FullRead("SELECT * FROM fornecedores WHERE fornecedores.idfornecedores = :idfornecedores", "ifornecedores={'idfornecedores'}");
+                    if($DadosForn->getResult()):
+                        foreach ($DadosForn->getResult() as $e):
+                            $Resultado = $e;
+                        endforeach;
+                        $jSon = $Resultado;
+                    endif;
+                    
+                    break;
+                    
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
             default:
                 $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada!</div>";

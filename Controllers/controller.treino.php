@@ -18,26 +18,23 @@ if (count($getPost) == 1):
     $buscarTreino = new Read;
 
     if ($queryPesquisa >= 1):
-        $buscarTreino->FullRead("SELECT treinos.idtreinos, treinos.nome_treino, treinos.turno_treino, funcionarios.nome_func, alunos_cliente.nome_aluno " .
-                "FROM treinos " .
-                "LEFT JOIN funcionarios ON treinos.idfuncionarios = funcionarios.idfuncionarios " .
-                "LEFT JOIN alunos_cliente ON treinos.idalunos_cliente = alunos_cliente.idalunos_cliente ".
-                "WHERE treinos.idtreinos = $queryPesquisa");
+        $buscarTreino->FullRead("SELECT treinos.idtreino, treinos.nome_treino, treinos.sigla_treino, exercicios.descricao_exe "
+                . "FROM treinos "
+                . "INNER JOIN exercicios ON treinos.idexercicio = exercicios.idexercicios "
+                . "WHERE treinos.idtreino = $queryPesquisa");
         $jSon = $buscarTreino->getResult();
 
     elseif ($queryPesquisa === 0):
-        $buscarTreino->FullRead("SELECT treinos.idtreinos, treinos.nome_treino, treinos.turno_treino, funcionarios.nome_func, alunos_cliente.nome_aluno " .
-                "FROM treinos " .
-                "LEFT JOIN funcionarios ON treinos.idfuncionarios = funcionarios.idfuncionarios " .
-                "LEFT JOIN alunos_cliente ON treinos.idalunos_cliente = alunos_cliente.idalunos_cliente");
+        $buscarTreino->FullRead("SELECT treinos.idtreino, treinos.nome_treino, treinos.sigla_treino, exercicios.descricao_exe "
+                . "FROM treinos "
+                . "INNER JOIN exercicios ON treinos.idexercicio = exercicios.idexercicios");
         $jSon = $buscarTreino->getResult();
 
     elseif (is_string($queryPesquisa)):
-        $buscarTreino->FullRead("SELECT treinos.idtreinos, treinos.nome_treino, treinos.turno_treino, funcionarios.nome_func, alunos_cliente.nome_aluno " .
-                "FROM treinos " .
-                "LEFT JOIN funcionarios ON treinos.idfuncionarios = funcionarios.idfuncionarios " .
-                "LEFT JOIN alunos_cliente ON treinos.idalunos_cliente = alunos_cliente.idalunos_cliente ".
-                "WHERE treinos.nome_treino LIKE '%{$queryPesquisa}%'");
+        $buscarTreino->FullRead("SELECT treinos.idtreino, treinos.nome_treino, treinos.sigla_treino, exercicios.descricao_exe "
+                . "FROM treinos "
+                . "INNER JOIN exercicios ON treinos.idexercicio = exercicios.idexercicios "
+                . "WHERE treinos.nome_treino LIKE '%{$queryPesquisa}%'");
         $jSon = $buscarTreino->getResult();
 
     endif;
@@ -61,30 +58,38 @@ else:
         switch ($Action):
 
 //        CONDIÇÃO  'treino' ATENDIDA:
-            case 'treino':
+            case 'create-treino':
 
 //            CRIAÇÃO DE UMA VARIÁVEL RESPONSÁVEL POR RECEBER  O NOME DA TABELA QUE SERÁ INSERIDA OS DADOS NO BANCO:
                 $Tabela = "treinos";
 
 //            INSERIR A CLASSE DA MODEL RESPONSÁVEL PELA INTERAÇÃO COM O BANCO DE DADOS:
-                require '../Models/model.treino.php';
+                require '../Models/model.treino.create.php';
 
 //            INSTÂNCIA DO OBJETO DA CLASSE TREINO RESPONSÁVEL POR CADASTRAR NOVOS TREINOS NO BANCO DE DADOS:
-                $CadastrarTreino = new Treino;
+                $CadastrarTreino = new TreinoCreate;
 
 //            MÉTODO DA CLASSE TREINO RESPONSÁVEL POR CADASTRAR NOVOS TREINOS NO BANCO DE DADOS:
                 $CadastrarTreino->novoTreino($Tabela, $Post);
 
 //            CONDIÇÃO PARA VERIFICAR SE FOI CADASTRADO UM NOVO TREINO, UTILIZANDO UM MÉTODO DA CLASSE TREINO:
                 if ($CadastrarTreino->getResult()):
+                    $idNovoTreino = $CadastrarTreino->getResult();
+                    $treinoCadastrado = new Read;
+                    $treinoCadastrado->FullRead("SELECT treinos.idtreino, treinos.nome_treino, exercicios.descricao_exe, equipamentos.nome_equip ".
+                                                "FROM treinos ".
+                                                "WHERE treinos.idtreino = :idtreino", "idtreino={$idNovoTreino}");
 
-//                CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO ARQUIVO JS:
-                    $jSon['sucesso'] = true;
+                    if ($treinoCadastrado->getResult()):
+                        $novoTreino = $treinoCadastrado->getResult();
+                        $jSon['novotreino'] = $novoTreino[0];
 
-//                GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS O CADASTRO:
-                    $jSon['clear'] = true;
+                        $jSon['sucesso'] = true;
+
+                        $jSon['clear'] = true;
+
+                    endif;
                 endif;
-
 
                 break;
 

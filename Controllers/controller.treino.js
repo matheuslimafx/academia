@@ -24,15 +24,13 @@ $(function () {
                 $(".j-result-treinos").html('');
                 $(data).each(function (index, value) {
                     $(".j-result-treinos").append(
-                            "<tr id='" + value.idtreinos + "'>" +
-                            "<td>" +value.idtreinos + "</td>" +
+                            "<tr id='" + value.idtreino + "'>" +
+                            "<td>" +value.idtreino + "</td>" +
                             "<td>" + value.nome_treino + "</td>" +
-                            "<td>" + value.nome_func + "</td>" +
-                            "<td>" + value.nome_aluno + "</td>" +
-                            "<td>" + value.turno_treino + "</td>" +
-                            "<td>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idtreinos='{$idtreinos}'><i class='glyphicon glyphicon-edit'></i></button> " +
-                            "<a href='http://localhost/academia/Views/view.treino.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " +
+                            "<td>" + value.sigla_treino + "</td>" +
+                            "<td>" + value.descricao_exe + "</td>" +
+                            "<td align='right'>" +
+                            "<button class='btn btn-success btn-xs open-modal-update' idtreino='"+ value.idtreino +"'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" +
                             "</td>" +
                             "</tr>"
@@ -43,7 +41,7 @@ $(function () {
     });
 
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
-    $(".form_treino").submit(function () {
+    $(".j-form-create-treino").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
         var Form = $(this);
 //        VARIAVEL ACTION RECEBE O VALOR DO CALLBACK QUE É UM INPUT ESCONDIDO NO FORMULARIO ESSE CALLBACK SERVE COMO GATILHO PARA CONDIÇÕES:
@@ -77,15 +75,34 @@ $(function () {
                 }
                 if (data.clear) {
                     Form.trigger('reset');
+                    $('.modal-create').fadeOut(0);
+                    $('.close-modal-create').fadeOut(0);
+                    $('.open-modal-create').fadeIn(0);
+                    $('.relatorio-geral').fadeIn(0);
+                    $('.pesquisar').fadeIn(0);
+                    $('.modal-table').fadeIn(0);
+                }
+                if(data.novotreino){
+                    var novoTreino = data.novotreino;
+                    $('.j-result-treinos').prepend(
+                            "<tr id='"+ novoTreino.idtreinos + "' class='animated zoomInDown'>"+
+                            "<td>"+ novoTreino.idtreinos + "</td>"+
+                            "<td>"+ novoTreino.nome_treino + "</td>"+
+                            "<td>"+ novoTreino.sigla_treino + "</td>"+
+                            "<td>"+ novoTreino.descricao_exe + "</td>"+
+                            "<td align='right'>" +
+                            "<button class='btn btn-success btn-xs open-modal-update' idtreino='"+ novoTreino.idtreino +"'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" +
+                            "</td>" +
+                            "</tr>"
+                            );
+                    siteTimeout(function (){
+                       $("tr[id='"+ novoTreino.idtreinos + "']:first").removeClass("aimated zoomInDown"); 
+                    }, 1000);
                 }
             }
         });
-
-//        RETURN É A FUNÇÃO PARA NÃO PERMITIR QUE O FORMULÁRIO GERE AÇÃO: 
         return false;
     });
-
-//    SELECIONAR CIDADE DE ACORDO COM O ESTADO:
-
 
 });

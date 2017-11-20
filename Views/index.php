@@ -9,4 +9,7 @@ endif;
 <!--MENU:-->
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
-
+<!-- Wrapper for slides -->
+<div class="container">
+    <h2>Academia Performance Fit</h2>
+</div>

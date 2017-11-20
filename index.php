@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Academia Performance Fit</title>
+        <link rel="shortcut icon" href="Views/img/icon02.png">
         <link rel="stylesheet" type="text/css" href="_cdn/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="_cdn/bootstrap/jasny-bootstrap/css/jasny-bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="Views/css/animate.css">

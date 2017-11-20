@@ -5,7 +5,7 @@
  * Classe responsável por gerenciamento dos dados da tabela treinos!
  * 
  */
-class Treino {
+class TreinoCreate {
 
     private $Tabela;
     private $Dados;

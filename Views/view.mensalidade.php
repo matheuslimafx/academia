@@ -172,7 +172,7 @@
                 $ReadMensalidadePaga = new Read;
                 $ReadMensalidadePaga->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                         "FROM mensalidades " .
-                        "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
+                        "INNER JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
                 foreach ($ReadMensalidadePaga->getResult() as $e):
                     extract($e);
                     echo

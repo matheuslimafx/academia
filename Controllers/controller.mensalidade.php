@@ -20,18 +20,18 @@ if (count($getPost) == 1):
     if ($queryPesquisa >= 1):
         $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                 "FROM mensalidades " .
-                "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
+                "INNER JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
                 "WHERE alunos_cliente.idalunos_cliente = {$queryPesquisa}");
         $jSon = $buscarMensalidade->getResult();
     elseif ($queryPesquisa === 0):
         $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                 "FROM mensalidades " .
-                "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
+                "INNER JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
         $jSon = $buscarMensalidade->getResult();
     elseif (is_string($queryPesquisa)):
         $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                 "FROM mensalidades " .
-                "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
+                "INNER JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
                 "WHERE alunos_cliente.nome_aluno LIKE '%{$queryPesquisa}%'");
         $jSon = $buscarMensalidade->getResult();
     endif;
@@ -59,7 +59,7 @@ else:
                     $mensCadastrada = new Read;
                     $mensCadastrada->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
                             "FROM mensalidades " .
-                            "LEFT JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
+                            "INNER JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
                             "WHERE mensalidades.idmensalidades = :idmensalidades", "idmensalidades={$idNovaMens}");
 
                     if ($mensCadastrada->getResult()):

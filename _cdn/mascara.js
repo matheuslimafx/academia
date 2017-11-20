@@ -10,4 +10,5 @@ $(document).ready(function(){
         $('.peso').mask('00,000', {reverse: true});
         $('.altura').mask('0.00', {reverse: true});
         $('.salario').mask('000.000.000.000.000,00', {reverse: true});
+        $('.numero-series').mask('000 X 0000');
         });

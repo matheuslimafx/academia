@@ -88,6 +88,38 @@ else:
                 endif;
 
                 break;
+                
+            case 'povoar-edit':
+                $DadosEquipamento = new Read;
+                $DadosEquipamento->FullRead("SELECT * FROM equipamentos WHERE equipamentos.idequipamentos = :idequipamentos", "idequipamentos={$Post['idequipamentos']}");
+                if($DadosEquipamento->getResult()):
+                    foreach ($DadosEquipamento->getResult() as $e):
+                        $Resultado = $e;
+                    endforeach;
+                    $jSon = $Resultado;
+                endif;
+                
+                break;
+                
+                case 'update-equipamento':
+                    require '../Models/model.equipamento.update.php';
+                    $updateEquipamento = new AtualizarEquipamento;
+                    $updateEquipamento->atualizarEquipamento('equipamentos', $Post, "WHERE equipamentos.idequipamentos = :idequipamentos", "idequipamentos={$Post['idequipamentos']}");
+                    if($updateEquipamento->getResult()):
+                        $readEquipamento = new Read;
+                        $readEquipamento->FullRead("SELECT fornecedores.nome_forn "
+                                . "FROM equipamentos "
+                                . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
+                                . "WHERE eqiupamentos.idequipamentos = :idequipamentos", "equipamentos.idequipamentos={$Post['idequipamentos']}");
+                                $nameFornecedorEquipamentoUpdated = $readNameEquipamento->getResult();
+                                $jSon['sucesso'] = ['true'];
+                                $jSon['clear'] = ['true'];
+                                $jSon['content']['idequipamentos'] = $Post['idequipamentos'];
+                                $jSon['content']['idfornecedores'] = $Post['idfornecedores'];
+                                $jSon['content']['nome_forn'] = $nameFornecedorEquipamentoUpdated[0]['nome_forn'];
+                    endif;
+                    
+                    break;
 
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
             default:

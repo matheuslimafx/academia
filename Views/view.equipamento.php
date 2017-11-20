@@ -81,8 +81,8 @@
         <!--FORMULÁRIO DE UPDATE DE TREINOS-->
         <div class="col-md-12 modal-update">
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
-            <form class="form_equipamento" action="" method="POST">
-                <input type="hidden" name="callback" value="equipamento">
+            <form class="j-form-update-equipamento form_equipamento form-update" action="" method="POST">
+                <input type="hidden" name="callback" value="update-equipamento">
                 <div class="form-group col-md-6">
                     <label>* Fornecedor</label>
                     <select class="form-control" name="idfornecedores" required>
@@ -154,7 +154,7 @@
                     "<td>{$marca_equip}</td>" .
                     "<td>{$nome_forn}</td>" .
                     "<td align='right'>" .
-                    "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-equipamento' idequipamentos={$idequipamentos}><i class='glyphicon glyphicon-edit'></i></button> " .
                     "</td>" .
                     "</tr>";
                 endforeach;

@@ -23,8 +23,8 @@
 
         <!--FORMULÁRIO DE CADASTRO DE TREINOS-->
         <div class="col-md-12 modal-create">
-            <form action="" method="POST" name="form_treino">
-                <input type="hidden" name="callback" value="treino">
+            <form action="" method="POST" name="form_treino j-form-create-treino">
+                <input type="hidden" name="callback" value="create-treino">
                 <div class="container">
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
                 </div>
@@ -40,6 +40,14 @@
                     <label>* Exercicío</label>
                     <select name="idexercicio" class="form-control">
                         <option>SELECIONE</option>
+                        <?php
+                            $exercicios = new Read;
+                            $exercicios->ExeRead("exercicios");
+                            foreach ($exercicios->getResult() as $e):
+                                extract($e);
+                            echo "<option value='{$idexercicios}'>{$idexercicios} - {$descricao_exe}</option>";
+                            endforeach;
+                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
@@ -48,12 +56,20 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Series</label>
-                    <input type="text" name="series_treino" class="form-control" placeholder="00 X 00" required>
+                    <input type="text" name="series_treino" class="form-control numero-series" placeholder="00 X 00" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Equipamento</label>
                     <select name="idequipamentos" class="form-control">
                         <option>SELECIONE</option>
+                        <?php
+                            $equipamentos = new Read;
+                            $equipamentos->ExeRead("equipamentos");
+                            foreach ($equipamentos->getResult() as $e):
+                                extract($e);
+                                echo "<option value{$idequipamentos}>{$idequipamentos} - {$nome_equip}</option>";
+                            endforeach;
+                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-12">
@@ -83,8 +99,16 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Exercicío</label>
-                    <select name="idexercicio" class="form-control">
+                    <select name="idexercicio" class="form-control">                        
                         <option>SELECIONE</option>
+                        <?php
+                            $exercicios = new Read;
+                            $exercicios->ExeRead("exercicios");
+                            foreach ($exercicios->getResult() as $e):
+                                extract($e);
+                            echo "<option value='{$idexercicios}'>{$idexercicios} - {$descricao_exe}</option>";
+                            endforeach;
+                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
@@ -93,12 +117,20 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Series</label>
-                    <input type="text" name="series_treino" class="form-control" placeholder="00 X 00" required>
+                    <input type="text" name="series_treino" class="form-control numero-series" placeholder="00 X 00" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Equipamento</label>
                     <select name="idequipamentos" class="form-control">
                         <option>SELECIONE</option>
+                        <?php
+                            $equipamentos = new Read;
+                            $equipamentos->ExeRead("equipamentos");
+                            foreach ($equipamentos->getResult() as $e):
+                                extract($e);
+                                echo "<option value{$idequipamentos}>{$idequipamentos} - {$nome_equip}</option>";
+                            endforeach;
+                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-12">
@@ -120,18 +152,42 @@
                     <label>* Aluno</label>
                     <select name="idalunos_cliente" class="form-control" required>
                         <option value="0">SELECIONE</option>
+                        <?php
+                            $alunos = new Read;
+                            $alunos->ExeRead("alunos_cliente");
+                            foreach ($alunos->getResult() as $e):
+                                extract($e);
+                                echo "<option value={$idalunos_cliente}>{$idalunos_cliente} - {$nome_aluno}</option>";
+                            endforeach;
+                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label>* Professor</label>
                     <select name="idfuncionarios" class="form-control">
                         <option value="0">SELECIONE</option>
+                        <?php
+                            $professores = new Read;
+                            $professores->FullRead("SELECT idfuncionarios, nome_func FROM funcionarios WHERE cargo_func = 'Professor'");
+                            foreach ($professores->getResult() as $e):
+                                extract($e);
+                                echo "<option value={$idfuncionarios}>{$idfuncionarios} - {$nome_func}</option>";
+                            endforeach;
+                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Treino</label>
                     <select name="idtreino" class="form-control" required>
                         <option value="0">SELECIONE</option>
+                        <?php
+                            $treinos = new Read;
+                            $treinos->ExeRead("treinos");
+                            foreach ($treinos->getResult() as $e):
+                                extract($e);
+                                echo "<option value={$idtreino}>{$idtreino} - {$nome_treino}</option>";
+                            endforeach;
+                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
@@ -172,7 +228,6 @@
                     "<td>{$descricao_exe}</td>" .
                     "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update' idtreino='{$idtreino}'><i class='glyphicon glyphicon-edit'></i></button> " .
-                    "<a href='http://localhost/academia/Views/view.treino.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " .
                     "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" .
                     "</td>" .
                     "</tr>";
