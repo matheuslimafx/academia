@@ -277,7 +277,7 @@
                     "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-anamnese' idanamneses={$idanamneses}><i class='glyphicon glyphicon-edit'></i></button> " .
                     "<a href='http://localhost/academia/Views/view.anamnese.relatorio.php?idanamneses={$idanamneses}' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a> " .
-                    "<button class='btn btn-danger btn-xs open-delete j-btn-del-anamnese' idanamneses={$idanamneses}><i class='glyphicon glyphicon-trash'></i></button>" .
+                    "<button class='btn btn-danger btn-xs open-delete j-btn-del-anamnese' idanamneses={$idanamneses}><i class='glyphicon glyphicon-trash'></i></button>".
                     "</td>" .
                     "</tr>";
                 endforeach;

@@ -93,8 +93,8 @@ $(function () {
                             "</td>" +
                             "</tr>"
                             );
-                    setTimeout(function (){
-                        $("tr[id='"+novoUsuario.idusuario+"']:first").removeClass("animated zoomInDown");
+                    setTimeout(function () {
+                        $("tr[id='" + novoUsuario.idusuario + "']:first").removeClass("animated zoomInDown");
                     }, 1000);
                 }
             }
@@ -104,7 +104,45 @@ $(function () {
         return false;
     });
 
-//    SELECIONAR CIDADE DE ACORDO COM O ESTADO:
+//FUNÇÃO RESPONSÁVEL POR DELETAR REGISTROS DE USUÁRIOS NO BANCO DE DADOS.
+    $('html').on('click', '.j-btn-del-usuario', function () {
+        var delButton = $(this);
+        var idusuario = $(delButton).attr('idusuario');
+        var Dados = {callback: 'delete-usuario', idusuario: idusuario};
+        $.ajax({
+            url: "Controllers/controller.usuario.php",
+            data: Dados,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+            },
+            success: function (data) {
+                if (data.delete) {
+                    $('html').find("tr[id='" + data.idusuario + "']").addClass("animated zoomOutDown").fadeOut(720);
+                }
+            }
+        });
+    });
+    
+    //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA USUÁRIO:
+    $('html').on('click', '.j-open-modal-update-usuario', function () {
+        var button = $(this);
+        var idusuario = $(button).attr('idusuario');
+        var dados_edit = {callback: 'povoar-edit', idusuario: idusuario};
+        $.ajax({
+            url: "Controllers/controller.usuario.php",
+            data: dados_edit,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
 
-
+            },
+            success: function (data) {
+                var Form = $('.j-form-update-usuario');
+                $.each(data, function (key, value) {
+                    Form.find("input[name='" + key + "'], select[name='" + key + "'], textarea[name='" + key + "']").val(value);
+                });
+            }
+        });
+    });
 });

@@ -78,8 +78,8 @@
 
     <!--MODAL DE UPDATE DO USUÁRIO-->
     <div class="col-md-12 modal-update">
-        <form action="" method="POST" class="form-usuario">
-            <input type="hidden" name="callback" value="usuarios">
+        <form action="" method="POST" class="form-usuario j-form-update-usuario">
+            <input type="hidden" name="callback" value="update-usuario">
             <div class="form-group col-md-6">
                 <br>
                 <label>* Nome</label>
@@ -152,8 +152,8 @@
                 "<td>{$email_usuario}</td>" .
                 "<td>{$perfil_usuario}</td>" .
                 "<td align='right'>" .
-                "<button class='btn btn-success btn-xs open-modal-update' idusuario='{$idusuario}'><i class='glyphicon glyphicon-edit'></i></button> " .
-                "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" .
+                "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-usuario' idusuario='{$idusuario}'><i class='glyphicon glyphicon-edit'></i></button> " .
+                "<button class='btn btn-danger btn-xs open-delete j-btn-del-usuario' idusuario='{$idusuario}'><i class='glyphicon glyphicon-trash'></i></button>" .
                 "</td>" .
                 "</tr>";
             endforeach;

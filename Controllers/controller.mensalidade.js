@@ -101,5 +101,27 @@ $(function () {
 //        RETURN É A FUNÇÃO PARA NÃO PERMITIR QUE O FORMULÁRIO GERE AÇÃO: 
         return false;
     });
+    
+    //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA MENSALIDADES:
+    $('html').on('click', '.j-open-modal-update-mensalidade', function () {
+        var button = $(this);
+        var idmensalidades = $(button).attr('idmensalidades');
+        var dados_edit = {callback: 'povoar-edit', idmensalidades: idmensalidades};
+        $.ajax({
+            url: "Controllers/controller.mensalidade.php",
+            data: dados_edit,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+
+            },
+            success: function (data) {
+                var Form = $('.j-form-update-mensalidade');
+                $.each(data, function (key, value) {
+                    Form.find("input[name='" + key + "'], select[name='" + key + "'], textarea[name='" + key + "']").val(value);
+                });
+            }
+        });
+    })
 
 });

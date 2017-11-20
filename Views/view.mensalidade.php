@@ -80,7 +80,7 @@
 
         <!--FORMULÁRIO DE UPDATE DE MENSALIDADE-->
         <div class="col-md-12 modal-update">
-            <form class="form-mensalidade" action="" method="POST">
+            <form class="form-mensalidade j-form-update-mensalidade" action="" method="POST">
                 <input type="hidden" name="callback" value="update-mensalidade">
                 <div class="container">
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
@@ -183,7 +183,7 @@
                     "<td>{$data_mens_pag}</td>" .
                     "<td>{$status_mensalidades}</td>" .
                     "<td align='right'>" .
-                    "<button class='btn btn-success btn-xs open-modal-update'><i class='glyphicon glyphicon-edit'></i></button></a> " .
+                    "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidades={$idmensalidades}><i class='glyphicon glyphicon-edit'></i></button></a> " .
                     "<button class='btn btn-primary btn-xs open-modal-pagamento'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
                     "</td>" .
                     "</tr>";
