@@ -89,6 +89,22 @@ else:
                 endif;
 
                 break;
+                
+                case 'povoar-edit':
+                $DadosFunc = new Read;
+                $DadosFunc->FullRead("SELECT funcionarios.*, endereco_fun.idcidade, endereco_fun.idestado, endereco_fun.complementos_fun  "
+                        . "FROM funcionarios "
+                        . "INNER JOIN endereco_fun "
+                        . "ON funcionarios.idendereco_func = endereco_fun.idendereco_fun "
+                        . "WHERE funcionarios.idfuncionarios = :idfuncionarios", "idfuncionarios={$Post['idfuncionarios']}");
+                if ($DadosFunc->getResult()):
+                    foreach ($DadosFunc->getResult() as $e):
+                        $Resultado = $e;
+                    endforeach;
+                    $jSon = $Resultado;
+                endif;
+
+                break;
 
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
             default:

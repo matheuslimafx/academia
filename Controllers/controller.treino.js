@@ -25,13 +25,13 @@ $(function () {
                 $(data).each(function (index, value) {
                     $(".j-result-treinos").append(
                             "<tr id='" + value.idtreino + "'>" +
-                            "<td>" +value.idtreino + "</td>" +
+                            "<td>" + value.idtreino + "</td>" +
                             "<td>" + value.nome_treino + "</td>" +
                             "<td>" + value.sigla_treino + "</td>" +
                             "<td>" + value.descricao_exe + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idtreino='"+ value.idtreino +"'><i class='glyphicon glyphicon-edit'></i></button> " +
-                            "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-treino' idtreino='" + value.idtreino + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-danger btn-xs open-delete j-btn-del-treino' idtreino='" + value.idtreino + "'><i class='glyphicon glyphicon-trash'></i></button>" +
                             "</td>" +
                             "</tr>"
                             );
@@ -82,27 +82,69 @@ $(function () {
                     $('.pesquisar').fadeIn(0);
                     $('.modal-table').fadeIn(0);
                 }
-                if(data.novotreino){
+                if (data.novotreino) {
                     var novoTreino = data.novotreino;
                     $('.j-result-treinos').prepend(
-                            "<tr id='"+ novoTreino.idtreinos + "' class='animated zoomInDown'>"+
-                            "<td>"+ novoTreino.idtreinos + "</td>"+
-                            "<td>"+ novoTreino.nome_treino + "</td>"+
-                            "<td>"+ novoTreino.sigla_treino + "</td>"+
-                            "<td>"+ novoTreino.descricao_exe + "</td>"+
+                            "<tr id='" + novoTreino.idtreinos + "' class='animated zoomInDown'>" +
+                            "<td>" + novoTreino.idtreinos + "</td>" +
+                            "<td>" + novoTreino.nome_treino + "</td>" +
+                            "<td>" + novoTreino.sigla_treino + "</td>" +
+                            "<td>" + novoTreino.descricao_exe + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idtreino='"+ novoTreino.idtreino +"'><i class='glyphicon glyphicon-edit'></i></button> " +
-                            "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-treino' idtreino='" + novoTreino.idtreino + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-danger btn-xs open-delete j-btn-del-treino' idtreino='" + novoTreino.idtreino + "'><i class='glyphicon glyphicon-trash'></i></button>" +
                             "</td>" +
                             "</tr>"
                             );
-                    siteTimeout(function (){
-                       $("tr[id='"+ novoTreino.idtreinos + "']:first").removeClass("aimated zoomInDown"); 
+                    siteTimeout(function () {
+                        $("tr[id='" + novoTreino.idtreinos + "']:first").removeClass("aimated zoomInDown");
                     }, 1000);
                 }
             }
         });
         return false;
+    });
+
+    //FUNÇÃO RESPONSÁVEL POR DELETAR REGISTROS DE TREINO NO BANCO DE DADOS.
+    $('html').on('click', '.j-btn-del-treino', function () {
+        var delButton = $(this);
+        var idtreino = $(delButton).attr('idtreino');
+        var Dados = {callback: 'delete-treino', idtreino: idtreino};
+        $.ajax({
+            url: "Controllers/controller.treino.php",
+            data: Dados,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+            },
+            success: function (data) {
+                if (data.delete) {
+                    $('html').find("tr[id='" + data.idtreino + "']").addClass("animated zoomOutDown").fadeOut(720);
+                }
+            }
+        });
+    });
+
+    //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA TREINO:
+    $('html').on('click', '.j-open-modal-update-treino', function () {
+        var button = $(this);
+        var idtreino = $(button).attr('idtreino');
+        var dados_edit = {callback: 'povoar-edit', idtreino: idtreino};
+        $.ajax({
+            url: "Controllers/controller.treino.php",
+            data: dados_edit,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+
+            },
+            success: function (data) {
+                var Form = $('.j-form-update-treino');
+                $.each(data, function (key, value) {
+                    Form.find("input[name='" + key + "'], select[name='" + key + "'], textarea[name='" + key + "']").val(value);
+                });
+            }
+        });
     });
 
 });

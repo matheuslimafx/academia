@@ -84,8 +84,8 @@
 
         <!--FORMULÁRIO DE UPDATE DE TREINOS-->
         <div class="col-md-12 modal-update">
-            <form action="" method="POST" name="form_treino">
-                <input type="hidden" name="callback" value="treino">
+            <form action="" method="POST" name="form_treino" class="j-form-update-treino">
+                <input type="hidden" name="callback" value="update-treino">
                 <div class="container">
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
                 </div>
@@ -128,7 +128,7 @@
                             $equipamentos->ExeRead("equipamentos");
                             foreach ($equipamentos->getResult() as $e):
                                 extract($e);
-                                echo "<option value{$idequipamentos}>{$idequipamentos} - {$nome_equip}</option>";
+                                echo "<option value='{$idequipamentos}'>{$idequipamentos} - {$nome_equip}</option>";
                             endforeach;
                         ?>
                     </select>
@@ -227,8 +227,8 @@
                     "<td>{$sigla_treino}</td>" .
                     "<td>{$descricao_exe}</td>" .
                     "<td align='right'>" .
-                    "<button class='btn btn-success btn-xs open-modal-update' idtreino='{$idtreino}'><i class='glyphicon glyphicon-edit'></i></button> " .
-                    "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" .
+                    "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-treino' idtreino='{$idtreino}'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<button class='btn btn-danger btn-xs open-delete j-btn-del-treino' idtreino='{$idtreino}'><i class='glyphicon glyphicon-trash'></i></button>" .
                     "</td>" .
                     "</tr>";
                 endforeach;

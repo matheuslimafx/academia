@@ -47,7 +47,7 @@ else:
 
 //        CONDIÇÃO  'fornecedor' ATENDIDA:
             case 'create-fornecedor':
-                
+
                 $EnderecoForn = array();
                 $EnderecoForn['idcidade'] = $Post['idcidade'];
                 $EnderecoForn['idestado'] = $Post['idestado'];
@@ -61,13 +61,13 @@ else:
 
 //            INSERIR A CLASSE DA MODEL RESPONSÁVEL PELA INTERAÇÃO COM O BANCO DE DADOS:
                 require '../Models/model.fornecedor.php';
-                
+
                 $CadEndForn = new Fornecedor;
                 $CadEndForn->novoEnderecoForn("endereco_fornecedor", $EnderecoForn);
                 $idEnderecoForn = $CadEndForn->getResult();
-                
+
                 $Post['idendereco_forn'] = $idEnderecoForn;
-                
+
 //            INSTÂNCIA DO OBJETO DA CLASSE FORNECEDOR RESPONSÁVEL POR CADASTRAR NOVOS FORNECEDORES NO BANCO DE DADOS:
                 $CadastrarFornecedor = new Fornecedor;
 
@@ -91,19 +91,23 @@ else:
                 endif;
 
                 break;
-                
-                case 'povoar-edit':
-                    $DadosForn = new Read;
-                    $DadosForn->FullRead("SELECT * FROM fornecedores WHERE fornecedores.idfornecedores = :idfornecedores", "ifornecedores={'idfornecedores'}");
-                    if($DadosForn->getResult()):
-                        foreach ($DadosForn->getResult() as $e):
-                            $Resultado = $e;
-                        endforeach;
-                        $jSon = $Resultado;
-                    endif;
-                    
-                    break;
-                    
+
+            case 'povoar-edit':
+                $DadosForn = new Read;
+                $DadosForn->FullRead("SELECT fornecedores.*, endereco_fornecedor.idcidade, endereco_fornecedor.idestado, endereco_fornecedor.complementos_forn  "
+                        . "FROM fornecedores "
+                        . "INNER JOIN endereco_fornecedor "
+                        . "ON fornecedores.idendereco_forn = endereco_fornecedor.idendereco_forn "
+                        . "WHERE fornecedores.idfornecedores = :idfornecedores", "idfornecedores={$Post['idfornecedores']}");
+                if ($DadosForn->getResult()):
+                    foreach ($DadosForn->getResult() as $e):
+                        $Resultado = $e;
+                    endforeach;
+                    $jSon = $Resultado;
+                endif;
+
+                break;
+
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
             default:
                 $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada!</div>";

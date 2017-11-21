@@ -28,7 +28,7 @@ $(function () {
                             "<td>" + value.cargo_func + "</td>" +
                             "<td>" + value.status_func + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idfuncionarios='" + value.idfuncionarios + "' idendereco_fun='" + value.idendereco_fun + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-funcionario' idfuncionarios='" + value.idfuncionarios + "' idendereco_func='" + value.idendereco_func + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" +
                             "</td>" +
                             "</tr>"
@@ -86,7 +86,7 @@ $(function () {
                             "<td>" + novoFunc.cargo_func + "</td>" +
                             "<td>" + novoFunc.status_func + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idfuncionarios='" + novoFunc.idfuncionarios + "' idendereco_func='{$idendereco_func}'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-funcionario' idfuncionarios='" + novoFunc.idfuncionarios + "' idendereco_func='"+ novoFunc.idendereco_func +"'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<a href='http://localhost/academia/Views/view.funcionario.relatorio.php' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" +
                             "</td>" +
                             "</tr>"
@@ -102,7 +102,27 @@ $(function () {
         return false;
     });
 
-//    SELECIONAR CIDADE DE ACORDO COM O ESTADO:
+    //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA FUNIONÁRIOS:
+    $('html').on('click', '.j-open-modal-update-funcionario', function () {
+        var button = $(this);
+        var idfuncionarios = $(button).attr('idfuncionarios');
+        var idendereco_func = $(button).attr('idendereco_func');
+        var dados_edit = {callback: 'povoar-edit', idfuncionarios: idfuncionarios, idendereco_func: idendereco_func};
+        $.ajax({
+            url: "Controllers/controller.funcionario.php",
+            data: dados_edit,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
 
+            },
+            success: function (data) {
+                var Form = $('.j-form-update-funcionario');
+                $.each(data, function (key, value) {
+                    Form.find("input[name='" + key + "'], select[name='" + key + "'], textarea[name='" + key + "']").val(value);
+                });
+            }
+        });
+    });
 
 });

@@ -30,7 +30,7 @@ $(function () {
                          "<td>"+ value.data_mens_pag +"</td>"+
                          "<td>"+ value.status_mensalidades +"</td>"+
                          "<td align='right'>"+
-                         "<button class='btn btn-success btn-xs open-modal-update' idmensalidades='"+ value.idmensalidades +"'><i class='glyphicon glyphicon-edit'></i></button></a> " +
+                         "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidades='"+ value.idmensalidades +"'><i class='glyphicon glyphicon-edit'></i></button></a> " +
                          "<button class='btn btn-primary btn-xs open-modal-pagamento'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" +
                          "</td>"+
                          "</tr>"
@@ -87,8 +87,8 @@ $(function () {
                             "<td>"+ novaMens.data_mens_pag +"</td>"+
                             "<td>"+ novaMens.status_mensalidades +"</td>"+
                             "<td>"+
-                            "<button class='btn btn-success btn-xs open-modal-update' idmensalidades='"+ novaMens.idmensalidades +"'><i class='glyphicon glyphicon-edit'></i></button></a> " +
-                         "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidades='"+ novaMens.idmensalidades +"'><i class='glyphicon glyphicon-edit'></i></button></a> " +
+                            "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" +
                             "</td>"+
                             "</tr>"
                             );

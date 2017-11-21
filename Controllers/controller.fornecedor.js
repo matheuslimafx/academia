@@ -28,7 +28,7 @@ $(function () {
                             "<td>" + value.telefone_forn + "</td>" +
                             "<td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idfornecedores='"+value.idfornecedores+"' idendereco_forn='"+value.idendereco_forn+"' ><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-fornecedor' idfornecedores='"+value.idfornecedores+"' idendereco_forn='"+value.idendereco_forn+"' ><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>" +
                             "</tr>"
                             );
@@ -84,7 +84,7 @@ $(function () {
                             "<td>"+ novoForn.nome_fantasia_forn +"</td>"+
                             "<td>"+ novoForn.telefone_forn +"</td>"+
                             "<td align='right'>"+
-                            "<button class='btn btn-success btn-xs open-modal-update' idfornecedores='"+novoForn.idfornecedores+"' idendereco_forn='"+novoForn.idendereco_forn+"' ><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-fornecedor' idfornecedores='"+novoForn.idfornecedores+"' idendereco_forn='"+novoForn.idendereco_forn+"' ><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>"+
                             "</tr>"
                             );
@@ -98,4 +98,28 @@ $(function () {
 //        RETURN É A FUNÇÃO PARA NÃO PERMITIR QUE O FORMULÁRIO GERE AÇÃO: 
         return false;
     });
+    
+    //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA FORNECEDOR:
+    $('html').on('click', '.j-open-modal-update-fornecedor', function () {
+        var button = $(this);
+        var idfornecedores = $(button).attr('idfornecedores');
+        var idendereco_forn = $(button).attr('idendereco_forn');
+        var dados_edit = {callback: 'povoar-edit', idfornecedores: idfornecedores, idendereco_forn: idendereco_forn};
+        $.ajax({
+            url: "Controllers/controller.fornecedor.php",
+            data: dados_edit,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+
+            },
+            success: function (data) {
+                var Form = $('.j-form-update-fornecedor');
+                $.each(data, function (key, value) {
+                    Form.find("input[name='" + key + "'], select[name='" + key + "'], textarea[name='" + key + "']").val(value);
+                });
+            }
+        });
+    });
+    
 });

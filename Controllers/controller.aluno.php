@@ -91,7 +91,11 @@ else:
             //FUNÇÃO RESPONSÁVEL POR CONSULTAR NO BANCO DE DADOS AS INFORMAÇÕES DO ALUNO PARA POVOAR A MODAL DE EDIÇÃO.    
             case 'povoar-edit':
                 $DadosAluno = new Read;
-                $DadosAluno->FullRead("SELECT alunos_cliente.*, endereco_aluno.idcidade, endereco_aluno.idestado, endereco_aluno.complementos_aluno FROM alunos_cliente INNER JOIN endereco_aluno ON alunos_cliente.idendereco_aluno = endereco_aluno.idendereco_aluno WHERE alunos_cliente.idalunos_cliente = :idaluno", "idaluno={$Post['idalunos_cliente']}");
+                $DadosAluno->FullRead("SELECT alunos_cliente.*, endereco_aluno.idcidade, endereco_aluno.idestado, endereco_aluno.complementos_aluno "
+                        . "FROM alunos_cliente "
+                        . "INNER JOIN endereco_aluno "
+                        . "ON alunos_cliente.idendereco_aluno = endereco_aluno.idendereco_aluno "
+                        . " WHERE alunos_cliente.idalunos_cliente = :idaluno", "idaluno={$Post['idalunos_cliente']}");
                 if($DadosAluno->getResult()):
                     foreach($DadosAluno->getResult() as $e):
                         $Resultado = $e;

@@ -76,9 +76,9 @@ else:
                 if ($CadastrarTreino->getResult()):
                     $idNovoTreino = $CadastrarTreino->getResult();
                     $treinoCadastrado = new Read;
-                    $treinoCadastrado->FullRead("SELECT treinos.idtreino, treinos.nome_treino, exercicios.descricao_exe, equipamentos.nome_equip ".
-                                                "FROM treinos ".
-                                                "WHERE treinos.idtreino = :idtreino", "idtreino={$idNovoTreino}");
+                    $treinoCadastrado->FullRead("SELECT treinos.idtreino, treinos.nome_treino, exercicios.descricao_exe, equipamentos.nome_equip " .
+                            "FROM treinos " .
+                            "WHERE treinos.idtreino = :idtreino", "idtreino={$idNovoTreino}");
 
                     if ($treinoCadastrado->getResult()):
                         $novoTreino = $treinoCadastrado->getResult();
@@ -91,6 +91,28 @@ else:
                     endif;
                 endif;
 
+                break;
+
+            case 'povoar-edit':
+                $DadosTreino = new Read;
+                $DadosTreino->FullRead("SELECT * FROM treinos WHERE treinos.idtreino = :idtreino", "idtreino={$Post['idtreino']}");
+                if ($DadosTreino->getResult()):
+                    foreach ($DadosTreino->getResult() as $e):
+                        $Resultado = $e;
+                    endforeach;
+                    $jSon = $Resultado;
+                endif;
+
+                break;
+
+            case 'delete-treino':
+                require '../Models/model.treino.delete.php';
+                $deletarTreino = new DeletarTreino;
+                $deletarTreino->ExeDelete('treinos', "WHERE treinos.idtreino = :idtreino", "idtreino={$Post['idtreino']}");
+                if ($deletarTreino->getResult()):
+                    $jSon['delete'] = true;
+                    $jSon['idtreino'] = $Post['idtreino'];
+                endif;
                 break;
 
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:

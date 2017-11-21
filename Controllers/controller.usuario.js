@@ -29,7 +29,7 @@ $(function () {
                             "<td>" + value.email_usuario + "</td>" +
                             "<td>" + value.perfil_usuario + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idusuario='" + value.idusuario + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-usuario' idusuario='" + value.idusuario + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" +
                             "</td>" +
                             "</tr>"
@@ -88,7 +88,7 @@ $(function () {
                             "<td>" + novoUsuario.email_usuario + "</td>" +
                             "<td>" + novoUsuario.perfil_usuario + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idusuario='" + novoUsuario.idusuario + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-usuario' idusuario='" + novoUsuario.idusuario + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<button class='btn btn-danger btn-xs open-delete'><i class='glyphicon glyphicon-trash'></i></button>" +
                             "</td>" +
                             "</tr>"

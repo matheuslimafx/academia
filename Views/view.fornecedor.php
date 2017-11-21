@@ -108,7 +108,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Nome Fantasia</label>
-                    <input type="text" name="nome_fantasia" class="form-control" required>
+                    <input type="text" name="nome_fantasia_forn" class="form-control" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label>* E-mail</label>
@@ -182,7 +182,7 @@
                     "<td>{$nome_fantasia_forn}</td>" .
                     "<td>{$telefone_forn}</td>" .
                     "<td align='right'>" .
-                    "<button class='btn btn-success btn-xs open-modal-update' idfornecedores='{$idfornecedores}' idendereco_forn='{$idendereco_forn}'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-fornecedor' idfornecedores='{$idfornecedores}' idendereco_forn='{$idendereco_forn}'><i class='glyphicon glyphicon-edit'></i></button> " .
                     "</td>" .
                     "</tr>";
                 endforeach;
