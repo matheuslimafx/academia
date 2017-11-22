@@ -127,7 +127,8 @@ $(function () {
                 if(data.content){
                     var equipamentoEditado = data.content;
                     
-                    $('html').find("tr[id='"+ equipamentoEditado.idequipamentos +"']:first").before(
+                    $('html').find(
+                            "tr[id='"+ equipamentoEditado.idequipamentos +"']:first").before(
                             "<tr id='"+ equipamentoEditado.idequipamentos +"' class='animated zoomInDown'>"+
                             "<td>"+ equipamentoEditado.idequipamentos +"</td>"+
                             "<td>"+ equipamentoEditado.nome_equip +"</td>"+

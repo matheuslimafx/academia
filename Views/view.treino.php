@@ -19,40 +19,45 @@
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.treinos.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório Geral</button></a>
         </div>
 
-        <div class="alert alert-success">Cadastro Realizado com sucesso!</div>
+        <div class="form-group col-md-12 mensagens-retorno">
+            <div class='alert alert-success'>
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                Cadastro realizado com sucesso!
+            </div>
+        </div>
 
         <!--FORMULÁRIO DE CADASTRO DE TREINOS-->
         <div class="col-md-12 modal-create">
-            <form action="" method="POST" name="form_treino j-form-create-treino">
+            <form action="" method="POST" class="form_treino form-create j-form-create-treino">
                 <input type="hidden" name="callback" value="create-treino">
                 <div class="container">
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
                 </div>
                 <div class="form-group col-md-6">
                     <label>* Nome</label>
-                    <input type="text" name="nome_treino" class="form-control">
+                    <input type="text" name="nome_treino" class="form-control" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Sigla</label>
-                    <input type="text" name="sigla_treino" class="form-control" maxlength="5" placeholder="ABCDE">
+                    <input type="text" name="sigla_treino" class="form-control" maxlength="5" placeholder="ABCDE" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Exercicío</label>
-                    <select name="idexercicio" class="form-control">
+                    <select name="idexercicio" class="form-control" required>
                         <option>SELECIONE</option>
                         <?php
                             $exercicios = new Read;
-                            $exercicios->ExeRead("exercicios");
+                            $exercicios->ExeRead("exercicios", "ORDER BY descricao_exe");
                             foreach ($exercicios->getResult() as $e):
                                 extract($e);
-                            echo "<option value='{$idexercicios}'>{$idexercicios} - {$descricao_exe}</option>";
+                            echo "<option value='{$idexercicios}'>{$descricao_exe} - {$grupo_muscular_exe}</option>";
                             endforeach;
                         ?>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Grupos Musculares</label>
-                    <input type="text" name="grupos_muscular_treino" class="form-control">
+                    <input type="text" name="grupos_muscular_treino" class="form-control" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Series</label>
@@ -60,7 +65,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Equipamento</label>
-                    <select name="idequipamentos" class="form-control">
+                    <select name="idequipamentos" class="form-control" required>
                         <option>SELECIONE</option>
                         <?php
                             $equipamentos = new Read;
@@ -77,7 +82,7 @@
                     <textarea name="obs_treino" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-12">
-                    <button type="submit" name="" value="Cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
+                    <button type="submit" value="Cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Cadastrar</button>
                 </div>
             </form>
         </div>
