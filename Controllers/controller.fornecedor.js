@@ -28,7 +28,7 @@ $(function () {
                             "<td>" + value.telefone_forn + "</td>" +
                             "<td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-fornecedor' idfornecedores='"+value.idfornecedores+"' idendereco_forn='"+value.idendereco_forn+"' ><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-fornecedor' idfornecedores='" + value.idfornecedores + "' idendereco_forn='" + value.idendereco_forn + "' ><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>" +
                             "</tr>"
                             );
@@ -74,22 +74,22 @@ $(function () {
                 $('.relatorio-geral').fadeIn(0);
                 $('.pesquisar').fadeIn(0);
                 $('.modal-table').fadeIn(0);
-                
-                if(data.novoforn){
+
+                if (data.novoforn) {
                     var novoForn = data.novoforn;
                     $('.j-result-fornecedores').prepend(
-                            "<tr id='"+ novoForn.idfornecedores +"'>"+
-                            "<td>"+ novoForn.idfornecedores +"</td>"+
-                            "<td>"+ novoForn.nome_forn +"</td>"+
-                            "<td>"+ novoForn.nome_fantasia_forn +"</td>"+
-                            "<td>"+ novoForn.telefone_forn +"</td>"+
-                            "<td align='right'>"+
-                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-fornecedor' idfornecedores='"+novoForn.idfornecedores+"' idendereco_forn='"+novoForn.idendereco_forn+"' ><i class='glyphicon glyphicon-edit'></i></button> " +
-                            "</td>"+
+                            "<tr id='" + novoForn.idfornecedores + "'>" +
+                            "<td>" + novoForn.idfornecedores + "</td>" +
+                            "<td>" + novoForn.nome_forn + "</td>" +
+                            "<td>" + novoForn.nome_fantasia_forn + "</td>" +
+                            "<td>" + novoForn.telefone_forn + "</td>" +
+                            "<td align='right'>" +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-fornecedor' idfornecedores='" + novoForn.idfornecedores + "' idendereco_forn='" + novoForn.idendereco_forn + "' ><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "</td>" +
                             "</tr>"
                             );
-                    setTimeout(function (){
-                       $("tr[id='"+ novoForn.idfornecedores +"']:first").removeClass("animated zoomInDown"); 
+                    setTimeout(function () {
+                        $("tr[id='" + novoForn.idfornecedores + "']:first").removeClass("animated zoomInDown");
                     }, 1000);
                 }
             }
@@ -98,7 +98,55 @@ $(function () {
 //        RETURN É A FUNÇÃO PARA NÃO PERMITIR QUE O FORMULÁRIO GERE AÇÃO: 
         return false;
     });
-    
+
+    //    FUNÇÃO RESPONSÁVEL POR ATUALIZAR OS DADOS NO BANCO DE DADOS:
+    $('.j-form-update-fornecedor').submit(function () {
+        var Form = $(this);
+        var Data = Form.serialize();
+
+        $.ajax({
+            url: "Controllers/controller.fornecedor.php",
+            data: Data,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+            },
+            success: function (data) {
+                if (data.clear) {
+                    Form.trigger('reset');
+                }
+                if (data.sucesso) {
+                    $('.modal-update').fadeOut(0);
+                    $('.close-modal-update').fadeOut(0);
+                    $('.pesquisar').fadeIn(0);
+                    $('.open-modal-create').fadeIn(0);
+                    $('.relatorio-geral').fadeIn(0);
+                    $('.modal-table').fadeIn(0);
+                }
+                if (data.content) {
+                    var fornecedorEditado = data.content;
+                    //FUNÇÃO RESPONSÁVEL POR OCULTAR DO DOM O REGISTRO QUE FOI EDITADO COM EFEITO ANIMATE E POIS FADEOUT, POIS O EFEITO DO ANIMTE GERA UM CSS COMO 'display: hidden' E NÃO 'display: none', E DEIXA ESPAÇO NO HTML, POR ISSO O USO DA FUNÇÃO 'fadeOut()' POSTERIORMENTE.
+                    $('html').find("tr[id='" + fornecedorEditado.idfornecedores + "']").addClass("animated zoomOutDown").fadeOut(720);
+                    //FUNÇÃO RESPONSÁVEL POR INSERIR NO DOM O NOVO FORNECEDOR CADASTRADO. *IMPORTANTE USAR O PARÂMETRO ':first' PARA QUE O JQUERY COLOQUE O NOVO FORNECEDOR ACIMA DO ANTIGO REGISTRO, CASO NÃO TENHA O PARÂMETRO O MESMO FORNECEDOR EDITADO PODERÁ SER INSERIDO NO DOM MAIS DE UMA VEZ.
+                    $("tr[id='" + fornecedorEditado.idfornecedores + "']:first").before("<tr id='" + fornecedorEditado.idfornecedores + "' class='animated zoomInDown'>" +
+                            "<td>" + fornecedorEditado.idfornecedores + "</td>" +
+                            "<td>" + fornecedorEditado.nome_forn + "</td>" +
+                            "<td>" + fornecedorEditado.nome_fantasia_forn + "</td>" +
+                            "<td>" + fornecedorEditado.telefone_forn + "</td>" +
+                            "<td align='right'><button class='btn btn-success btn-xs open-modal-update j-open-modal-update-fornecedor' idfornecedores='" + fornecedorEditado.idfornecedores + "' idendereco_forn='" + fornecedorEditado.idendereco_forn + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "</td>" +
+                            "</tr>");
+                    //ESSA FUNÇÃO EVITA QUE AO ADICIONAR UM NOVO USUÁRIO DIFERENTE GERE EFEITOS EM ELEMENTOS QUE JÁ FORAM CADASTRADOS ANTES.
+                    setTimeout(function () {
+                        $("tr[id='" + fornecedorEditado.idfornecedores + "']:first").removeClass("animated zoomInDown");
+                    }, 1000);
+                }
+            }
+        });
+
+        return false;
+    });
+
     //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA FORNECEDOR:
     $('html').on('click', '.j-open-modal-update-fornecedor', function () {
         var button = $(this);
@@ -121,5 +169,5 @@ $(function () {
             }
         });
     });
-    
+
 });

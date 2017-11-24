@@ -108,6 +108,41 @@ else:
 
                 break;
 
+            case 'update-fornecedor':
+
+                //ATUALIZAR O ENDEREÇO DO FORNECEDOR SELECIONADO:
+                $novoEndereco = array();
+                $novoEndereco['idendereco_forn'] = $Post['idendereco_forn'];
+                $novoEndereco['idestado'] = $Post['idestado'];
+                $novoEndereco['idcidade'] = $Post['idcidade'];
+                $novoEndereco['complementos_forn'] = $Post['complementos_forn'];
+
+                unset($Post['idendereco_forn']);
+                unset($Post['idestado']);
+                unset($Post['idcidade']);
+                unset($Post['complementos_forn']);
+
+                require '../Models/model.fornecedor.update.php';
+                //O MÉTODO NA MODEL: 'AtualizarFornecedor' É RESPONSÁVEL POR ATUALIZAR OS DADOS (INCLUINDO SEU ENDEREÇO) DO FORNECEDOR NO BANCO DE DADOS:
+                $updateEndereco = new AtualizarFornecedor;
+                //ATUALIZA O ENDEREÇO DO FORNECEDOR :
+                $updateEndereco->atualizarEnderecoForn('endereco_fornecedor', $novoEndereco, "WHERE idendereco_forn = :idendereco", ":idendereco={$novoEndereco['idendereco_forn']}");
+                if ($updateEndereco->getResult()):
+                    //ATUALIZA OS DADOS DO FORNECDOR:
+                    $updateFornecedor = new AtualizarFornecedor;
+                    $updateFornecedor->atualizarFornecedor('fornecedores', $Post, "WHERE idfornecedores = :idforn", "idforn={$Post['idfornecedores']}");
+                    if ($updateFornecedor->getResult()):
+                        $jSon['sucesso'] = ['true'];
+                        $jSon['clear'] = ['true'];
+                        $jSon['content']['idfornecedores'] = $Post['idfornecedores'];
+                        $jSon['content']['nome_forn'] = $Post['nome_forn'];
+                        $jSon['content']['idendereco_forn'] = $novoEndereco['idendereco_forn'];
+                    endif;
+                endif;
+
+
+                break;
+
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
             default:
                 $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada!</div>";

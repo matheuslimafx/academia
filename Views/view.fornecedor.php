@@ -98,6 +98,8 @@
             </div>
             <form action="" method="POST" class="form-update j-form-update-fornecedor">
                 <input type="hidden" name="callback" value="update-fornecedor">
+                <input type="hidden" name="idfornecedores" value="">
+                <input type="hidden" name="idendereco_forn" value="">
                 <div class="form-group col-md-6">
                     <label>* Nome</label>
                     <input type="text" name="nome_forn" class="form-control" required>
