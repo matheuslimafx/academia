@@ -78,7 +78,9 @@ else:
                 if ($CadastrarFornecedor->getResult()):
                     $idNovoForn = $CadastrarFornecedor->getResult();
                     $fornCadastrado = new Read;
-                    $fornCadastrado->FullRead("SELECT idfornecedores, nome_forn, nome_fantasia_forn, telefone_forn FROM fornecedores WHERE idfornecedores = :idfornecedores", " idfornecedores={$idNovoForn}");
+                    $fornCadastrado->FullRead("SELECT idfornecedores, nome_forn, nome_fantasia_forn, telefone_forn "
+                            . "FROM fornecedores "
+                            . "WHERE idfornecedores = :idfornecedores", " idfornecedores={$idNovoForn}");
 
                     if ($fornCadastrado->getResult()):
                         $novoForn = $fornCadastrado->getResult();
@@ -105,6 +107,50 @@ else:
                     endforeach;
                     $jSon = $Resultado;
                 endif;
+
+                break;
+
+            case 'update-fornecedor':
+
+                //ATUALIZAR O ENDEREÇO DO FORNECEDOR SELECIONADO:
+                $novoEndereco = array();
+                $novoEndereco['idendereco_forn'] = $Post['idendereco_forn'];
+                $novoEndereco['idestado'] = $Post['idestado'];
+                $novoEndereco['idcidade'] = $Post['idcidade'];
+                $novoEndereco['complementos_forn'] = $Post['complementos_forn'];
+
+                unset($Post['idendereco_forn']);
+                unset($Post['idestado']);
+                unset($Post['idcidade']);
+                unset($Post['complementos_forn']);
+
+                require '../Models/model.fornecedor.update.php';
+                //O MÉTODO NA MODEL: 'AtualizarFornecedor' É RESPONSÁVEL POR ATUALIZAR OS DADOS (INCLUINDO SEU ENDEREÇO) DO FORNECEDOR NO BANCO DE DADOS:
+                $updateEndereco = new AtualizarFornecedor;
+                //ATUALIZA O ENDEREÇO DO FORNECEDOR :
+                $updateEndereco->atualizarEnderecoForn('endereco_fornecedor', $novoEndereco, "WHERE idendereco_forn = :idendereco", ":idendereco={$novoEndereco['idendereco_forn']}");
+                if ($updateEndereco->getResult()):
+                    //ATUALIZA OS DADOS DO FORNECDOR:
+                    $updateFornecedor = new AtualizarFornecedor;
+                    $updateFornecedor->atualizarFornecedor('fornecedores', $Post, "WHERE idfornecedores = :idforn", "idforn={$Post['idfornecedores']}");
+                    if ($updateFornecedor->getResult()):
+                        
+                        $readForncedor = new Read;
+                        $readForncedor->FullRead("SELECT idfornecedores, nome_forn, nome_fantasia_forn, telefone_forn "
+                            . "FROM fornecedores "
+                            . "WHERE idfornecedores = :idfornecedores", " idfornecedores={$Post['idfornecedores']}");
+                        $DadosFornecedor = $readForncedor->getResult();
+                    
+                        $jSon['sucesso'] = ['true'];
+                        $jSon['clear'] = ['true'];
+                        $jSon['content']['idfornecedores'] = $Post['idfornecedores'];
+                        $jSon['content']['nome_forn'] = $Post['nome_forn'];
+                        $jSon['content']['idendereco_forn'] = $novoEndereco['idendereco_forn'];
+                        $jSon['content']['nome_fantasia_forn'] = $DadosFornecedor[0]['nome_fantasia_forn'];
+                        $jSon['content']['telefone_forn'] = $DadosFornecedor[0]['telefone_forn'];
+                    endif;
+                endif;
+
 
                 break;
 

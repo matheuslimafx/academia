@@ -23,14 +23,14 @@
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 Cadastro realizado com sucesso!
             </div>
-            <div class="alert alert-success alert-mensalidade">
+            <div class="alert alert-info alert-mensalidade">
                 Pagamento realizado com sucesso! Realize a impressão do conprovante de pagamento.
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
             </div>
         </div>
 
         <!--FORMULÁRIO DE CADASTRO DE MENSALIDADE-->
-        <div class="col-md-12 modal-create">
+        <div class="col-md-12 mensalidade-div modal-create">
             <div class="container"><h5 class="obrigatorios">* Campos obrigatórios</h5></div>
             <form class="form-mensalidade form-create j-form-create-mensalidade" action="" method="POST">
                 <input type="hidden" name="callback" value="create-mensalidade">
@@ -82,6 +82,7 @@
         <div class="col-md-12 modal-update">
             <form class="form-mensalidade j-form-update-mensalidade" action="" method="POST">
                 <input type="hidden" name="callback" value="update-mensalidade">
+                <input type="hidden" name="idmensalidades" value="">
                 <div class="container">
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
                 </div>
@@ -170,9 +171,10 @@
             <tbody class="j-result-menssalidades">
                 <?php
                 $ReadMensalidadePaga = new Read;
-                $ReadMensalidadePaga->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
-                        "FROM mensalidades " .
-                        "INNER JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
+                $ReadMensalidadePaga->FullRead("SELECT mensalidades.idmensalidades, alunos_cliente.idalunos_cliente ,alunos_cliente.nome_aluno, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades "
+                        . "FROM mensalidades "
+                        . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                        . "ORDER BY alunos_cliente.idalunos_cliente");
                 foreach ($ReadMensalidadePaga->getResult() as $e):
                     extract($e);
                     echo

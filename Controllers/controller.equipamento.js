@@ -85,7 +85,7 @@ $(function () {
                             "<td>" + novoEquip.marca_equip + "</td>" +
                             "<td>" + novoEquip.nome_forn + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idequipamentos='" + novoEquip.idequipamentos + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-equipamento' idequipamentos='" + novoEquip.idequipamentos + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>" +
                             "</tr>"
                             );
@@ -126,15 +126,15 @@ $(function () {
                 }
                 if(data.content){
                     var equipamentoEditado = data.content;
-                    
-                    $('html').find("tr[id='"+ equipamentoEditado.idequipamentos +"']:first").before(
+                    $('html').find("tr[id='" + equipamentoEditado.idequipamentos + "']").addClass("animated zoomOutDown").fadeOut(720);
+                    $("tr[id='"+ equipamentoEditado.idequipamentos +"']:first").before(
                             "<tr id='"+ equipamentoEditado.idequipamentos +"' class='animated zoomInDown'>"+
                             "<td>"+ equipamentoEditado.idequipamentos +"</td>"+
                             "<td>"+ equipamentoEditado.nome_equip +"</td>"+
                             "<td>"+ equipamentoEditado.marca_equip + "</td>"+
                             "<td>"+ equipamentoEditado.nome_forn + "</td>"+
-                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idequipamentos='"+ equipamentoEditado.idequipamentos +"><i class='glyphicon glyphicon-edit'></i></button>" +
+                            "<td align='right'>" +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-equipamento' idequipamentos='" + equipamentoEditado.idequipamentos + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>" +
                             "</tr>"
                             );

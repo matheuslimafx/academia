@@ -83,6 +83,7 @@
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
             <form class="j-form-update-equipamento form_equipamento form-update" action="" method="POST">
                 <input type="hidden" name="callback" value="update-equipamento">
+                <input type="hidden" name="idequipamentos" value="">
                 <div class="form-group col-md-6">
                     <label>* Fornecedor</label>
                     <select class="form-control" name="idfornecedores" required>
@@ -144,7 +145,8 @@
                 $ReadEquipamento = new Read;
                 $ReadEquipamento->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
                         . "FROM equipamentos "
-                        . "LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores;");
+                        . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
+                        . "ORDER BY equipamentos.idequipamentos");
                 foreach ($ReadEquipamento->getResult() as $e):
                     extract($e);
                     echo

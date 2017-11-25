@@ -78,7 +78,9 @@ else:
                     $treinoCadastrado = new Read;
                     $treinoCadastrado->FullRead("SELECT treinos.idtreino, treinos.nome_treino, exercicios.descricao_exe, equipamentos.nome_equip " .
                             "FROM treinos " .
-                            "WHERE treinos.idtreino = :idtreino", "idtreino={$idNovoTreino}");
+                            "INNER JOIN exercicios ON treinos.idexercicio = exercicios.idexercicios " .
+                            "INNER JOIN equipamentos ON treinos.idequipamentos = equipamentos.idequipamentos " .
+                            "WHERE treinos.idtreino = :idtreino", " idtreino={$idNovoTreino}");
 
                     if ($treinoCadastrado->getResult()):
                         $novoTreino = $treinoCadastrado->getResult();

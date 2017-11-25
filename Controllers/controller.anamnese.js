@@ -129,7 +129,8 @@ $(function () {
                     //FUNÇÃO RESPONSÁVEL POR OCULTAR DO DOM O REGISTRO QUE FOI EDITADO COM EFEITO ANIMATE E POIS FADEOUT, POIS O EFEITO DO ANIMTE GERA UM CSS COMO 'display: hidden' E NÃO 'display: none', E DEIXA ESPAÇO NO HTML, POR ISSO O USO DA FUNÇÃO 'fadeOut()' POSTERIORMENTE.
                     $('html').find("tr[id='" + anamneseEditada.idanamneses + "']").addClass("animated zoomOutDown").fadeOut(720);
                     //FUNÇÃO RESPONSÁVEL POR INSERIR NO DOM O NOVO ALUNO CADASTRADO. *IMPORTANTE USAR O PARÂMETRO ':first' PARA QUE O JQUERY COLOQUE O NOVO ALUNO ACIMA DO ANTIGO REGISTRO, CASO NÃO TENHA O PARÂMETRO O MESMO ALUNO EDITADO PODERÁ SER INSERIDO NO DOM MAIS DE UMA VEZ.
-                    $("tr[id='" + anamneseEditada.idanamneses + "']:first").before("<tr id='" + anamneseEditada.idanamneses + "' class='animated zoomInDown'>" +
+                    $("tr[id='" + anamneseEditada.idanamneses + "']:first").before(
+                            "<tr id='" + anamneseEditada.idanamneses + "' class='animated zoomInDown'>" +
                             "<td>" + anamneseEditada.idanamneses + "</td>" +
                             "<td>" + anamneseEditada.idalunos_cliente + "</td>" +
                             "<td>" + anamneseEditada.nome_aluno + "</td>" +

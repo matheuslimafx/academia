@@ -40,6 +40,7 @@ $(function () {
         });
     });
 
+
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
     $(".j-form-create-treino").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
@@ -62,48 +63,49 @@ $(function () {
 //            BEFORE SEND É A FUNÇÃO QUE PERMITE EXECUTAR UM ALGORITMO DO JQUERY ANTES DOS DADOS SEREM ENVIADOS:
             beforeSend: function (xhr) {
 //                PODE-SE NESSA PARTE MOSTRAR E RETIRAR POR EXEMPLO ELEMENTOS DO HTML:
-                alert('enviou');
+                //alert('enviou');
             },
 //            SUCCESS É A FUNÇÃO DO AJAX RESPONSÁVEL POR EXECUTAR ALGORITMOS DEPOIS QUE OS DADOS RETORNAM DA CONTROLLER, TAIS DADOS PODEM SER ACESSADOS PELA VARIAVEL "(data)":
             success: function (data) {
-
-//                NESSA PARTE É INTERESSANTE EXECUTAR AÇÕES DE ACORDO COM OS RESULTADOS VINDOS DA CONTROLER UTILIZANDO CONDIÇÕES:
-                alert('voltou');
-
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
                 }
                 if (data.clear) {
                     Form.trigger('reset');
-                    $('.modal-create').fadeOut(0);
-                    $('.close-modal-create').fadeOut(0);
-                    $('.open-modal-create').fadeIn(0);
-                    $('.relatorio-geral').fadeIn(0);
-                    $('.pesquisar').fadeIn(0);
-                    $('.modal-table').fadeIn(0);
                 }
+                $('.modal-create').fadeOut(0);
+                $('.close-modal-create').fadeOut(0);
+                $('.open-modal-create').fadeIn(0);
+                $('.open-modal-agenda').fadeIn(0);
+                $('.relatorio-geral').fadeIn(0);
+                $('.pesquisar').fadeIn(0);
+                $('.modal-table').fadeIn(0);
+
                 if (data.novotreino) {
                     var novoTreino = data.novotreino;
                     $('.j-result-treinos').prepend(
-                            "<tr id='" + novoTreino.idtreinos + "' class='animated zoomInDown'>" +
-                            "<td>" + novoTreino.idtreinos + "</td>" +
+                            "<tr id='" + novoTreino.idtreino + "' class='animated zoomInDown'>" +
+                            "<td>" + novoTreino.idtreino + "</td>" +
                             "<td>" + novoTreino.nome_treino + "</td>" +
                             "<td>" + novoTreino.sigla_treino + "</td>" +
                             "<td>" + novoTreino.descricao_exe + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-treino' idtreino='" + novoTreino.idtreino + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update' idtreino='" + novoTreino.idtreino + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<button class='btn btn-danger btn-xs open-delete j-btn-del-treino' idtreino='" + novoTreino.idtreino + "'><i class='glyphicon glyphicon-trash'></i></button>" +
                             "</td>" +
                             "</tr>"
                             );
-                    siteTimeout(function () {
-                        $("tr[id='" + novoTreino.idtreinos + "']:first").removeClass("aimated zoomInDown");
+                    setTimeout(function () {
+                        $("tr[id='" + novoTreino.idtreino + "']:first").removeClass("animated zoomInDown");
                     }, 1000);
                 }
             }
         });
+
+//        RETURN É A FUNÇÃO PARA NÃO PERMITIR QUE O FORMULÁRIO GERE AÇÃO: 
         return false;
     });
+
 
     //FUNÇÃO RESPONSÁVEL POR DELETAR REGISTROS DE TREINO NO BANCO DE DADOS.
     $('html').on('click', '.j-btn-del-treino', function () {

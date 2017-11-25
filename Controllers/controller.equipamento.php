@@ -20,18 +20,18 @@ if (count($getPost) == 1):
     if ($queryPesquisa >= 1):
         $buscarEquip->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
                 . "FROM equipamentos "
-                . "LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
+                . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
                 . "WHERE equipamentos.idequipamentos = {$queryPesquisa}");
         $jSon = $buscarEquip->getResult();
-        elseif($queryPesquisa === 0):
-            $buscarEquip->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
+    elseif ($queryPesquisa === 0):
+        $buscarEquip->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
                 . "FROM equipamentos "
-                . "LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores ");
-            $jSon = $buscarEquip->getResult();
+                . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores ");
+        $jSon = $buscarEquip->getResult();
     elseif (is_string($queryPesquisa)):
         $buscarEquip->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
                 . "FROM equipamentos "
-                . "LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
+                . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
                 . "WHERE equipamentos.nome_equip LIKE '%{$queryPesquisa}%'");
         $jSon = $buscarEquip->getResult();
     endif;
@@ -73,53 +73,56 @@ else:
                     $idNovoEquip = $CadastrarEquip->getResult();
                     $equipCadastrado = new Read;
                     $equipCadastrado->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
-                . "FROM equipamentos "
-                . "LEFT JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
-                . "WHERE equipamentos.idequipamentos = :idequipamentos", " idequipamentos={$idNovoEquip}");
-                
-                if($equipCadastrado->getResult()):
-                    $novoEquip = $equipCadastrado->getResult();
-                    $jSon['novoequip'] = $novoEquip[0];
-                    
-                    $jSon['sucesso'] = true;
-                    
-                    $jSon['clear'] = true;
-                endif;
+                            . "FROM equipamentos "
+                            . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
+                            . "WHERE equipamentos.idequipamentos = :idequipamentos", " idequipamentos={$idNovoEquip}");
+
+                    if ($equipCadastrado->getResult()):
+                        $novoEquip = $equipCadastrado->getResult();
+                        $jSon['novoequip'] = $novoEquip[0];
+
+                        $jSon['sucesso'] = true;
+
+                        $jSon['clear'] = true;
+                    endif;
                 endif;
 
                 break;
-                
+
             case 'povoar-edit':
                 $DadosEquipamento = new Read;
                 $DadosEquipamento->FullRead("SELECT * FROM equipamentos WHERE equipamentos.idequipamentos = :idequipamentos", "idequipamentos={$Post['idequipamentos']}");
-                if($DadosEquipamento->getResult()):
+                if ($DadosEquipamento->getResult()):
                     foreach ($DadosEquipamento->getResult() as $e):
                         $Resultado = $e;
                     endforeach;
                     $jSon = $Resultado;
                 endif;
-                
+
                 break;
+
+            case 'update-equipamento':
+
+                require '../Models/model.equipamento.update.php';
                 
-                case 'update-equipamento':
-                    require '../Models/model.equipamento.update.php';
-                    $updateEquipamento = new AtualizarEquipamento;
-                    $updateEquipamento->atualizarEquipamento('equipamentos', $Post, "WHERE equipamentos.idequipamentos = :idequipamentos", "idequipamentos={$Post['idequipamentos']}");
-                    if($updateEquipamento->getResult()):
-                        $readEquipamento = new Read;
-                        $readEquipamento->FullRead("SELECT fornecedores.nome_forn "
-                                . "FROM equipamentos "
-                                . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
-                                . "WHERE eqiupamentos.idequipamentos = :idequipamentos", "equipamentos.idequipamentos={$Post['idequipamentos']}");
-                                $nameFornecedorEquipamentoUpdated = $readNameEquipamento->getResult();
-                                $jSon['sucesso'] = ['true'];
-                                $jSon['clear'] = ['true'];
-                                $jSon['content']['idequipamentos'] = $Post['idequipamentos'];
-                                $jSon['content']['idfornecedores'] = $Post['idfornecedores'];
-                                $jSon['content']['nome_forn'] = $nameFornecedorEquipamentoUpdated[0]['nome_forn'];
-                    endif;
-                    
-                    break;
+                $updateEquipamento = new AtualizarEquipamento;
+               $updateEquipamento->atualizarEquipamento('equipamentos', $Post, "WHERE equipamentos.idequipamentos = :idequipamentos", "idequipamentos={$Post['idequipamentos']}");
+                if ($updateEquipamento->getResult()):
+                    $readEquipamento = new Read;
+                    $readEquipamento->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
+                            . "FROM equipamentos "
+                            . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
+                            . "WHERE equipamentos.idequipamentos = :idequipamentos", " idequipamentos={$Post['idequipamentos']}");
+                    $DadosEquipamentoEditado = $readEquipamento->getResult();
+                        $jSon['sucesso'] = ['true'];
+                        $jSon['clear'] = ['true'];
+                        $jSon['content']['idequipamentos'] = $Post['idequipamentos'];
+                        $jSon['content']['nome_equip'] = $Post['nome_equip'];
+                        $jSon['content']['marca_equip'] = $DadosEquipamentoEditado[0]['marca_equip'];
+                        $jSon['content']['nome_forn'] = $DadosEquipamentoEditado[0]['nome_forn'];
+                endif;
+
+                break;
 
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
             default:

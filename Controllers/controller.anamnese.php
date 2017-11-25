@@ -103,7 +103,10 @@ else:
                 $updateAnamnese->atualizarAnamnese('anamneses', $Post, "WHERE anamneses.idanamneses = :idanamneses", "idanamneses={$Post['idanamneses']}");
                 if ($updateAnamnese->getResult()):
                     $readNameAnamnese = new Read;
-                    $readNameAnamnese->FullRead("SELECT alunos_cliente.nome_aluno FROM alunos_cliente INNER JOIN anamneses ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente WHERE anamneses.idalunos_cliente = :idalunos_cliente", "idalunos_cliente={$Post['idalunos_cliente']}");
+                    $readNameAnamnese->FullRead("SELECT alunos_cliente.nome_aluno "
+                            . "FROM alunos_cliente "
+                            . "INNER JOIN anamneses ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                            . "WHERE anamneses.idalunos_cliente = :idalunos_cliente", "idalunos_cliente={$Post['idalunos_cliente']}");
                     $nameAlunoAnamneseUpdated = $readNameAnamnese->getResult();
                     $jSon['sucesso'] = ['true'];
                     $jSon['clear'] = ['true'];

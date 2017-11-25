@@ -79,6 +79,8 @@ else:
                 $jSon = $Resultado[0];
             endif;
             break;
+            
+            
         case 'update-produto':
             require '../Models/model.produto.update.php';
             $idProduto = $Post['idprodutos'];
@@ -108,6 +110,7 @@ else:
                 endif;
             endif;
             break;
+            
     endswitch;
 endif;
 echo json_encode($jSon);
