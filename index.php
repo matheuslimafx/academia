@@ -12,7 +12,7 @@
     <body>
         <!--CONTEUDO-->
         <?php
-        //var_dump($Url);
+        var_dump($Url);
         $Url[1] = (empty($Url[1]) ? null : $Url[1]);
 
         if (file_exists(REQUIRE_PATH . '/' . $Url[0] . '.php')):

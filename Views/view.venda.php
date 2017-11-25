@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 modal-create">
+        <div class="col-md-4 modal-create">
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
             <form class="j-form-create-venda" action="" method="POST">
                 <input type="hidden" name="callback" value="cadastrar-venda">

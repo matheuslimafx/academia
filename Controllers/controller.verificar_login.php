@@ -30,7 +30,7 @@ else:
                 break;
             else:    
                 //QUERY PARA VERIFICAR SE O EMAIL E SENHA DIGITADOS ESTÃO CADASTRADOS NO BANCO E SE CONFEREM:
-                $Read->FullRead("SELECT nome_usuario, perfil_usuario FROM usuario WHERE email_usuario = :email AND senha_usuario = :password", "email={$Post['email_usuario']}&password={$Post['senha_usuario']}");
+                $Read->FullRead("SELECT idusuario, nome_usuario, perfil_usuario FROM usuario WHERE email_usuario = :email AND senha_usuario = :password", "email={$Post['email_usuario']}&password={$Post['senha_usuario']}");
                 //CONDIÇÕES DE ACORDO COM A CONSULTA NO BANCO DE DADOS:
                 if($Read->getRowCount()):
                     $jSon['result'] = true;
@@ -40,6 +40,7 @@ else:
                     foreach ($Read->getResult() as $ResultadoUsuario):
                         extract($ResultadoUsuario);
                     endforeach;
+                    $_SESSION['idusuario'] = $ResultadoUsuario['idusuario'];
                     $_SESSION['nome_usuario'] = $ResultadoUsuario['nome_usuario'];
                     $_SESSION['perfil_usuario'] = $ResultadoUsuario['perfil_usuario'];
                 else:

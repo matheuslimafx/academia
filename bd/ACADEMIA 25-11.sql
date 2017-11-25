@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25-Nov-2017 às 15:14
+-- Generation Time: 25-Nov-2017 às 17:14
 -- Versão do servidor: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -6059,17 +6059,10 @@ INSERT INTO `funcionarios` (`idfuncionarios`, `idendereco_func`, `nome_func`, `n
 CREATE TABLE `itens_vendas` (
   `iditensvendas` int(11) NOT NULL,
   `idvendas` int(11) NOT NULL,
-  `idproduto` int(11) NOT NULL,
-  `qtd_vendas` int(11) NOT NULL,
+  `idprodutos` int(11) NOT NULL,
+  `qtd_itens` int(11) NOT NULL,
   `valor_vendido` decimal(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `itens_vendas`
---
-
-INSERT INTO `itens_vendas` (`iditensvendas`, `idvendas`, `idproduto`, `qtd_vendas`, `valor_vendido`) VALUES
-(1, 1, 7, 10, '10.00');
 
 -- --------------------------------------------------------
 
@@ -6206,25 +6199,12 @@ INSERT INTO `usuario` (`idusuario`, `nome_usuario`, `senha_usuario`, `email_usua
 
 CREATE TABLE `vendas` (
   `idvendas` int(11) NOT NULL,
-  `idprodutos` int(11) NOT NULL,
-  `idestoques` int(11) NOT NULL,
   `idalunos_cliente` int(11) NOT NULL,
-  `data_venda` datetime DEFAULT NULL,
-  `valor_vendas` decimal(8,2) DEFAULT NULL,
-  `qt_vendas` int(45) DEFAULT NULL
+  `idusuario` int(11) NOT NULL,
+  `data_venda` datetime NOT NULL,
+  `valor_total` int(11) NOT NULL,
+  `itens_total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `vendas`
---
-
-INSERT INTO `vendas` (`idvendas`, `idprodutos`, `idestoques`, `idalunos_cliente`, `data_venda`, `valor_vendas`, `qt_vendas`) VALUES
-(1, 4, 3, 7, '2017-11-11 15:00:00', '35.00', 1),
-(2, 4, 3, 2, '2017-11-18 15:00:00', '105.00', 3),
-(3, 5, 4, 1, '2017-11-25 11:29:38', '175.00', 5),
-(4, 7, 6, 3, '2017-11-25 12:34:06', '2090.00', 209),
-(5, 1, 1, 4, '2017-11-25 01:46:59', '300.00', 50),
-(6, 9, 8, 1, '2017-11-25 01:50:25', '420.00', 60);
 
 --
 -- Indexes for dumped tables
@@ -6327,7 +6307,7 @@ ALTER TABLE `funcionarios`
 ALTER TABLE `itens_vendas`
   ADD PRIMARY KEY (`iditensvendas`),
   ADD KEY `vendas_idx` (`idvendas`),
-  ADD KEY `produto_idx` (`idproduto`);
+  ADD KEY `produto_idx` (`idprodutos`);
 
 --
 -- Indexes for table `mensalidades`
@@ -6364,9 +6344,8 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `vendas`
   ADD PRIMARY KEY (`idvendas`),
-  ADD KEY `fk_vendas_produtos1_idx` (`idprodutos`),
-  ADD KEY `fk_vendas_alunos_cliente1_idx` (`idalunos_cliente`),
-  ADD KEY `venda_estoque_idx` (`idestoques`);
+  ADD KEY `aluno_idx` (`idalunos_cliente`),
+  ADD KEY `usuario_idx` (`idusuario`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -6538,7 +6517,7 @@ ALTER TABLE `funcionarios`
 -- Limitadores para a tabela `itens_vendas`
 --
 ALTER TABLE `itens_vendas`
-  ADD CONSTRAINT `produto` FOREIGN KEY (`idproduto`) REFERENCES `produtos` (`idprodutos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `produto` FOREIGN KEY (`idprodutos`) REFERENCES `produtos` (`idprodutos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `vendas` FOREIGN KEY (`idvendas`) REFERENCES `vendas` (`idvendas`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -6571,9 +6550,8 @@ ALTER TABLE `usuario`
 -- Limitadores para a tabela `vendas`
 --
 ALTER TABLE `vendas`
-  ADD CONSTRAINT `fk_vendas_alunos_cliente1` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_vendas_produtos1` FOREIGN KEY (`idprodutos`) REFERENCES `produtos` (`idprodutos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `venda_estoque` FOREIGN KEY (`idestoques`) REFERENCES `estoq_prod` (`idestoques`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `aluno` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
