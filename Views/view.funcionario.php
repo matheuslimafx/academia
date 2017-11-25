@@ -220,13 +220,12 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Estado Civil</label>
-                    <select name="estado_civil_func" class="form-control" required>
-                        <option value="0">SELECIONE</option>
+                    <select name="estado_civil_func" class="form-control">
                         <option value="Casado">Casado</option>
                         <option value="Divorciado">Divorciado</option>
                         <option value="Separado">Separado</option>
                         <option value="Solteiro">Solteiro</option>
-                        <option value="Viúvo">Viúvo</option>
+                        <option value="Viuvo">Viúvo</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
@@ -240,7 +239,6 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <div class="form-group col-md-3">
                     <label>Cargo</label>
                     <select name="cargo_func" class="form-control">
-                        <option value="">SELECIONE</option>
                         <option value="Administrador">Administrador</option>
                         <option value="Gerente">Gerente</option>
                         <option value="Professor">Professor</option>
@@ -285,7 +283,6 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <div class="form-group col-md-3">
                     <label>* Estado</label>
                     <select name="idestado" class="form-control" required>
-                        <option>SELECIONE</option>
                         <?php
                         foreach ($ReadEstado->getResult() as $i):
                             extract($i);
@@ -297,7 +294,6 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <div class="form-group col-md-3">
                     <label>* Cidade</label>
                     <select name="idcidade" class="form-control" required>
-                        <option>SELECIONE</option>
                         <?php
                         foreach ($ReadCidade->getResult() as $i):
                             extract($i);

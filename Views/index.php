@@ -1,6 +1,6 @@
 <?php
 session_start();
-var_dump($_SESSION);
+//Svar_dump($_SESSION);
 if (!$_SESSION['logado']):
     session_destroy();
     header('Location: view.login');
