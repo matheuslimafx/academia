@@ -18,21 +18,21 @@ if (count($getPost) == 1):
     $buscarMensalidade = new Read;
 
     if ($queryPesquisa >= 1):
-        $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
-                "FROM mensalidades " .
-                "INNER JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
-                "WHERE alunos_cliente.idalunos_cliente = {$queryPesquisa}");
+        $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, alunos_cliente.idalunos_cliente ,alunos_cliente.nome_aluno, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades "
+                . "FROM mensalidades "
+                . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                . "WHERE alunos_cliente.idalunos_cliente = {$queryPesquisa}");
         $jSon = $buscarMensalidade->getResult();
     elseif ($queryPesquisa === 0):
-        $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
-                "FROM mensalidades " .
-                "INNER JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente");
+        $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, alunos_cliente.idalunos_cliente ,alunos_cliente.nome_aluno, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades "
+                . "FROM mensalidades "
+                . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente");
         $jSon = $buscarMensalidade->getResult();
     elseif (is_string($queryPesquisa)):
-        $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
-                "FROM mensalidades " .
-                "INNER JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
-                "WHERE alunos_cliente.nome_aluno LIKE '%{$queryPesquisa}%'");
+        $buscarMensalidade->FullRead("SELECT mensalidades.idmensalidades, alunos_cliente.idalunos_cliente ,alunos_cliente.nome_aluno, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades "
+                . "FROM mensalidades "
+                . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                . "WHERE alunos_cliente.nome_aluno LIKE '%{$queryPesquisa}%'");
         $jSon = $buscarMensalidade->getResult();
     endif;
 else:
@@ -57,14 +57,14 @@ else:
                 if ($CadMensalidade->getResult()):
                     $idNovaMens = $CadMensalidade->getResult();
                     $mensCadastrada = new Read;
-                    $mensCadastrada->FullRead("SELECT mensalidades.idmensalidades, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades, alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno " .
-                            "FROM mensalidades " .
-                            "INNER JOIN alunos_cliente ON mensalidades.idmensalidades = alunos_cliente.idalunos_cliente " .
-                            "WHERE mensalidades.idmensalidades = :idmensalidades", "idmensalidades={$idNovaMens}");
+                    $mensCadastrada->FullRead("SELECT mensalidades.idmensalidades, alunos_cliente.idalunos_cliente ,alunos_cliente.nome_aluno, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades "
+                            . "FROM mensalidades "
+                            . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                            . "WHERE mensalidades.idmensalidades = :idmensalidades", "idmensalidades={$idNovaMens}");
 
                     if ($mensCadastrada->getResult()):
                         $novaMens = $mensCadastrada->getResult();
-                        $jSon['idmensalidades'] = $novaMens[0];
+                        $jSon['novamens'] = $novaMens[0];
 
                         $jSon['sucesso'] = true;
 
@@ -73,8 +73,8 @@ else:
                 endif;
 
                 break;
-                
-                case 'povoar-edit':
+
+            case 'povoar-edit':
                 $DadosMensalidade = new Read;
                 $DadosMensalidade->FullRead("SELECT * FROM mensalidades WHERE mensalidades.idmensalidades = :idmensalidades", "idmensalidades={$Post['idmensalidades']}");
                 if ($DadosMensalidade->getResult()):
@@ -85,7 +85,32 @@ else:
                 endif;
 
                 break;
-        
+
+            case 'update-mensalidade':
+                require '../Models/model.mensalidade.update.php';
+                $updateMensalidade = new AtualizarMensalidade;
+                $updateMensalidade->atualizarMensalidade('mensalidades', $Post, "WHERE mensalidades.idmensalidades = :idmensalidades", "idmensalidades={$Post['idmensalidades']}");
+                if ($updateMensalidade->getResult()):
+
+                    $readMensalidade = new Read;
+                    $readMensalidade->FullRead("SELECT mensalidades.idmensalidades, alunos_cliente.idalunos_cliente ,alunos_cliente.nome_aluno, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades "
+                            . "FROM mensalidades "
+                            . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                            . "WHERE mensalidades.idmensalidades = :idmensalidades", " idmensalidades={$Post['idmensalidades']}");
+
+                    $DadosMensalidadesEditada = $readMensalidade->getResult();
+
+                    $jSon['sucesso'] = ['true'];
+                    $jSon['clear'] = ['true'];
+                    $jSon['content']['idmensalidades'] = $Post['idmensalidades'];
+                    $jSon['content']['nome_aluno'] = $DadosMensalidadesEditada[0]['nome_aluno'];
+                    $jSon['content']['valor_mensalidades'] = $DadosMensalidadesEditada[0]['valor_mensalidades'];
+                    $jSon['content']['data_mens_pag'] = $DadosMensalidadesEditada[0]['data_mens_pag'];
+                    $jSon['content']['status_mensalidades'] = $DadosMensalidadesEditada[0]['status_mensalidades'];
+                endif;
+
+                break;
+
             default :
                 $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada!</div>";
                 break;

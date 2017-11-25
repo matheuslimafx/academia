@@ -78,7 +78,7 @@ $(function () {
                 if (data.novoforn) {
                     var novoForn = data.novoforn;
                     $('.j-result-fornecedores').prepend(
-                            "<tr id='" + novoForn.idfornecedores + "'>" +
+                            "<tr id='" + novoForn.idfornecedores + "' class='animated zoomInDown'>" +
                             "<td>" + novoForn.idfornecedores + "</td>" +
                             "<td>" + novoForn.nome_forn + "</td>" +
                             "<td>" + novoForn.nome_fantasia_forn + "</td>" +
@@ -128,12 +128,14 @@ $(function () {
                     //FUNÇÃO RESPONSÁVEL POR OCULTAR DO DOM O REGISTRO QUE FOI EDITADO COM EFEITO ANIMATE E POIS FADEOUT, POIS O EFEITO DO ANIMTE GERA UM CSS COMO 'display: hidden' E NÃO 'display: none', E DEIXA ESPAÇO NO HTML, POR ISSO O USO DA FUNÇÃO 'fadeOut()' POSTERIORMENTE.
                     $('html').find("tr[id='" + fornecedorEditado.idfornecedores + "']").addClass("animated zoomOutDown").fadeOut(720);
                     //FUNÇÃO RESPONSÁVEL POR INSERIR NO DOM O NOVO FORNECEDOR CADASTRADO. *IMPORTANTE USAR O PARÂMETRO ':first' PARA QUE O JQUERY COLOQUE O NOVO FORNECEDOR ACIMA DO ANTIGO REGISTRO, CASO NÃO TENHA O PARÂMETRO O MESMO FORNECEDOR EDITADO PODERÁ SER INSERIDO NO DOM MAIS DE UMA VEZ.
-                    $("tr[id='" + fornecedorEditado.idfornecedores + "']:first").before("<tr id='" + fornecedorEditado.idfornecedores + "' class='animated zoomInDown'>" +
+                    $("tr[id='" + fornecedorEditado.idfornecedores + "']:first").before(
+                            "<tr id='" + fornecedorEditado.idfornecedores + "' class='animated zoomInDown'>" +
                             "<td>" + fornecedorEditado.idfornecedores + "</td>" +
                             "<td>" + fornecedorEditado.nome_forn + "</td>" +
                             "<td>" + fornecedorEditado.nome_fantasia_forn + "</td>" +
                             "<td>" + fornecedorEditado.telefone_forn + "</td>" +
-                            "<td align='right'><button class='btn btn-success btn-xs open-modal-update j-open-modal-update-fornecedor' idfornecedores='" + fornecedorEditado.idfornecedores + "' idendereco_forn='" + fornecedorEditado.idendereco_forn + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<td align='right'>"+
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-fornecedor' idfornecedores='" + fornecedorEditado.idfornecedores + "' idendereco_forn='" + fornecedorEditado.idendereco_forn + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>" +
                             "</tr>");
                     //ESSA FUNÇÃO EVITA QUE AO ADICIONAR UM NOVO USUÁRIO DIFERENTE GERE EFEITOS EM ELEMENTOS QUE JÁ FORAM CADASTRADOS ANTES.

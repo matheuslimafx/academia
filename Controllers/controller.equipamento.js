@@ -85,7 +85,7 @@ $(function () {
                             "<td>" + novoEquip.marca_equip + "</td>" +
                             "<td>" + novoEquip.nome_forn + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idequipamentos='" + novoEquip.idequipamentos + "'><i class='glyphicon glyphicon-edit'></i></button> " +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-equipamento' idequipamentos='" + novoEquip.idequipamentos + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>" +
                             "</tr>"
                             );
@@ -134,7 +134,7 @@ $(function () {
                             "<td>"+ equipamentoEditado.marca_equip + "</td>"+
                             "<td>"+ equipamentoEditado.nome_forn + "</td>"+
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-equipamento' idequipamentos='"+ equipamentoEditado.idequipamentos +"><i class='glyphicon glyphicon-edit'></i></button>" +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-equipamento' idequipamentos='" + equipamentoEditado.idequipamentos + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>" +
                             "</tr>"
                             );

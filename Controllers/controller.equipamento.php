@@ -108,10 +108,18 @@ else:
                 $updateEquipamento = new AtualizarEquipamento;
                $updateEquipamento->atualizarEquipamento('equipamentos', $Post, "WHERE equipamentos.idequipamentos = :idequipamentos", "idequipamentos={$Post['idequipamentos']}");
                 if ($updateEquipamento->getResult()):
+                    $readEquipamento = new Read;
+                    $readEquipamento->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
+                            . "FROM equipamentos "
+                            . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
+                            . "WHERE equipamentos.idequipamentos = :idequipamentos", " idequipamentos={$Post['idequipamentos']}");
+                    $DadosEquipamentoEditado = $readEquipamento->getResult();
                         $jSon['sucesso'] = ['true'];
                         $jSon['clear'] = ['true'];
                         $jSon['content']['idequipamentos'] = $Post['idequipamentos'];
                         $jSon['content']['nome_equip'] = $Post['nome_equip'];
+                        $jSon['content']['marca_equip'] = $DadosEquipamentoEditado[0]['marca_equip'];
+                        $jSon['content']['nome_forn'] = $DadosEquipamentoEditado[0]['nome_forn'];
                 endif;
 
                 break;

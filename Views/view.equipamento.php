@@ -145,7 +145,8 @@
                 $ReadEquipamento = new Read;
                 $ReadEquipamento->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
                         . "FROM equipamentos "
-                        . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores;");
+                        . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
+                        . "ORDER BY equipamentos.idequipamentos");
                 foreach ($ReadEquipamento->getResult() as $e):
                     extract($e);
                     echo
