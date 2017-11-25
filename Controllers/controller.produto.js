@@ -120,7 +120,6 @@ $(function () {
     $('.j-form-update-produto').submit(function () {
         var Form = $(this);
         var Data = Form.serialize();
-        console.log(Data);
 
         $.ajax({
             url: "Controllers/controller.produto.php",

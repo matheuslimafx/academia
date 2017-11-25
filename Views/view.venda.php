@@ -18,41 +18,63 @@
         <div class="form-group col-md-12 mensagens-retorno">
             <div class='alert alert-success'>
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
-                Cadastro realizado com sucesso!
+                Venda Realizada com Sucesso!
             </div>
         </div>
 
         <div class="col-md-12 modal-create">
             <div class="container"><h5 class="obrigatorios">* Campos Obrigatórios</h5></div>
-            <form action="" method="POST">
-                <input type="hidden" name="callback" value="vendas">
+            <form class="j-form-create-venda" action="" method="POST">
+                <input type="hidden" name="callback" value="cadastrar-venda">
+                <input type="hidden" name="data_venda" value="<?php echo date("Y-m-d h:i:s"); ?>" class="form-control">
                 <div class="form-group col-md-3">
                     <label>* Produto</label>
-                    <select name="idprodutos" class="form-control">
-                        <option>SELECIONE</option>
+                    <select id = "idprodutos" name="idprodutos" class="form-control">
+                        <option selected disabled>SELECIONE</option>
+                        <?php
+                        $LerProdutos = new Read;
+                        $LerProdutos->FullRead("SELECT produtos.idprodutos, produtos.nome_prod FROM produtos");
+                        foreach ($LerProdutos->getResult() as $e):
+                            extract($e);
+                            echo "<option value='{$idprodutos}'>{$idprodutos} - {$nome_prod}</option>";
+                        endforeach;
+                        ?>
                     </select>
                 </div>
-
+                <input type="hidden" id="idestoques" name="idestoques" value=""/>
+                <input type="hidden" id="quant_estoque" name="quant_estoque" value="" disabled/>
                 <div class="form-group col-md-3">
                     <label>* Cliente</label>
                     <select name="idalunos_cliente" class="form-control">
-                        <option>SELECIONE</option>
+                        <option selected disabled>SELECIONE</option>
+                        <?php
+                        $LerClientes = new Read;
+                        $LerClientes->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno FROM alunos_cliente");
+                        if ($LerClientes->getResult()):
+                            foreach ($LerClientes->getResult() as $i):
+                                extract($i);
+                                echo "<option value='{$idalunos_cliente}'>{$idalunos_cliente} - {$nome_aluno}</option>";
+                            endforeach;
+                        endif;
+                        ?>
                     </select>
-                </div>
-
-                <div class="form-group col-md-3">
-                    <label>Data de Venda</label>
-                    <input type="date" name="data_venda" class="form-control">
-                </div>
-
+                </div>                
                 <div class="form-group col-md-3">
                     <label>* Quantidade</label>
-                    <input type="number" name="qt_vendas" class="form-control" required>
+                    <input type="number" min="1" name="qt_vendas" class="form-control" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                return true;
+                            else
+                                return false;" required>
                 </div>
 
                 <div class="form-group col-md-3">
+                    <label>Valor do Produto</label>
+                    <input type="number" name="valor_prod" class="form-control moeda" placeholder="R$" disabled>
+                </div>
+                
+                <div class="form-group col-md-3">
                     <label>Valor Total</label>
-                    <input type="text" name="valor_vendas" class="form-control moeda" placeholder="R$">
+                    <input type="number" name="valor_vendas" class="form-control moeda" placeholder="R$" readonly="readonly">
                 </div>
 
                 <div class="form-group col-md-12">
@@ -73,7 +95,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="j-result-vendas">
                     <?php
                     $ReadVenda = new Read;
                     $ReadVenda->FullRead("SELECT vendas.idvendas, vendas.data_venda, vendas.valor_vendas, vendas.qt_vendas, " .
