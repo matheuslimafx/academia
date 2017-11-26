@@ -76,7 +76,7 @@ else:
                 if ($CadastrarTreino->getResult()):
                     $idNovoTreino = $CadastrarTreino->getResult();
                     $treinoCadastrado = new Read;
-                    $treinoCadastrado->FullRead("SELECT treinos.idtreino, treinos.nome_treino, exercicios.descricao_exe, equipamentos.nome_equip " .
+                    $treinoCadastrado->FullRead("SELECT treinos.idtreino, treinos.nome_treino, treinos.sigla_treino ,exercicios.descricao_exe, equipamentos.nome_equip " .
                             "FROM treinos " .
                             "INNER JOIN exercicios ON treinos.idexercicio = exercicios.idexercicios " .
                             "INNER JOIN equipamentos ON treinos.idequipamentos = equipamentos.idequipamentos " .
@@ -103,6 +103,28 @@ else:
                         $Resultado = $e;
                     endforeach;
                     $jSon = $Resultado;
+                endif;
+
+                break;
+
+            case 'update-treino':
+                require '../Models/model.treino.update.php';
+                $updateTreino = new AtualizarTreino;
+                $updateTreino->atualizarTreino('treinos', $Post, "WHERE treinos.idtreino = :idtreino", "idtreino={$Post['idtreino']}");
+                if ($updateTreino->getResult()):
+                    $ReadTreino = new Read;
+                    $ReadTreino->FullRead("SELECT treinos.idtreino, treinos.nome_treino, treinos.sigla_treino ,exercicios.descricao_exe, equipamentos.nome_equip " .
+                            "FROM treinos " .
+                            "INNER JOIN exercicios ON treinos.idexercicio = exercicios.idexercicios " .
+                            "INNER JOIN equipamentos ON treinos.idequipamentos = equipamentos.idequipamentos " .
+                            "WHERE treinos.idtreino = :idtreino", " idtreino={$Post['idtreino']}");
+                    $treinoAtualizado = $ReadTreino->getResult();
+                    $jSon['sucesso'] = ['true'];
+                    $jSon['clear'] = ['true'];
+                    $jSon['content']['idtreino'] = $Post['idtreino'];
+                    $jSon['content']['nome_treino'] = $Post['nome_treino'];
+                    $jSon['content']['sigla_treino'] = $treinoAtualizado[0]['sigla_treino'];
+                    $jSon['content']['descricao_exe'] = $treinoAtualizado[0]['descricao_exe'];
                 endif;
 
                 break;
