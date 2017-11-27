@@ -20,8 +20,8 @@ else:
             //VERIFICA SE HÁ CAMPOS EM BRANCO:
             if (in_array('', $Post)):
                 $jSon['result'] = false;
-                $jSon['trigger'] = AjaxErro("<span class='trigger warning'>Ops! Parece que há algum campo em branco, por favor preencha os dados corretamente!</span>
-                    ", E_USER_WARNING);
+                $jSon['trigger'] = AjaxErro("<span class='trigger warning'>Ops! Parece que há algum campo em branco, por favor preencha os dados corretamente!</span>"
+                    , E_USER_WARNING);
                 break;
             //VERIFICA SE O E-MAIL É UM E-MAIL VÁLIDO:    
             elseif (!Check::Email($Post['email_usuario'])):

@@ -3,10 +3,27 @@
     float: right;
     padding: 20px 20px;
     margin-bottom: 30px;
-    background-color: #05f;
+    background-color: red;
     color: #fff;
     font-size: 1.4em;
+    border-radius: 10px;
 }
+.fundo-login{
+    background-color: #404040;
+    border-color: #404040;
+    align-self: center;
+    width: 40%;
+    border-radius: 10px;
+}
+
+.rodape-login{
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    height: 200px;
+}
+
 .pf_load{
     display: none;
     padding-left: 200px;
@@ -125,11 +142,6 @@
 .login{
     background-color: #005580;
     color: white;
-}
-
-.fundo-login{
-    background-color: #404040;
-    border-color: #404040;
 }
 
 
