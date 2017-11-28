@@ -40,6 +40,7 @@
         <script src="Controllers/controller.anamnese.js"></script>
         <script src="Controllers/controller.equipamento.js"></script>
         <script src="Controllers/controller.treino.js"></script>
+        <script src="Controllers/controller.exercicios.js"></script>
         <script src="Controllers/controller.usuario.js"></script>
         <script src="Controllers/controller.mensalidade.js"></script>
         <script src="Controllers/controller.produto.js"></script>

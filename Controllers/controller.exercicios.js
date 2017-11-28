@@ -2,18 +2,18 @@
 $(function () {
 
     //A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
-    $('.pesquisar-treino').on('keypress', function (e) {
+    $('.pesquisar-exercicio').on('keypress', function (e) {
         return e.which !== 13;
     });
 
     //FUNÇÃO RESPONSÁVEL POR FAZER CONSULTAS DE ACORDO COM PESQUISAS DO USUÁRIO:
-    $(".pesquisar-treino").keyup(function () {
-        var termo = $(".pesquisar-treino").val();
+    $(".pesquisar-exercicio").keyup(function () {
+        var termo = $(".pesquisar-exercicio").val();
         if (termo === '') {
             termo = '0';
         }
         $.ajax({
-            url: "Controllers/controller.treino.php",
+            url: "Controllers/controller.exercicio.php",
             data: termo,
             type: 'POST',
             dataType: 'json',
@@ -21,17 +21,15 @@ $(function () {
 
             },
             success: function (data) {
-                $(".j-result-treinos").html('');
+                $(".j-result-exercicios").html('');
                 $(data).each(function (index, value) {
-                    $(".j-result-treinos").append(
-                            "<tr id='" + value.idtreino + "'>" +
-                            "<td>" + value.idtreino + "</td>" +
-                            "<td>" + value.nome_treino + "</td>" +
-                            "<td>" + value.sigla_treino + "</td>" +
+                    $(".j-result-exercicios").append(
+                            "<tr id='" + value.idexercicios + "'>" +
+                            "<td>" + value.idexercicios + "</td>" +
                             "<td>" + value.descricao_exe + "</td>" +
+                            "<td>" + value.grupo_muscular_exe + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-treino' idtreino='" + value.idtreino + "'><i class='glyphicon glyphicon-edit'></i></button> " +
-                            "<button class='btn btn-danger btn-xs open-delete j-btn-del-treino' idtreino='" + value.idtreino + "'><i class='glyphicon glyphicon-trash'></i></button>" +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-exercicio' idexercicios='" + value.idexercicios + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>" +
                             "</tr>"
                             );
@@ -42,7 +40,7 @@ $(function () {
 
 
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
-    $(".j-form-create-treino").submit(function () {
+    $(".j-form-create-exercicio").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
         var Form = $(this);
 //        VARIAVEL ACTION RECEBE O VALOR DO CALLBACK QUE É UM INPUT ESCONDIDO NO FORMULARIO ESSE CALLBACK SERVE COMO GATILHO PARA CONDIÇÕES:
@@ -53,7 +51,7 @@ $(function () {
 //        INICIAÇÃO DO AJAX - PARA ENVIAR E RECEBER DADOS:
         $.ajax({
 //            URL É O CAMINHO QUE ESTÁ A CONTROLLER, ONDE SERÃO ENVIADOS OS DADOS DO FORMULARIO (FORM -> DATA):
-            url: "Controllers/controller.treino.php",
+            url: "Controllers/controller.exercicio.php",
 //            DATA SÃO OS DADOS QUE SERÃO ENVIADOS:
             data: Data,
 //            TYPE É O MÉTODO USADO PARA O ENVIO DOS DADOS:
@@ -80,22 +78,20 @@ $(function () {
                 $('.pesquisar').fadeIn(0);
                 $('.modal-table').fadeIn(0);
 
-                if (data.novotreino) {
-                    var novoTreino = data.novotreino;
-                    $('.j-result-treinos').prepend(
-                            "<tr id='" + novoTreino.idtreino + "' class='animated zoomInDown'>" +
-                            "<td>" + novoTreino.idtreino + "</td>" +
-                            "<td>" + novoTreino.nome_treino + "</td>" +
-                            "<td>" + novoTreino.sigla_treino + "</td>" +
-                            "<td>" + novoTreino.descricao_exe + "</td>" +
+                if (data.novoexercicio) {
+                    var novoExercicio = data.novoexercicio;
+                    $('.j-result-exercicios').prepend(
+                            "<tr id='" + novoExercicio.idexercicios + "' class='animated zoomInDown'>" +
+                            "<td>" + novoExercicio.idexercicios + "</td>" +
+                            "<td>" + novoExercicio.descricao_exe + "</td>" +
+                            "<td>" + novoExercicio.grupo_muscular_exe + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idtreino='" + novoTreino.idtreino + "'><i class='glyphicon glyphicon-edit'></i></button> " +
-                            "<button class='btn btn-danger btn-xs open-delete j-btn-del-treino' idtreino='" + novoTreino.idtreino + "'><i class='glyphicon glyphicon-trash'></i></button>" +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-exercicio' idexercicios='" + novoExercicio.idexercicios + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>" +
                             "</tr>"
                             );
                     setTimeout(function () {
-                        $("tr[id='" + novoTreino.idtreino + "']:first").removeClass("animated zoomInDown");
+                        $("tr[id='" + novoExercicio.idexercicios + "']:first").removeClass("animated zoomInDown");
                     }, 1000);
                 }
             }
@@ -105,13 +101,13 @@ $(function () {
         return false;
     });
 
-    //    FUNÇÃO RESPONSÁVEL POR ATUALIZAR OS DADOS DE UMA TREINO NO BANCO DE DADOS:
-    $('.j-form-update-treino').submit(function () {
+    //    FUNÇÃO RESPONSÁVEL POR ATUALIZAR OS DADOS DE UMA EXERCICIO NO BANCO DE DADOS:
+    $('.j-form-update-exercicio').submit(function () {
         var Form = $(this);
         var Data = Form.serialize();
 
         $.ajax({
-            url: "Controllers/controller.treino.php",
+            url: "Controllers/controller.exercicio.php",
             data: Data,
             type: 'POST',
             dataType: 'json',
@@ -130,25 +126,23 @@ $(function () {
                     $('.modal-table').fadeIn(0);
                 }
                 if (data.content) {
-                    var treinoEditado = data.content;
+                    var exercicioEditado = data.content;
                     //FUNÇÃO RESPONSÁVEL POR OCULTAR DO DOM O REGISTRO QUE FOI EDITADO COM EFEITO ANIMATE E POIS FADEOUT, POIS O EFEITO DO ANIMTE GERA UM CSS COMO 'display: hidden' E NÃO 'display: none', E DEIXA ESPAÇO NO HTML, POR ISSO O USO DA FUNÇÃO 'fadeOut()' POSTERIORMENTE.
-                    $('html').find("tr[id='" + treinoEditado.idtreino + "']").addClass("animated zoomOutDown").fadeOut(720);
+                    $('html').find("tr[id='" + exercicioEditado.idexercicios + "']").addClass("animated zoomOutDown").fadeOut(720);
                     //FUNÇÃO RESPONSÁVEL POR INSERIR NO DOM O NOVO ALUNO CADASTRADO. *IMPORTANTE USAR O PARÂMETRO ':first' PARA QUE O JQUERY COLOQUE O NOVO ALUNO ACIMA DO ANTIGO REGISTRO, CASO NÃO TENHA O PARÂMETRO O MESMO ALUNO EDITADO PODERÁ SER INSERIDO NO DOM MAIS DE UMA VEZ.
-                    $("tr[id='" + treinoEditado.idtreino + "']:first").before(
-                            "<tr id='" + treinoEditado.idtreino + "' class='animated zoomInDown'>" +
-                            "<td>" + treinoEditado.idtreino + "</td>" +
-                            "<td>" + treinoEditado.nome_treino + "</td>" +
-                            "<td>" + treinoEditado.sigla_treino + "</td>" +
-                            "<td>" + treinoEditado.descricao_exe + "</td>" +
+                    $("tr[id='" + exercicioEditado.idexercicios + "']:first").before(
+                            "<tr id='" + exercicioEditado.idexercicios + "' class='animated zoomInDown'>" +
+                            "<td>" + exercicioEditado.idexercicios + "</td>" +
+                            "<td>" + exercicioEditado.descricao_exe + "</td>" +
+                            "<td>" + exercicioEditado.grupo_muscular_exe + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update j-update-treino j-open-modal-update-treino' idtreino='" + treinoEditado.idtreino + "'><i class='glyphicon glyphicon-edit'></i></button> " +
-                            "<button class='btn btn-danger btn-xs open-delete j-btn-del-treino' idtreino='" + treinoEditado.idtreino + "'><i class='glyphicon glyphicon-trash'></i></button>" +
+                            "<button class='btn btn-success btn-xs open-modal-update j-update-exercicio j-open-modal-update-exercicio' idexercicios='" + exercicioEditado.idexercicios + "'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "</td>" +
                             "</tr>"
                             );
                     //ESSA FUNÇÃO EVITA QUE AO ADICIONAR UM NOVO USUÁRIO DIFERENTE GERE EFEITOS EM ELEMENTOS QUE JÁ FORAM CADASTRADOS ANTES.
                     setTimeout(function () {
-                        $("tr[id='" + treinoEditado.idtreino + "']:first").removeClass("animated zoomInDown");
+                        $("tr[id='" + exercicioEditado.idexercicios + "']:first").removeClass("animated zoomInDown");
                     }, 1000);
                 }
             }
@@ -157,33 +151,14 @@ $(function () {
         return false;
     });
 
-    //FUNÇÃO RESPONSÁVEL POR DELETAR REGISTROS DE TREINO NO BANCO DE DADOS.
-    $('html').on('click', '.j-btn-del-treino', function () {
-        var delButton = $(this);
-        var idtreino = $(delButton).attr('idtreino');
-        var Dados = {callback: 'delete-treino', idtreino: idtreino};
-        $.ajax({
-            url: "Controllers/controller.treino.php",
-            data: Dados,
-            type: 'POST',
-            dataType: 'json',
-            beforeSend: function (xhr) {
-            },
-            success: function (data) {
-                if (data.delete) {
-                    $('html').find("tr[id='" + data.idtreino + "']").addClass("animated zoomOutDown").fadeOut(720);
-                }
-            }
-        });
-    });
 
-    //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA TREINO:
-    $('html').on('click', '.j-open-modal-update-treino', function () {
+    //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA EXERCICIO:
+    $('html').on('click', '.j-open-modal-update-exercicio', function () {
         var button = $(this);
-        var idtreino = $(button).attr('idtreino');
-        var dados_edit = {callback: 'povoar-edit', idtreino: idtreino};
+        var idexercicios = $(button).attr('idexercicios');
+        var dados_edit = {callback: 'povoar-edit', idexercicios: idexercicios};
         $.ajax({
-            url: "Controllers/controller.treino.php",
+            url: "Controllers/controller.exercicio.php",
             data: dados_edit,
             type: 'POST',
             dataType: 'json',
@@ -191,7 +166,7 @@ $(function () {
 
             },
             success: function (data) {
-                var Form = $('.j-form-update-treino');
+                var Form = $('.j-form-update-exercicio');
                 $.each(data, function (key, value) {
                     Form.find("input[name='" + key + "'], select[name='" + key + "'], textarea[name='" + key + "']").val(value);
                 });
@@ -200,3 +175,5 @@ $(function () {
     });
 
 });
+
+

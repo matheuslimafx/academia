@@ -2,6 +2,7 @@
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
 <div class="container">
+    <br>
     <h2>Usuários</h2>
     <div class="col-md-12" align="right">
         <form action="" method="POST">

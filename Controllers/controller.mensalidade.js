@@ -91,7 +91,7 @@ $(function () {
                             "<td>" + novaMens.status_mensalidades + "</td>" +
                             "<td align='right'>" +
                             "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidades='" + novaMens.idmensalidades + "'><i class='glyphicon glyphicon-edit'></i></button> " +
-                            "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button>" +
+                            "<button class='btn btn-primary btn-xs open-modal-pagamento'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button>" +
                             "</td>" +
                             "</tr>"
                             );
@@ -143,7 +143,7 @@ $(function () {
                             "<td>" + mensalidadeEditada.status_mensalidades + "</td>" +
                             "<td align='right'>" +
                             "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidades='" + mensalidadeEditada.idmensalidades + "'><i class='glyphicon glyphicon-edit'></i></button></a> " +
-                            "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" +
+                            "<button class='btn btn-primary btn-xs open-modal-pagamento'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" +
                             "</td>" +
                             "</tr>"
                             );

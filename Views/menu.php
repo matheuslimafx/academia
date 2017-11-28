@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <a class="nav navbar-brand" href="index"><b class="home">Performance Fit</b></a>
         <ul class="nav navbar-nav">
@@ -23,7 +23,15 @@
             <li><a href="view.produto"><b>Produtos</b></a></li>
         </ul>
         <ul class="nav navbar-nav">
-            <li><a href="view.treino"><b>Treinos</b></a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>Treinamentos</b>
+                    <span class="caret"></span>
+                </a>
+                <ul  style="background-color: #b3d1ff" class="dropdown-menu">
+                    <li><a href="view.treino">Treinos</a></li>
+                    <li><a href="view.exercicios">Exercícios</a></li>
+                </ul>
+            </li>
         </ul>
         <ul class="nav navbar-nav">
             <li><a href="view.usuario"><b>Usuários</b></a></li>

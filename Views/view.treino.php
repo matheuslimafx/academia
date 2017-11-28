@@ -2,7 +2,7 @@
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
 <div class="container">
-
+    <br>
     <h2>Treinos</h2>
     <div>
         <div class="col-md-12" align="right">
@@ -12,8 +12,6 @@
                 </div>
             </form>
             <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Novo Registro</button>
-            <button type="button" class="btn btn-primary open-modal-agenda"><i class="glyphicon glyphicon-plus"></i> Agendar Treino</button>
-            <button type="button" class="btn btn-danger close-modal-agenda"><i class="glyphicon glyphicon-remove"></i></button>
             <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
             <button type="button" class="btn btn-danger close-modal-update"><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.treinos.relatorio.php" target="_blank"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relatório Geral</button></a>
@@ -46,12 +44,12 @@
                     <select name="idexercicio" class="form-control" required>
                         <option>SELECIONE</option>
                         <?php
-                            $exercicios = new Read;
-                            $exercicios->ExeRead("exercicios", "ORDER BY descricao_exe");
-                            foreach ($exercicios->getResult() as $e):
-                                extract($e);
+                        $exercicios = new Read;
+                        $exercicios->ExeRead("exercicios", "ORDER BY descricao_exe");
+                        foreach ($exercicios->getResult() as $e):
+                            extract($e);
                             echo "<option value='{$idexercicios}'>{$descricao_exe} - {$grupo_muscular_exe}</option>";
-                            endforeach;
+                        endforeach;
                         ?>
                     </select>
                 </div>
@@ -68,12 +66,12 @@
                     <select name="idequipamentos" class="form-control" required>
                         <option>SELECIONE</option>
                         <?php
-                            $equipamentos = new Read;
-                            $equipamentos->ExeRead("equipamentos");
-                            foreach ($equipamentos->getResult() as $e):
-                                extract($e);
-                                echo "<option value{$idequipamentos}>{$idequipamentos} - {$nome_equip}</option>";
-                            endforeach;
+                        $equipamentos = new Read;
+                        $equipamentos->ExeRead("equipamentos");
+                        foreach ($equipamentos->getResult() as $e):
+                            extract($e);
+                            echo "<option value{$idequipamentos}>{$idequipamentos} - {$nome_equip}</option>";
+                        endforeach;
                         ?>
                     </select>
                 </div>
@@ -91,6 +89,7 @@
         <div class="col-md-12 modal-update">
             <form action="" method="POST" name="form_treino" class="j-form-update-treino">
                 <input type="hidden" name="callback" value="update-treino">
+                <input type="hidden" name="idtreino" value="">
                 <div class="container">
                     <h5 class="obrigatorios">* Campos obrigatórios</h5>
                 </div>
@@ -107,12 +106,12 @@
                     <select name="idexercicio" class="form-control">                        
                         <option>SELECIONE</option>
                         <?php
-                            $exercicios = new Read;
-                            $exercicios->ExeRead("exercicios");
-                            foreach ($exercicios->getResult() as $e):
-                                extract($e);
+                        $exercicios = new Read;
+                        $exercicios->ExeRead("exercicios");
+                        foreach ($exercicios->getResult() as $e):
+                            extract($e);
                             echo "<option value='{$idexercicios}'>{$idexercicios} - {$descricao_exe}</option>";
-                            endforeach;
+                        endforeach;
                         ?>
                     </select>
                 </div>
@@ -129,12 +128,12 @@
                     <select name="idequipamentos" class="form-control">
                         <option>SELECIONE</option>
                         <?php
-                            $equipamentos = new Read;
-                            $equipamentos->ExeRead("equipamentos");
-                            foreach ($equipamentos->getResult() as $e):
-                                extract($e);
-                                echo "<option value='{$idequipamentos}'>{$idequipamentos} - {$nome_equip}</option>";
-                            endforeach;
+                        $equipamentos = new Read;
+                        $equipamentos->ExeRead("equipamentos");
+                        foreach ($equipamentos->getResult() as $e):
+                            extract($e);
+                            echo "<option value='{$idequipamentos}'>{$idequipamentos} - {$nome_equip}</option>";
+                        endforeach;
                         ?>
                     </select>
                 </div>
@@ -144,67 +143,6 @@
                 </div>
                 <div class="form-group col-md-12">
                     <button type="submit" name="" value="Cadastrar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Atualizar</button>
-                </div>
-            </form>
-        </div>
-        
-        <div class="form-group col-md-12 modal-agenda">
-            <form action="" method="POST" class="">
-                <div class="container">
-                    <h5 class="obrigatorios">* Campos obrigatórios</h5>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>* Aluno</label>
-                    <select name="idalunos_cliente" class="form-control" required>
-                        <option value="0">SELECIONE</option>
-                        <?php
-                            $alunos = new Read;
-                            $alunos->ExeRead("alunos_cliente");
-                            foreach ($alunos->getResult() as $e):
-                                extract($e);
-                                echo "<option value={$idalunos_cliente}>{$idalunos_cliente} - {$nome_aluno}</option>";
-                            endforeach;
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>* Professor</label>
-                    <select name="idfuncionarios" class="form-control">
-                        <option value="0">SELECIONE</option>
-                        <?php
-                            $professores = new Read;
-                            $professores->FullRead("SELECT idfuncionarios, nome_func FROM funcionarios WHERE cargo_func = 'Professor'");
-                            foreach ($professores->getResult() as $e):
-                                extract($e);
-                                echo "<option value={$idfuncionarios}>{$idfuncionarios} - {$nome_func}</option>";
-                            endforeach;
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>* Treino</label>
-                    <select name="idtreino" class="form-control" required>
-                        <option value="0">SELECIONE</option>
-                        <?php
-                            $treinos = new Read;
-                            $treinos->ExeRead("treinos");
-                            foreach ($treinos->getResult() as $e):
-                                extract($e);
-                                echo "<option value={$idtreino}>{$idtreino} - {$nome_treino}</option>";
-                            endforeach;
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>* Data</label>
-                    <input type="date" name="data" class="form-control" required>
-                </div>
-                <div class="form-group col-md-2">
-                    <label>* Horário</label>
-                    <input type="time" name="horario" class="form-control" required>
-                </div>
-                <div class="form-group col-md-12">
-                    <button type="submit" name="" value="Agendar" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Agendar</button>
                 </div>
             </form>
         </div>

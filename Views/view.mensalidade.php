@@ -2,6 +2,7 @@
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
 <div class="container">
+    <br>
     <h2>Mensalidades</h2>
         <div class="col-md-12" align='right'>
             <form action="" method="POST">
@@ -114,7 +115,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Status</label>
-                    <select name="status_mensalidades" class="form-control" required>
+                    <select name="status_mensalidades" class="form-control" disabled>
                         <option value=0>SELECIONE</option>
                         <option value="Em dia">Em dia</option>
                         <option value="Pendente">Pendente</option>
@@ -140,16 +141,32 @@
                     <input type="text" name="" class="form-control" disabled>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>* Data de pagamento</label>
-                    <input type="date" name="" class="form-control" required>
+                    <label>* Data de Vencimento</label>
+                    <input type="date" name="" class="form-control" disabled>
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Valor da Mensalidade</label>
-                    <input type="text" name="" class="form-control" placeholder="R$" disabled>
+                    <input type="text" name="" class="form-control moeda" placeholder="R$" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>* Data do Pagamento</label>
+                    <input type="date" name="" class="form-control">
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Valor da Entrada</label>
-                    <input type="text" name="" class="form-control" placeholder="R$" required="">
+                    <input type="text" name="" class="form-control moeda" placeholder="R$" required="">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Descontos</label>
+                    <input type="text" name="" class="form-control moeda" placeholder="R$">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Juros</label>
+                    <input type="text" name="" class="form-control moeda" placeholder="R$">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Valor Total</label>
+                    <input type="text" name="" class="form-control moeda" placeholder="R$" disabled>
                 </div>
                  <div class="form-group col-md-12">
                     <button class="btn btn-primary pagamento-mensalidade"><i class="glyphicon glyphicon-shopping-cart"></i> Confirmar</button>

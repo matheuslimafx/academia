@@ -3,6 +3,7 @@
 <!--FIM MENU-->
 
 <div class="container">
+    <br>
     <h2>Anamneses</h2>
     <div>
         <div class="col-md-12" align="right">
