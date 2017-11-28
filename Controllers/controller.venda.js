@@ -1,25 +1,27 @@
 $(function(){
     
     //FUNÇÃO RESPONSÁVEL POR RECONHECER O ID DO ESTOQUE AO QUAL O PRODUTO SELECIONADO FAZ PARTE:
-    $(".j-form-create-venda").on("change", "#idprodutos", function(){
+    // ALÉM DISSO TAMBÉM É RESPONSÁVEL POR LIBERAR O INPUT DA QUANTIDADE APENAS DEPOIS DE SELECIONADO UM PRODUTO PARA A VENDA
+    $(".j-form-carrinho-venda").on("change", "#idprodutos", function(){
         var idprodutos = $("#idprodutos").val();
         var callback = "buscar-estoque-produto";
         $.post("Controllers/controller.venda.php", {idprodutos: idprodutos, callback: callback}, function(data){
             var idestoques = data.idestoques;
             var quant_estoque = data.quant_estoque;
             var valor_prod = data.valor_prod;
-            $(".j-form-create-venda").find("input[name='idestoques']").val(idestoques);
-            $(".j-form-create-venda").find("input[name='quant_estoque']").val(quant_estoque);
-            $(".j-form-create-venda").find("input[name='valor_prod']").val(valor_prod);
-            $(".j-form-create-venda").find("input[name='qt_vendas']").val('');
-            $(".j-form-create-venda").find("input[name='valor_vendas']").val('');
+            $(".j-form-carrinho-venda").find("input[name='idestoques']").val(idestoques);
+            $(".j-form-carrinho-venda").find("input[name='quant_estoque']").val(quant_estoque);
+            $(".j-form-carrinho-venda").find("input[name='valor_prod']").val(valor_prod);
+            $(".j-form-carrinho-venda").find("input[name='qt_vendas']").val('');
+            $(".j-form-carrinho-venda").find("input[name='valor_vendas']").val('');
+            $(".j-form-carrinho-venda").find("input[name='qt_vendas']").prop('readonly', false);
         }, 'json');
     });
-    
+
     //FUNÇÃO RESPONSÁVEL POR VERIFICAR SE A QUANTIDADE DO PRODUTO A SER VENDIDO É IGUAL OU MENOR A QUANTIDADE EM ESTOQUE. 
     //ESSA FUNÇÃO TAMBÉM ATUALIZA O PREÇO FINAL DA VENDA DE ACORDO COM A QUANTIDADE CONFIGURADA NA VENDA.
-    $(".j-form-create-venda").on("keyup", "input[name='qt_vendas']", function(){
-        var form = $(".j-form-create-venda");
+    $(".j-form-carrinho-venda").on("keyup change", "input[name='qt_vendas']", function(){
+        var form = $(".j-form-carrinho-venda");
         var qt_vendas = form.find("input[name='qt_vendas']").val();
         var quant_estoque = form.find("input[name='quant_estoque']").val();
         var total = quant_estoque - qt_vendas;
@@ -27,11 +29,11 @@ $(function(){
    
         if(total <= -1){
             alert("Você não possui essa quantidade de produtos em Estoque, Atualmente o estoque possui: " + quant_estoque + " unidade(s) desse produto.");
-            $(".j-form-create-venda").find("input[name='qt_vendas']").val('');
+            $(".j-form-carrinho-venda").find("input[name='qt_vendas']").val('');
             form.find("input[name='valor_vendas']").val('');
         }else if(qt_vendas < 1){
             alert("A Quantidade digitada é inválida");
-            $(".j-form-create-venda").find("input[name='qt_vendas']").val('');
+            $(".j-form-carrinho-venda").find("input[name='qt_vendas']").val('');
             form.find("input[name='valor_vendas']").val('');
         }else{
             form.find("input[name='valor_vendas']").val(valor_vendas);
@@ -39,15 +41,54 @@ $(function(){
         
     });
     
+    //FUNÇÃO RESPONSÁVEL POR ADICIONAR O ITEM AO CARRINHO:
+    $(".j-form-carrinho-venda").submit(function () {
+        var form = $(this);
+        var Data = form.serialize();
+        $.ajax({
+            url: "Controllers/controller.venda.php",
+            data: Data,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+                
+            },
+            success: function (data) {
+                if(data.trigger){
+                    alert(data.trigger);
+                }
+                if(data.sucesso){
+                    form.trigger('reset');
+                    $(".j-form-carrinho-venda").find("input[name='qt_vendas']").prop('readonly', true);
+                }
+                if(data.item_info){
+                    var item_info = data.item_info;
+                    $('.j-carrinho-lista').prepend("<tr>" + 
+                            "<td>" + item_info.idprodutos + "</td>" +
+                            "<td>" + item_info.nome_prod + "</td>" +
+                            "<td>" + item_info.qt_vendas + "</td>" +
+                            "<td>" + item_info.valor_vendas + ",00</td>" +
+                            "</tr>"
+                            );
+                }
+                if(data.valor_total){
+                    $("#total_carrinho").html("R$ " + data.valor_total + ",00");
+                }
+            }
+        });
+        return false;
+    });
+    
+//    FUNÇÃO RESPONSÁVEL POR CANCELAR UMA VENDA:
+    $("#cancelar-venda").click(function (){
+        alert("teste de venda cancelada");
+    });
+    
     //FUNÇÃO RESPONSÁVEL POR CADASTRAR UMA NOVA VENDA NO BANCO DE DADOS:
     $(".j-form-create-venda").submit(function () {
         //VARIVEL FORM RECEBE O PROPRIO FORMULÁRIO USANDO O METODO DO JQUERY "THIS":
         var Form = $(this);
-        //VARIAVEL ACTION RECEBE O VALOR DO CALLBACK QUE É UM INPUT ESCONDIDO NO FORMULÁRIO ESSE CALLBACK SERVE COMO GATILHO PARA CONDIÇÕES:
-        var Action = Form.find('input[name="callback"]').val();
-        //VARIAVEL DATA RECEBE UMA MATRIZ COM OS DADOS DO FORMULÁRIO (FORM) INDICE E VALOR:
         var Data = Form.serialize();
-        console.log(Data);
 
         //INICIAÇÃO DO AJAX - PARA ENVIAR E RECEBER DADOS:
         $.ajax({
@@ -64,39 +105,8 @@ $(function(){
             },
             //SUCCESS É A FUNÇÃO DO AJAX RESPONSÁVEL POR EXECUTAR ALGORITMOS DEPOIS QUE OS DADOS RETORNAM DA CONTROLLER, TAIS DADOS PODEM SER ACESSADOS PELA VARIAVEL "(data)":
             success: function (data) {
-                if (data.trigger) {
+                if(data.trigger){
                     alert(data.trigger);
-                }
-                if (data.sucesso) {
-                    $('.alert-success').fadeIn();
-                }
-                if (data.clear) {
-                    Form.trigger('reset');
-                    $('.modal-create').fadeOut(0);
-                    $('.close-modal-create').fadeOut(0);
-                    $('.open-modal-create').fadeIn(0);
-                    $('.relatorio-geral').fadeIn(0);
-                    $('.pesquisar').fadeIn(0);
-                    $('.modal-table').fadeIn(0);
-                }
-                if (data.novavenda) {
-                    var novavenda = data.novavenda;
-                    $('.j-result-vendas').prepend(
-                            "<tr id='" + novavenda.idvendas + "' class='animated zoomInDown'>" +
-                            "<td>" + novavenda.idvendas + "</td>" +
-                            "<td>" + novavenda.nome_prod + "</td>" +
-                            "<td>" + novavenda.nome_aluno + "</td>" +
-                            "<td>" + novavenda.data_venda + "</td>" +
-                            "<td>R$ " + novavenda.valor_vendas + "</td>" +
-                            "<td>" + novavenda.qt_vendas + "</td>" +
-                            "<td align='right'>" +
-                            "<a href='http://localhost/academia/Views/view.venda.relatorio.php?idvendas=" + novavenda.idvendas + "' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" +
-                            "</td>" +
-                            "</tr>"
-                            );
-                    setTimeout(function () {
-                        $("tr[id='" + novavenda.idvendas + "']:first").removeClass("animated zoomInDown");
-                    }, 1000);
                 }
             }
         });

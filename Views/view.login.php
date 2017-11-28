@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!--INÍCIO DAS MENSAGENS:-->
 <div class="resultado_login">
     Resultado
@@ -40,5 +43,7 @@
             </label>
         </div>
     </div>   
-
 </body>
+<?php
+session_destroy();
+?>

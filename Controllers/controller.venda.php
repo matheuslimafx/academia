@@ -59,7 +59,7 @@ else:
                 $LerEstoque = new Read;
                 $LerEstoque->FullRead("SELECT estoq_prod.idestoques, estoq_prod.quant_estoque, produtos.valor_prod "
                         . "FROM estoq_prod "
-                        . "INNER JOIN produtos ON produtos.idprodutos = estoq_prod.idestoques "
+                        . "INNER JOIN produtos ON estoq_prod.idprodutos = produtos.idprodutos "
                         . "WHERE estoq_prod.idprodutos = :idprodutos", "idprodutos={$Post['idprodutos']}");
                 if ($LerEstoque->getResult()):
                     $idEstoque = $LerEstoque->getResult();
@@ -67,50 +67,43 @@ else:
                 endif;
                 break;
 
-            case 'cadastrar-venda':
-                $Estoque = new Read;
-                $Estoque->FullRead("SELECT estoq_prod.quant_estoque FROM estoq_prod WHERE estoq_prod.idestoques = :idestoques AND estoq_prod.idprodutos = :idprodutos", "idestoques={$Post['idestoques']}&idprodutos={$Post['idprodutos']}");
-                if ($Estoque->getResult()):
-                    $TotalEstoque = $Estoque->getResult();
-                    $IntEstoque = (int) $TotalEstoque[0]['quant_estoque'];
-                    if ($Post['qt_vendas'] > $IntEstoque):
-                        $jSon['trigger'] = "Erro, você não possui no estoque a quantidade desejada para a venda. Seu estoque possui: " . $IntEstoque . " unidade(s) deste produto.";
-                    else:
-                        $novoEstoque = array();
-                        $novoEstoque['quant_estoque'] = $IntEstoque - $Post['qt_vendas'];
-                        require '../Controllers/../Models/model.estoque.update.php';
-                        $UpdateEstoque = new AtualizarEstoque;
-                        $UpdateEstoque->atualizarEstoque('estoq_prod', $novoEstoque, "WHERE estoq_prod.idestoques = :idestoques AND estoq_prod.idprodutos = :idprodutos", "idestoques={$Post['idestoques']}&idprodutos={$Post['idprodutos']}");
-                        if (!$UpdateEstoque->getRowCount()):
-                            $jSon['trigger'] = "Ops! Algo deu errado ao subtrair no estoque, atualize a página e tente novamente.";
-                        else:
-                            require '../Models/model.venda.create.php';
-                            $Venda = new Venda;
-                            $Venda->novaVenda('vendas', $Post);
-                            if (!$Venda->getResult()):
-                                echo $jSon['trigger'] = "Ops! Não foi possível gerar uma nova venda. Recarregue a página e tente novamente";
-                            else:
-                                $IdVendaGerada = $Venda->getResult();
-                                $LerVenda = new Read;
-                                $LerVenda->FullRead("SELECT vendas.idvendas, vendas.data_venda, vendas.valor_vendas, vendas.qt_vendas, " .
-                                        "produtos.nome_prod, " .
-                                        "alunos_cliente.nome_aluno " .
-                                        "FROM vendas " .
-                                        "INNER JOIN produtos ON  vendas.idprodutos = produtos.idprodutos " .
-                                        "INNER JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente " . 
-                                        "WHERE vendas.idvendas = :idvendas", "idvendas={$IdVendaGerada}");
-                                if(!$LerVenda->getResult()):
-                                    echo $jSon['trigger'] = "Ops! Não foi possível encontrar a venda que você acabou de gerar. Recarregue a página e tente novamente!";
-                                else:
-                                    $DadosVenda = $LerVenda->getResult();
-                                    $VendaFeita = $DadosVenda[0];
-                                    $jSon['sucesso'] = true;
-                                    $jSon['novavenda'] = $VendaFeita;
-                                    $jSon['clear'] = true;
-                                endif;        
-                            endif;
-                        endif;
+            case 'adicionar-carrinho';
+                if (!array_key_exists('idprodutos', $Post)):
+                    $jSon['trigger'] = "Atenção é preciso selecionar um Produto para ser adicionado ao carrinho";
+                elseif (empty($Post['qt_vendas'])):
+                    $jSon['trigger'] = "Atenção é preciso inserir a quantidade itens a serem adicionados ao carrinho";
+                else:
+                    session_start();
+//                unset($_SESSION['itens_vendas']);
+                    $idProduto = $Post['idprodutos'];
+                    $LerNomeProduto = new Read;
+                    $LerNomeProduto->FullRead("SELECT produtos.nome_prod FROM produtos WHERE produtos.idprodutos = :idprodutos", "idprodutos={$idProduto}");
+                    if ($LerNomeProduto->getResult()):
+                        $NameProduto = $LerNomeProduto->getResult();
+                        $Post['nome_prod'] = $NameProduto[0]['nome_prod'];
+                        $_SESSION['itens_vendas']["{$idProduto}"] = $Post;
+                        $i = (float) 0;
+                        foreach ($_SESSION['itens_vendas'] as $e):
+                            extract($e);
+                            $i += $valor_vendas;
+                        endforeach;
+                        $_SESSION['valor_total'] = $i;
+                        $jSon['valor_total'] = $i;
+                        $jSon['item_info'] = $Post;
+                        $jSon['sucesso'] = true;
                     endif;
+                endif;
+                break;
+
+
+            case 'cadastrar-venda':
+                if(!array_key_exists("idalunos_cliente", $Post)):
+                    $jSon['trigger'] = "Selecione um cliente antes de concluir a venda.";
+                else:
+                    session_start();
+                    foreach ($_SESSION['itens_vendas'] as $e):
+                        var_dump($e);
+                    endforeach;
                 endif;
                 break;
 
