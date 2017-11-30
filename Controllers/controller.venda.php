@@ -56,14 +56,19 @@ else:
         switch ($Action):
             //CONDIÇÃO 'anamnese' ATENDIDA:
             case 'buscar-estoque-produto':
-                $LerEstoque = new Read;
-                $LerEstoque->FullRead("SELECT estoq_prod.idestoques, estoq_prod.quant_estoque, produtos.valor_prod "
-                        . "FROM estoq_prod "
-                        . "INNER JOIN produtos ON estoq_prod.idprodutos = produtos.idprodutos "
-                        . "WHERE estoq_prod.idprodutos = :idprodutos", "idprodutos={$Post['idprodutos']}");
-                if ($LerEstoque->getResult()):
-                    $idEstoque = $LerEstoque->getResult();
-                    $jSon = $idEstoque[0];
+                session_start();
+                if (array_key_exists("itens_vendas", $_SESSION) && array_key_exists("{$Post['idprodutos']}", $_SESSION['itens_vendas'])):
+                    $jSon['trigger'] = "Ops! Você não pode adicionar este produto, pois ele já está no seu carrinho.";
+                else:
+                    $LerEstoque = new Read;
+                    $LerEstoque->FullRead("SELECT estoq_prod.idestoques, estoq_prod.quant_estoque, produtos.valor_prod "
+                            . "FROM estoq_prod "
+                            . "INNER JOIN produtos ON estoq_prod.idprodutos = produtos.idprodutos "
+                            . "WHERE estoq_prod.idprodutos = :idprodutos", "idprodutos={$Post['idprodutos']}");
+                    if ($LerEstoque->getResult()):
+                        $idEstoque = $LerEstoque->getResult();
+                        $jSon = $idEstoque[0];
+                    endif;
                 endif;
                 break;
 
@@ -74,7 +79,6 @@ else:
                     $jSon['trigger'] = "Atenção é preciso inserir a quantidade itens a serem adicionados ao carrinho";
                 else:
                     session_start();
-//                unset($_SESSION['itens_vendas']);
                     $idProduto = $Post['idprodutos'];
                     $LerNomeProduto = new Read;
                     $LerNomeProduto->FullRead("SELECT produtos.nome_prod FROM produtos WHERE produtos.idprodutos = :idprodutos", "idprodutos={$idProduto}");
@@ -82,11 +86,14 @@ else:
                         $NameProduto = $LerNomeProduto->getResult();
                         $Post['nome_prod'] = $NameProduto[0]['nome_prod'];
                         $_SESSION['itens_vendas']["{$idProduto}"] = $Post;
+                        $ti = (int) 0;
                         $i = (float) 0;
                         foreach ($_SESSION['itens_vendas'] as $e):
                             extract($e);
+                            $ti += $qt_vendas;
                             $i += $valor_vendas;
                         endforeach;
+                        $_SESSION['itens_total'] = $ti;
                         $_SESSION['valor_total'] = $i;
                         $jSon['valor_total'] = $i;
                         $jSon['item_info'] = $Post;
@@ -95,15 +102,99 @@ else:
                 endif;
                 break;
 
+            case 'cancelar-venda':
+                session_start();
+                if (array_key_exists("itens_vendas", $_SESSION) && array_key_exists("itens_total", $_SESSION) && array_key_exists("valor_total", $_SESSION)):
+                    unset($_SESSION['itens_vendas'], $_SESSION['valor_total'], $_SESSION['itens_total']);
+                    if (!array_key_exists("itens_vendas", $_SESSION) && !array_key_exists("itens_total", $_SESSION) && !array_key_exists("valor_total", $_SESSION)):
+                        $jSon['sucesso'] = true;
+                        $jSon['content'] = "A Venda Foi Cancelada Com Sucesso!";
+                    endif;
+                else:
+                    $jSon['trigger'] = "Não existem produtos no carrinho atual para cancelar a venda.";
+                endif;
+                break;
 
             case 'cadastrar-venda':
-                if(!array_key_exists("idalunos_cliente", $Post)):
-                    $jSon['trigger'] = "Selecione um cliente antes de concluir a venda.";
+                session_start();
+                if (!array_key_exists("itens_vendas", $_SESSION)): //VERIFICA SE HÁ ITENS NO CARRINHO PARA CADASTRAR A VENDA.
+                    $jSon['trigger'] = "Você precisa ter itens no carrinho para concluir uma venda";
+                elseif (!array_key_exists("idalunos_cliente", $Post)): //VERIFICA SE O CLIENTE FOI SELECIONADO PARA CADASTRAR A VENDA.
+                    $jSon['trigger'] = "Selecione um Cliente antes de concluir a venda.";
                 else:
-                    session_start();
-                    foreach ($_SESSION['itens_vendas'] as $e):
-                        var_dump($e);
+                    $estoqOk = null;
+                    $checkEstoq = new Read;
+                    foreach ($_SESSION['itens_vendas'] as $u):
+                        $checkEstoq->FullRead("SELECT estoq_prod.quant_estoque FROM estoq_prod WHERE estoq_prod.idprodutos = :idprodutos", "idprodutos={$u['idprodutos']}");
+                        $totalEstoq = $checkEstoq->getResult();
+                        $atualEstoque = (int) $totalEstoq[0]['quant_estoque'];
+                        $u['qt_vendas'] = (int) $u['qt_vendas'];
+                        if ($u['qt_vendas'] > $atualEstoque)://VERIFICA SE O ESTOQUE POSSUI A QUANTIDADE SUFICIENTE PARA SUBTRAÇÃO:
+                            $jSon['trigger'] = "Ops! O item: {$u['nome_prod']} possui: {$atualEstoque} unidade(s), por isso não é possível vender {$u['qt_vendas']} unidade(s). Venda Não Realizada!";
+                            $estoqOk = false;
+                            break;
+                        else:
+                            $estoqOk = true;
+                        endif;
                     endforeach;
+                    if ($estoqOk == true):
+                        $novaVenda = array();
+                        $novaVenda['idalunos_cliente'] = $Post['idalunos_cliente'];
+                        $novaVenda['idusuario'] = $_SESSION['idusuario'];
+                        $novaVenda['data_venda'] = date('Y-m-d H:i:s');
+                        $novaVenda['valor_total'] = $_SESSION['valor_total'];
+                        $novaVenda['itens_total'] = $_SESSION['itens_total'];
+                        require '../Models/model.venda.create.php';
+                        $realizarVenda = new Venda;
+                        $realizarVenda->novaVenda('vendas', $novaVenda);
+                        if ($realizarVenda->getResult()): //VERIFICA SE A VENDA FOI CADASTRADA NA TABELA 'vendas'
+                            $idvendas = $realizarVenda->getResult(); //RECUPERA O ID DA NOVA VENDA CADASTRADA
+                            require '../Models/model.estoque.update.php';
+                            require '../Models/model.itensvendas.create.php';
+                            $upEstoque = new AtualizarEstoque;
+                            $novoItem = new ItensVendas;
+                            foreach ($_SESSION['itens_vendas'] as $e):
+                                //CRIANDO OBJETO PARA LER A QUANTIDADE DO ESTOQUE ATUAL PARA USAR COMO REFERÊNCIA PARA A SUBTRAÇÃO NO ESTOQUE
+                                $checkEstoq->FullRead("SELECT estoq_prod.quant_estoque FROM estoq_prod WHERE estoq_prod.idprodutos = :idprodutos", "idprodutos={$e['idprodutos']}");
+                                $totalEstoq = $checkEstoq->getResult();
+                                $atualEstoque = (int) $totalEstoq[0]['quant_estoque'];
+                                //ATUALIZANDO ITENS NA TABELA 'estoq_prod':
+                                $novoEstoque['quant_estoque'] = ($atualEstoque - $e['qt_vendas']);
+                                $upEstoque->atualizarEstoque('estoq_prod', $novoEstoque, "WHERE estoq_prod.idprodutos = :idprodutos", "idprodutos={$e['idprodutos']}");
+                                if ($upEstoque->getRowCount() == 1):
+                                    //CADASTRANDO ITENS NA TABELA 'itens_vendas':
+                                    $e['idvendas'] = $idvendas;
+                                    unset($e['nome_prod']);
+                                    $novoItem->novoItem('itens_vendas', $e);
+                                    if (!$novoItem->getResult()):
+                                        $jSon['trigger'] = 'Não foi possível cadastrar o produto de ID: ' . $e['idprodutos'];
+                                        $itemCadastrado = false;
+                                    else:
+                                        $itemCadastrado = true;
+                                    endif;
+                                else:
+                                    $jSon['trigger'] = "Ops, Algo deu errado ao atualizar o estoque.";
+                                endif;
+                            endforeach;
+                            if ($itemCadastrado):
+                                $dadosVenda = new Read;
+                                $dadosVenda->ExeRead('vendas', "WHERE vendas.idvendas = :idvendas", "idvendas={$idvendas}");
+                                if ($dadosVenda->getResult()):
+                                    $vendaFeita = $dadosVenda->getResult();
+                                    $jSon['content'] = $vendaFeita[0];
+                                    $jSon['content']['data_venda'] = date('d/m/Y - H:i:s', strtotime($vendaFeita[0]['data_venda']));
+                                    $jSon['sucesso'] = true;
+                                    $jSon['mensagem'] = "Venda Realizada com Sucesso!";
+                                    unset($_SESSION['itens_vendas'], $_SESSION['valor_total'], $_SESSION['itens_total']);
+                                else:
+                                    $jSon['trigger'] = "A venda foi realizada, mas não foi possível recuperar os dadados da venda feita";
+                                endif;
+                            endif;
+                        else:
+                            $jSon['trigger'] = "Não possível cadastrar a venda, recarregue e tente novamente";
+                        endif;
+                    endif;
+
                 endif;
                 break;
 

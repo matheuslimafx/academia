@@ -6,15 +6,20 @@ $(function(){
         var idprodutos = $("#idprodutos").val();
         var callback = "buscar-estoque-produto";
         $.post("Controllers/controller.venda.php", {idprodutos: idprodutos, callback: callback}, function(data){
-            var idestoques = data.idestoques;
-            var quant_estoque = data.quant_estoque;
-            var valor_prod = data.valor_prod;
-            $(".j-form-carrinho-venda").find("input[name='idestoques']").val(idestoques);
-            $(".j-form-carrinho-venda").find("input[name='quant_estoque']").val(quant_estoque);
-            $(".j-form-carrinho-venda").find("input[name='valor_prod']").val(valor_prod);
-            $(".j-form-carrinho-venda").find("input[name='qt_vendas']").val('');
-            $(".j-form-carrinho-venda").find("input[name='valor_vendas']").val('');
-            $(".j-form-carrinho-venda").find("input[name='qt_vendas']").prop('readonly', false);
+            if(data.trigger){
+                alert(data.trigger);
+                $("select[name='idprodutos']").val($("select[name='idprodutos'] option:first-child").val());
+            }else{
+                var idestoques = data.idestoques;
+                var quant_estoque = data.quant_estoque;
+                var valor_prod = data.valor_prod;
+                $(".j-form-carrinho-venda").find("input[name='idestoques']").val(idestoques);
+                $(".j-form-carrinho-venda").find("input[name='quant_estoque']").val(quant_estoque);
+                $(".j-form-carrinho-venda").find("input[name='valor_prod']").val(valor_prod);
+                $(".j-form-carrinho-venda").find("input[name='qt_vendas']").val('');
+                $(".j-form-carrinho-venda").find("input[name='valor_vendas']").val('');
+                $(".j-form-carrinho-venda").find("input[name='qt_vendas']").prop('readonly', false);
+            }
         }, 'json');
     });
 
@@ -81,7 +86,21 @@ $(function(){
     
 //    FUNÇÃO RESPONSÁVEL POR CANCELAR UMA VENDA:
     $("#cancelar-venda").click(function (){
-        alert("teste de venda cancelada");
+        var callback = 'cancelar-venda';
+        $.post("Controllers/controller.venda.php", {callback: callback, cancelar: true}, function(data){
+            console.log(data);
+            if(data.trigger){
+                alert(data.trigger);
+            }
+            if(data.sucesso){
+                alert(data.content);
+                $('.j-carrinho-lista').html('');
+                $('#total_carrinho').html('');
+                $('.j-form-create-venda').find("select[name='idalunos_cliente']").val($("select[name='idalunos_cliente'] option:first-child").val());
+            }
+            
+        }, 'json');
+        return false;
     });
     
     //FUNÇÃO RESPONSÁVEL POR CADASTRAR UMA NOVA VENDA NO BANCO DE DADOS:
@@ -108,11 +127,19 @@ $(function(){
                 if(data.trigger){
                     alert(data.trigger);
                 }
+                if(data.sucesso){
+                    alert(data.mensagem);
+                    $('.j-carrinho-lista').html('');
+                    $('#total_carrinho').html('');
+                    $('.j-form-create-venda').find("select[name='idalunos_cliente']").val($("select[name='idalunos_cliente'] option:first-child").val());
+                    $('#fechar-carrinho-venda').click(function (){
+                        window.location.replace("http://localhost/academia/view.venda");
+                    });
+                }
             }
         });
 
         //RETURN É A FUNÇÃO PARA NÃO PERMITIR QUE O FORMULÁRIO GERE AÇÃO:
         return false;
     });
-    
 });

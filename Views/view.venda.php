@@ -1,7 +1,6 @@
 <!--MENU:-->
 <?php
 session_start();
-var_dump($_SESSION);
 if (!$_SESSION['logado']):
     session_destroy();
     header('Location: view.login');
@@ -9,8 +8,8 @@ endif;
 require REQUIRE_PATH . '/menu.php';
 ?>
 <!--FIM MENU-->
+<div style="margin-top: 110px;"></div>
 <div class="container">
-
     <div class="row">
         <h2>Vendas</h2>
         <div class="col-md-12" align="right">
@@ -20,7 +19,7 @@ require REQUIRE_PATH . '/menu.php';
                 </div>
             </form>
             <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Nova Venda</button>
-            <button type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
+            <button id="fechar-carrinho-venda" type="button" class="btn btn-danger close-modal-create"><i class="glyphicon glyphicon-remove"></i></button>
             <a class="relatorio-geral" href="http://localhost/academia/Views/view.vendas.relatorio.php" target="_blank"><button type="" class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio Geral</button></a>
         </div>
     </div>
@@ -71,8 +70,7 @@ require REQUIRE_PATH . '/menu.php';
 
         <form class="j-form-create-venda col-md-12" type="POST" action="" style="margin-top: 50px;">
             <input type="hidden" name="callback" value="cadastrar-venda" class="form-control"/>
-            <input type="hidden" name="data_venda" value="<?php echo date("Y-m-d h:i:s"); ?>" class="form-control"/>
-            <input type="hidden" name="idusuario" value="<?php echo $_SESSION['idusuario']; ?>" class="form-control" />
+            <input type="hidden" name="hora-abertura-venda" value="<?php echo date('Y-m-d H:i:s'); ?>" class="form-control"/>
             <div class="col-md-6">
                 <table class="table">
                     <thead>
@@ -84,12 +82,27 @@ require REQUIRE_PATH . '/menu.php';
                         </tr>
                     </thead>
                     <tbody class="j-carrinho-lista">
+                        <?php
+                        if (array_key_exists("itens_vendas", $_SESSION)):
+                            echo "<script>alert('Atenção: Você Possui Itens No Carrinho Que Ainda Não Foram Vendidos')</script>";
+                            foreach ($_SESSION['itens_vendas'] as $e):
+                                extract($e);
+                                echo "<tr>"
+                                . "<td>{$idprodutos}</td>"
+                                . "<td>{$nome_prod}</td>"
+                                . "<td>{$qt_vendas}</td>"
+                                . "<td>{$valor_vendas},00</td>"
+                                . "</tr>"        
+                                ;
+                            endforeach;
+                        endif;
+                        ?>
                     </tbody>
                 </table>
-                <h2>Total: <span id="total_carrinho"></span></h2>
+                <h2>Total: <span id="total_carrinho"><?php if(array_key_exists("valor_total", $_SESSION)): echo "R$ {$_SESSION['valor_total']},00"; endif; ?></span></h2>
             </div>
-            <div class="form-group col-md-3">
-                <label>* Cliente</label>
+            <div class="form-group col-md-6">
+                <label><span style="color: red;">*</span> Cliente</label>
                 <select name="idalunos_cliente" class="form-control" required>
                     <option selected disabled>SELECIONE</option>
                     <?php
@@ -113,45 +126,44 @@ require REQUIRE_PATH . '/menu.php';
     </div>
 </div>   
 
-<div class="container">
+<div class="container" style="margin-top: 70px;">
     <div class="row venda-lista">
         <table class="table table-striped modal-table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Produto</th>
+                    <th>Nº</th>
+                    <th>Data - Hora</th>
+                    <th>Vendedor</th>
                     <th>Cliente</th>
-                    <th>Data da Venda</th>
-                    <th>Valor da Venda</th>
-                    <th>Quantidade de produtos</th>
+                    <th>Total Itens</th>
+                    <th>Valor Da Venda R$</th>
+                    <th>Relatório</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody class="j-result-vendas">
                 <?php
-//                $ReadVenda = new Read;
-//                $ReadVenda->FullRead("SELECT vendas.idvendas, vendas.data_venda, vendas.valor_vendas, vendas.qt_vendas, " .
-//                        "produtos.nome_prod, " .
-//                        "alunos_cliente.nome_aluno " .
-//                        "FROM vendas " .
-//                        "INNER JOIN produtos ON  vendas.idprodutos = produtos.idprodutos " .
-//                        "INNER JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente");
-//                foreach ($ReadVenda->getResult() as $e):
-//                    extract($e);
-//                    echo
-//                    "<tr id='{$idvendas}'>" .
-//                    "<td>{$idvendas}</td>" .
-//                    "<td>{$nome_prod}</td>" .
-//                    "<td>{$nome_aluno}</td>" .
-//                    "<td>{$data_venda}</td>" .
-//                    "<td>R$ {$valor_vendas}</td>" .
-//                    "<td>{$qt_vendas}</td>" .
-//                    "<td align='right'>" .
-//                    "<a href='http://localhost/academia/Views/view.venda.relatorio.php?idvendas={$idvendas}' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>" .
-//                    "</td>" .
-//                    "</tr>";
-//                endforeach;
-//                
+                $ReadVenda = new Read;
+                $ReadVenda->FullRead("SELECT vendas.idvendas, vendas.data_venda, usuario.nome_usuario, alunos_cliente.nome_aluno, vendas.itens_total, vendas.valor_total "
+                        . "FROM vendas "
+                        . "INNER JOIN usuario ON vendas.idusuario = usuario.idusuario "
+                        . "INNER JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                        . "ORDER BY vendas.idvendas DESC");
+                foreach($ReadVenda->getResult() as $vendas):
+                    extract($vendas);
+                    $data_venda = date('d/m/Y - H:i:s', strtotime($data_venda));
+                    echo "<tr id={$idvendas}>"
+                        . "<td>{$idvendas}</td>"
+                        . "<td>{$data_venda}</td>"
+                        . "<td>{$nome_usuario}</td>"
+                        . "<td>{$nome_aluno}</td>"
+                        . "<td>{$itens_total}</td>"
+                        . "<td><b>R$ {$valor_total}</b></td>"
+                        . "<td>"
+                        . "<a href='' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>"        
+                        . "</td>"
+                        . "</tr>";
+                endforeach;
                 ?>
             </tbody>
         </table>

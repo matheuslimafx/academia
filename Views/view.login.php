@@ -1,12 +1,9 @@
-<<<<<<< HEAD
 <?php
 session_start();
 ?>
-=======
 <link rel="stylesheet" href="../_cdn/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="../_cdn/jquery.min.js">
 <link rel="stylesheet" href="../_cdn/bootstrap/js/bootstrap.min.js">
->>>>>>> db0b7b6a1d1b7475346856d1d0da45f2d4c10ce5
 <!--INÍCIO DAS MENSAGENS:-->
 <div class="resultado_login animated zoomInRight">
     Resultado
@@ -43,14 +40,10 @@ session_start();
         <p><b>Telefones</b> (62)3240-0000, (62)9 9900-0099</p>
         <p><b>E-mail</b> academia@performancefit.com</p>
         </div>
-<<<<<<< HEAD
     </div>   
+</body>
+    </div>
 </body>
 <?php
 session_destroy();
 ?>
-=======
-    </div>
-</body>
-
->>>>>>> db0b7b6a1d1b7475346856d1d0da45f2d4c10ce5
