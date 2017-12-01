@@ -9,6 +9,7 @@ endif;
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
 <!-- Wrapper for slides -->
+<div style="margin-top: 50px;"></div>
 <div class="container">
     <br>
     <h2>Academia Performance Fit</h2>

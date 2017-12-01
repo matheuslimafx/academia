@@ -7,6 +7,7 @@ $ReadEstado->ExeRead("estado");
 $ReadCidade = new Read;
 $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
 ?>
+<div style="margin-top: 50px;"></div>
 <div class="container">
     <br>
     <h2>Funcionários</h2>

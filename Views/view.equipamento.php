@@ -1,6 +1,7 @@
 <!--MENU:-->
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
+<div style="margin-top: 50px;"></div>
 <div class="container">
     <br>
     <h2>Equipamentos</h2>
