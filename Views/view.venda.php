@@ -15,7 +15,7 @@ require REQUIRE_PATH . '/menu.php';
     <div class="col-md-12" align="right">
         <form action="" method="POST">
             <div class="form-group col-md-4">
-                <input type="text" class="form-control pesquisar pesquisar-venda" placeholder="Pesquisar por ID e Cliente">
+                <input type="text" class="form-control pesquisar pesquisar-venda" placeholder="Pesquisar por Nº Venda ou Cliente">
             </div>
         </form>
         <button type="button" class="btn btn-primary open-modal-create"><i class="glyphicon glyphicon-plus"></i> Nova Venda</button>
@@ -142,13 +142,13 @@ require REQUIRE_PATH . '/menu.php';
         <table class="table table-striped modal-table">
             <thead>
                 <tr>
-                    <th>Nº</th>
+                    <th>Nº Venda</th>
                     <th>Data - Hora</th>
                     <th>Vendedor</th>
                     <th>Cliente</th>
                     <th>Total Itens</th>
-                    <th>Valor Da Venda R$</th>
-                    <th>Relatório</th>
+                    <th>Valor Total</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>

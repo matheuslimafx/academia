@@ -1,5 +1,44 @@
 $(function(){
     
+    //A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
+    $('.pesquisar-venda').on('keypress', function (e) {
+        return e.which !== 13;
+    });
+    //FUNÇÃO RESPONSAVEL POR FAZER CONSULTAS DE ACORDO COM A PESQUISA DO USUÁRIO
+    $(".pesquisar-venda").keyup(function () {
+        var termo = $(".pesquisar-venda").val();
+        if (termo === '') {
+            termo = '0';
+        }
+        $.ajax({
+            url: "Controllers/controller.venda.php",
+            data: termo,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+
+            },
+            success: function (data) {
+                $('.j-result-vendas').html('');
+                $(data).each(function (index, value) {
+                    $('.j-result-vendas').append(
+                            "<tr id='" + value.idvendas + "'>" +
+                            "<td>" + value.idvendas + "</td>" +
+                            "<td>" + value.data_venda + "</td>" +
+                            "<td>" + value.nome_usuario + "</td>" +
+                            "<td>" + value.nome_aluno + "</td>" +
+                            "<td>" + value.itens_total + "</td>" +
+                            "<td>" + value.valor_total + "</td>" +
+                            "<td align='right'>" +
+                           "<a href='http://localhost/academia/Views/view.venda.comprovante.php?idvendas="+ value.idvendas +"' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>"+
+                            "</td>" +
+                            "</tr>"
+                            );
+                });
+            }
+        });
+    });
+    
     //FUNÇÃO RESPONSÁVEL POR RECONHECER O ID DO ESTOQUE AO QUAL O PRODUTO SELECIONADO FAZ PARTE:
     // ALÉM DISSO TAMBÉM É RESPONSÁVEL POR LIBERAR O INPUT DA QUANTIDADE APENAS DEPOIS DE SELECIONADO UM PRODUTO PARA A VENDA
     $(".j-form-carrinho-venda").on("change", "#idprodutos", function(){

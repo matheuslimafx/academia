@@ -18,20 +18,24 @@ if (count($getPost) == 1):
     $buscarAnamnese = new Read;
 
     if ($queryPesquisa >= 1):
-        $buscarAnamnese->FullRead("SELECT anamneses.idanamneses, anamneses.idalunos_cliente, alunos_cliente.nome_aluno "
-                . "FROM anamneses "
-                . "LEFT JOIN alunos_cliente ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente "
-                . "WHERE anamneses.idalunos_cliente = {$queryPesquisa}");
+        $buscarAnamnese->FullRead("SELECT vendas.idvendas, vendas.data_venda, usuario.nome_usuario, alunos_cliente.nome_aluno, vendas.itens_total, vendas.valor_total "
+                . "FROM vendas "
+                . "INNER JOIN usuario ON vendas.idusuario = usuario.idusuario "
+                . "INNER JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                . "WHERE vendas.idvendas = {$queryPesquisa}");
         $jSon = $buscarAnamnese->getResult();
     elseif ($queryPesquisa === 0):
-        $buscarAnamnese->FullRead("SELECT anamneses.idanamneses, anamneses.idalunos_cliente, alunos_cliente.nome_aluno "
-                . "FROM anamneses "
-                . "LEFT JOIN alunos_cliente ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente");
+        $buscarAnamnese->FullRead("SELECT vendas.idvendas, vendas.data_venda, usuario.nome_usuario, alunos_cliente.nome_aluno, vendas.itens_total, vendas.valor_total "
+                . "FROM vendas "
+                . "INNER JOIN usuario ON vendas.idusuario = usuario.idusuario "
+                . "INNER JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                . "ORDER BY vendas.idvendas DESC");
         $jSon = $buscarAnamnese->getResult();
     elseif (is_string($queryPesquisa)):
-        $buscarAnamnese->FullRead("SELECT anamneses.idanamneses, anamneses.idalunos_cliente, alunos_cliente.nome_aluno "
-                . "FROM anamneses "
-                . "LEFT JOIN alunos_cliente ON anamneses.idalunos_cliente = alunos_cliente.idalunos_cliente "
+        $buscarAnamnese->FullRead("SELECT vendas.idvendas, vendas.data_venda, usuario.nome_usuario, alunos_cliente.nome_aluno, vendas.itens_total, vendas.valor_total "
+                . "FROM vendas "
+                . "INNER JOIN usuario ON vendas.idusuario = usuario.idusuario "
+                . "INNER JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente "
                 . "WHERE alunos_cliente.nome_aluno LIKE '%{$queryPesquisa}%'");
         $jSon = $buscarAnamnese->getResult();
     endif;
