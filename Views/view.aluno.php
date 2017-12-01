@@ -47,7 +47,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <div class="form-group col-md-3">
                     <br>
                     <label>* CPF</label>
-                    <input type="text" name="cpf_aluno" class="form-control cpf" required>
+                    <input type="text" id="cpf_aluno" name="cpf_aluno" class="form-control cpf" required>
                 </div>
                 <div class="form-group col-md-3">
                     <br>

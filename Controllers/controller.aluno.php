@@ -43,6 +43,13 @@ else:
         unset($Post['callback']);
 //    SWITCH SERÁ AS CONDIÇÕES VERIFICADAS E USADAS PARA TOMAR AÇÕES DE ACORDO COM CADA CALLBACK:
         switch ($Action):
+            case 'validar-cpf':
+                if(Check::CPF($Post['cpf'])):
+                    $jSon['sucesso'] = true;
+                else:
+                    $jSon['trigger'] = true;
+                endif;
+                break;
 //        CONDIÇÃO  'create-aluno' ATENDIDA, RESPONSÁVEL POR CADASTRAR NOVOS ALUNOS NO BANCO:
             case 'create-aluno':
                 
