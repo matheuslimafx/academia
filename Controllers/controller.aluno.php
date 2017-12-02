@@ -43,6 +43,7 @@ else:
         unset($Post['callback']);
 //    SWITCH SERÁ AS CONDIÇÕES VERIFICADAS E USADAS PARA TOMAR AÇÕES DE ACORDO COM CADA CALLBACK:
         switch ($Action):
+//          CONDIÇÃO 'validar-cpf' ATENDIDA, RESPONSÁVEL POR UTILIZAR UM MÉTODO DA CLASSE 'Check' [ESTÁTICA] E VALIDAR OU NÃO UM CPF.            
             case 'validar-cpf':
                 if(Check::CPF($Post['cpf'])):
                     $jSon['sucesso'] = true;

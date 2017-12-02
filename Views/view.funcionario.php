@@ -35,7 +35,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
         <!--FORMULÁRIO DE CADASTRO DE FUNCIONÁRIOS-->
         <div class="col-md-12 modal-create">
             <div class="container">
-                <h5 class="obrigatorios">* Campos obrigatórios</h5>
+                <h5 class="obrigatorios">*Campos obrigatórios</h5>
             </div>
             <form action="" method="POST" class="j-form-create-funcionario">
                 <input type="hidden" name="callback" value="create-funcionario">
@@ -65,7 +65,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
                 <div class="form-group col-md-3">
                     <label>* CPF</label>
-                    <input type="text" name="cpf_func" class="form-control cpf" placeholder="000.000.000-00" required>
+                    <input type="text" id="cpf_func" name="cpf_func" class="form-control cpf" placeholder="000.000.000-00" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label>CPTS</label>
@@ -177,7 +177,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
             </form>
         </div>
 
-        <!--FORMULÁRIO DE CADASTRO DE FUNCIONÁRIOS-->
+        <!--FORMULÁRIO DE EDIÇÃO DE FUNCIONÁRIOS-->
         <div class="col-md-12 modal-update">
             <div class="container">
                 <h5 class="obrigatorios">* Campos obrigatórios</h5>
