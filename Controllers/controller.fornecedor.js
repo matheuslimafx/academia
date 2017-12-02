@@ -36,6 +36,30 @@ $(function () {
             }
         });
     });
+    
+    //Função para validar CNPJ do fornecedor
+        $(".j-form-create-fornecedor").on("keyup", "#cnpj_for", function(){
+        var text = $(this).val();
+        var tam = text.length;
+        if(tam === 18){
+            $.ajax({
+                url: "Controllers/controller.fornecedor.php",
+                data: {callback:'validar-cnpj', cnpj:text},
+                type: 'POST',
+                dataType: 'json',
+                beforeSend: function (xhr) {
+                    
+                },
+                success: function (data) {
+                    if(data.trigger){
+                        alert('O CNPJ Digitado não é válido, tente novamente.');
+                        $("#cnpj_for").val('');
+                    }
+                }
+            });
+        }
+        
+    });    
 
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:
     $(".j-form-create-fornecedor").submit(function () {

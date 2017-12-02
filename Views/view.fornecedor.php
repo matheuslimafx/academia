@@ -37,8 +37,8 @@
                     <input type="text" name="nome_forn" class="form-control" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>* CNPJ / CPF</label>
-                    <input type="text" name="cnpj_cpf_forn" class="form-control" required maxlength="14" minlength="11">
+                    <label>* CNPJ</label>
+                    <input type="text" name="cnpj_cpf_forn" id="cnpj_for" class="form-control cnpj" required minlength="18">
                 </div>
                 <div class="form-group col-md-3">
                     <label>* Nome Fantasia</label>
