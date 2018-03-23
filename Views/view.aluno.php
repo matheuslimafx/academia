@@ -7,8 +7,13 @@ $ReadCidade = new Read;
 $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
 ?>
 <!--FIM MENU-->
+<<<<<<< HEAD
 
 <div class="col-md-10 modals">
+=======
+<div style="margin-top: 50px;"></div>
+<div class="container">
+>>>>>>> origin/master
     <br>
     <h2>Alunos</h2>
     <div>
@@ -97,9 +102,15 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                         ?>
                     </select>
                 </div>
+<<<<<<< HEAD
                 <div class="form-group col-md-5 campo-select">
                     <label>Cidade</label>
                     <select name="idcidade" class="form-control form-control-lg">
+=======
+                <div class="form-group col-md-5">
+                    <label>Cidade</label>
+                    <select name="idcidade" class="form-control">
+>>>>>>> origin/master
                         <?php
                         foreach ($ReadCidade->getResult() as $i):
                             extract($i);

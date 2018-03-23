@@ -8,8 +8,13 @@ endif;
 require REQUIRE_PATH . '/menu.php';
 ?>
 <!--FIM MENU-->
+<<<<<<< HEAD
 
 <div class="col-md-10 modals">
+=======
+<div style="margin-top: 50px;"></div>
+<div class="container">
+>>>>>>> origin/master
     <br>
     <h2>Vendas</h2>
     <div class="col-md-12" align="right">
@@ -123,7 +128,11 @@ require REQUIRE_PATH . '/menu.php';
                 </select>
             </div>
             <div class="form-group col-md-12">
+<<<<<<< HEAD
                 <a style="width: 140px;" id="cancelar-venda" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Cancelar Venda</a> <button style="width: 140px;" name="" type="submit" class="btn btn-success"><i class="glyphicon glyphicon-circle-arrow-right"></i> Finalizar Venda</button>
+=======
+                <a id="cancelar-venda" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Cancelar Venda</a> <button name="" type="submit" class="btn btn-success"><i class="glyphicon glyphicon-circle-arrow-right"></i> Finalizar Venda</button>
+>>>>>>> origin/master
             </div>
             <h2 align="center">Total: <span id="total_carrinho"><?php
                     if (array_key_exists("valor_total", $_SESSION)): echo "R$ {$_SESSION['valor_total']},00";
@@ -135,6 +144,7 @@ require REQUIRE_PATH . '/menu.php';
 
 
     </div>
+<<<<<<< HEAD
 
     <div class="container" style="margin-top: 70px;">
         <div class="row venda-lista">
@@ -181,3 +191,50 @@ require REQUIRE_PATH . '/menu.php';
     </div>
 </div>   
 
+=======
+</div>   
+
+<div class="container" style="margin-top: 70px;">
+    <div class="row venda-lista">
+        <table class="table table-striped modal-table">
+            <thead>
+                <tr>
+                    <th>Nº Venda</th>
+                    <th>Data - Hora</th>
+                    <th>Vendedor</th>
+                    <th>Cliente</th>
+                    <th>Total Itens</th>
+                    <th>Valor Total</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="j-result-vendas">
+                <?php
+                $ReadVenda = new Read;
+                $ReadVenda->FullRead("SELECT vendas.idvendas, vendas.data_venda, usuario.nome_usuario, alunos_cliente.nome_aluno, vendas.itens_total, vendas.valor_total "
+                        . "FROM vendas "
+                        . "INNER JOIN usuario ON vendas.idusuario = usuario.idusuario "
+                        . "INNER JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                        . "ORDER BY vendas.idvendas DESC");
+                foreach ($ReadVenda->getResult() as $vendas):
+                    extract($vendas);
+                    $data_venda = date('d/m/Y - H:i:s', strtotime($data_venda));
+                    echo "<tr id={$idvendas}>"
+                    . "<td>{$idvendas}</td>"
+                    . "<td>{$data_venda}</td>"
+                    . "<td>{$nome_usuario}</td>"
+                    . "<td>{$nome_aluno}</td>"
+                    . "<td>{$itens_total}</td>"
+                    . "<td><b>R$ {$valor_total}</b></td>"
+                    . "<td>"
+                    . "<a href='http://localhost/academia/Views/view.venda.comprovante.php?idvendas={$idvendas}' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>"
+                    . "</td>"
+                    . "</tr>";
+                endforeach;
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+>>>>>>> origin/master

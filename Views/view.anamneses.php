@@ -1,7 +1,12 @@
 <!--MENU:-->
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
+<<<<<<< HEAD
 <div class="col-md-10 modals">
+=======
+<div style="margin-top: 50px;"></div>
+<div class="container">
+>>>>>>> origin/master
     <br>
     <h2>Anamneses</h2>
     <div>

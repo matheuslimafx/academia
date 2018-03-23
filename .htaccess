@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 RewriteEngine On
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
+=======
+RewriteEngine On
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+>>>>>>> origin/master
 RewriteRule ^(.*)$ index.php?url=$1

@@ -7,7 +7,12 @@ $ReadEstado->ExeRead("estado");
 $ReadCidade = new Read;
 $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
 ?>
+<<<<<<< HEAD
 <div class="col-md-10 modals">
+=======
+<div style="margin-top: 50px;"></div>
+<div class="container">
+>>>>>>> origin/master
     <br>
     <h2>Funcionários</h2>
     <div>
