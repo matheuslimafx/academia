@@ -24,8 +24,8 @@ session_start();
                 <label>Senha</label><br>
                 <input type="password" name="senha_usuario" class="form-control" placeholder="Senha">
             </div>
-            <div class="form-group ">
-                <button type="submit" class="btn btn-danger btn-lg entrar" value="Entrar" name="Entrar">Entrar</button>
+            <div  class="form-group ">
+                <button type="submit" class="btn btn-primary btn-lg entrar" value="Entrar" name="Entrar">Entrar</button>
                 <div class="pf_load">
                     <img alt="" title="" src="Views/img/load.gif"/>
                 </div>
