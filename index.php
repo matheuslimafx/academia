@@ -4,15 +4,17 @@
     <head>
         <title>Academia Performance Fit</title>
         <link rel="shortcut icon" href="Views/img/icon02.png">
+        <!--<link rel="stylesheet" type="text/css" href="_cdn/bootstrap-4.0/css/bootstrap.min.css">-->
         <link rel="stylesheet" type="text/css" href="_cdn/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="_cdn/bootstrap/jasny-bootstrap/css/jasny-bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="Views/css/menu.css">
         <link rel="stylesheet" type="text/css" href="Views/css/animate.css">
         <link rel="stylesheet" type="text/css" href="Views/css/style.css">
     </head>
     <body>
         <!--CONTEUDO-->
         <?php
-        var_dump($Url);
+//        var_dump($Url);
         $Url[1] = (empty($Url[1]) ? null : $Url[1]);
 
         if (file_exists(REQUIRE_PATH . '/' . $Url[0] . '.php')):
@@ -30,6 +32,7 @@
         <script src="_cdn/jquery.js"></script>
         <script src="_cdn/jquery.min.js"></script>
         <script src="_cdn/jquery.mask.min.js"></script>
+        <!--<script src="_cdn/bootstrap-4.0/js/bootstrap.min.js"></script>-->
         <script src="_cdn/bootstrap/js/bootstrap.min.js"></script>
         <script src="_cdn/mascara.js"></script>
         <script src="_cdn/console.geral.js"></script>

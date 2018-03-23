@@ -7,7 +7,8 @@ $ReadCidade = new Read;
 $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
 ?>
 <!--FIM MENU-->
-<div class="container">
+
+<div class="col-md-10 modals">
     <br>
     <h2>Alunos</h2>
     <div>
@@ -47,7 +48,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <div class="form-group col-md-3">
                     <br>
                     <label>* CPF</label>
-                    <input type="text" name="cpf_aluno" class="form-control cpf" required>
+                    <input minlength="14" type="text" name="cpf_aluno" id="cpf_aluno" class="form-control cpf" required>
                 </div>
                 <div class="form-group col-md-3">
                     <br>
@@ -96,9 +97,9 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                         ?>
                     </select>
                 </div>
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-5 campo-select">
                     <label>Cidade</label>
-                    <select name="idcidade" class="form-control">
+                    <select name="idcidade" class="form-control form-control-lg">
                         <?php
                         foreach ($ReadCidade->getResult() as $i):
                             extract($i);
@@ -141,7 +142,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 <div class="form-group col-md-3">
                     <br>
                     <label>* CPF</label>
-                    <input type="text" name="cpf_aluno" class="form-control cpf" required>
+                    <input type="text" id="cpf_aluno" name="cpf_aluno" class="form-control cpf" required>
                 </div>
                 <div class="form-group col-md-3">
                     <br>

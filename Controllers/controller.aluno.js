@@ -35,6 +35,30 @@ $(function () {
             }
         });
     });
+//    FUNÇÃO RESPONSÁVEL POR VALIDAR O CPF NO CADASTRO DO ALUNO:
+    $(".j-form-create-aluno").on("keyup", "#cpf_aluno", function(){
+        var text = $(this).val();
+        var tam = text.length;
+        if(tam === 14){
+            $.ajax({
+                url: "Controllers/controller.aluno.php",
+                data: {callback:'validar-cpf', cpf:text},
+                type: 'POST',
+                dataType: 'json',
+                beforeSend: function (xhr) {
+                    
+                },
+                success: function (data) {
+                    if(data.trigger){
+                        alert('O CPF Digitado não é válido, tente novamente.');
+                        $("#cpf_aluno").val('');
+                    }
+                }
+            });
+        }
+        
+    });
+    
 //    FUNÇÃO RESPONSÁVEL POR CADASTRAR UM NOVO ALUNO NO BANCO DE DADOS: 
     $(".j-form-create-aluno").submit(function () {
 //        VARIAVEL FORM RECEBE O PROPRIO FORMULARIO USANDO O METODO DO JQUERY "THIS":
