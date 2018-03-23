@@ -1,12 +1,12 @@
 <?php
 
 /**
- * <b>Venda.class:</b>
- * Model Responsável por gerenciamento dos dados da tabela vendas!
+ * <b>ItensVendas.class:</b>
+ * Model Responsável por gerenciamento dos dados da tabela 'itens_vendas'!
  * 
  */
 
-class Venda{
+class ItensVendas{
     
     private $Tabela;
     private $Dados;
@@ -30,7 +30,7 @@ class Venda{
      * @param ARRAY $Dados = Informe um array atribuitivo. (Nome Da coluna => valor).
      */
     
-    public function novaVenda($Tabela, array $Dados){
+    public function novoItem($Tabela, array $Dados){
         $this->Tabela = (string) $Tabela;
         $this->Dados = $Dados;
         

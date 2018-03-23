@@ -3,10 +3,11 @@
 require '../_app/Config.inc.php';
 
 $RelatorioVendas = new Read;
-$RelatorioVendas->FullRead("SELECT vendas.idvendas, vendas.data_venda, vendas.valor_vendas, vendas.qt_vendas, produtos.nome_prod, alunos_cliente.nome_aluno
-FROM vendas
-INNER JOIN produtos ON vendas.idprodutos = produtos.idprodutos
-INNER JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente");
+$RelatorioVendas->FullRead("SELECT vendas.idvendas, vendas.data_venda, usuario.nome_usuario, alunos_cliente.nome_aluno, vendas.itens_total, vendas.valor_total "
+                        . "FROM vendas "
+                        . "INNER JOIN usuario ON vendas.idusuario = usuario.idusuario "
+                        . "INNER JOIN alunos_cliente ON vendas.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                        . "ORDER BY vendas.idvendas DESC");
 
 require 'Relatorios/autoload.inc.php';
 
@@ -28,7 +29,7 @@ th, td {
 
             <h1>Performance Academia</h1>
 
-            <h2>Relátorio de todas as Vendas</h2>
+            <h2>Relátorio de Vendas</h2>
             
             <table  style='width:100%'>";
 
@@ -36,28 +37,28 @@ foreach ($RelatorioVendas->getResult() as $e):
     extract($e);
 
     $html .= "<tr>"
-            . "<th>ID</th>"
+            . "<th>Número da Venda</th>"
             . "<td>{$idvendas}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Produto</th>"
-            . "<td>{$nome_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Cliente</th>"
-            . "<td>{$nome_aluno}</td>"
             . "</tr>"
             . "<tr>"
             . "<th>Data da Venda</th>"
             . "<td>{$data_venda}</td>"
             . "</tr>"
             . "<tr>"
-            . "<th>Quantidade</th>"
-            . "<td>{$qt_vendas}</td>"
+            . "<th>Vendedor</th>"
+            . "<td>{$nome_usuario}</td>"
             . "</tr>"
             . "<tr>"
-            . "<th>Valor da Venda</th>"
-            . "<td>R$ {$valor_vendas}</td>"
+            . "<th>Cliente</th>"
+            . "<td>{$nome_aluno}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Total de Itens</th>"
+            . "<td>{$itens_total}</td>"
+            . "</tr>"
+            . "<tr>"
+            . "<th>Valor Total</th>"
+            . "<td>R$ {$valor_total}</td>"
             . "</tr>"
             . "<tr style='background-color: red;'>"
             . "<th></th>"

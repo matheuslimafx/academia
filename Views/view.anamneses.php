@@ -1,8 +1,7 @@
 <!--MENU:-->
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
-
-<div class="container">
+<div class="col-md-10 modals">
     <br>
     <h2>Anamneses</h2>
     <div>

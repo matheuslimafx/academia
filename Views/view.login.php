@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <link rel="stylesheet" href="../_cdn/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="../_cdn/jquery.min.js">
 <link rel="stylesheet" href="../_cdn/bootstrap/js/bootstrap.min.js">
@@ -37,6 +40,10 @@
         <p><b>Telefones</b> (62)3240-0000, (62)9 9900-0099</p>
         <p><b>E-mail</b> academia@performancefit.com</p>
         </div>
+    </div>   
+</body>
     </div>
 </body>
-
+<?php
+session_destroy();
+?>

@@ -39,25 +39,27 @@ $(function () {
     });
 
     //Função para validar CPF do funcionário
-    $(".j-form-create-funcionario").on("keyup", "input[name='cpf_func']", function (){
-        var Form = $(".j-form-create-funcionario");
-        var cpf_func = Form.find("input[name='cpf_func'").val();
+        $(".j-form-create-funcionario").on("keyup", "#cpf_func", function(){
+        var text = $(this).val();
+        var tam = text.length;
+        if(tam === 14){
+            $.ajax({
+                url: "Controllers/controller.funcionario.php",
+                data: {callback:'validar-cpf', cpf:text},
+                type: 'POST',
+                dataType: 'json',
+                beforeSend: function (xhr) {
+                    
+                },
+                success: function (data) {
+                    if(data.trigger){
+                        alert('O CPF Digitado não é válido, tente novamente.');
+                        $("#cpf_func").val('');
+                    }
+                }
+            });
+        }
         
-        $.ajax({
-            url: "../_app/Helpers/Check.class.php",
-            data: cpf_func,
-            type: 'POST',
-            dataType: 'json',
-            
-            beforeSend: function (){
-                
-            },
-            success: function (){
-                
-            }
-            
-        });
-        alert("Digite um CPF valido");
     });
 
 //    SELECIONAR O FORMULARIO AO SER SUBMETIDO USANDO UMA CLASSE PARA IDENTIFICAR O FORMULÁRIO:

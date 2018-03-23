@@ -1,6 +1,5 @@
 <?php
 session_start();
-var_dump($_SESSION);
 if (!$_SESSION['logado']):
     session_destroy();
     header('Location: view.login');
@@ -10,7 +9,7 @@ endif;
 <?php require REQUIRE_PATH . '/menu.php'; ?>
 <!--FIM MENU-->
 <!-- Wrapper for slides -->
-<div class="container">
+<div class="col-md-10 modals">
     <br>
     <h2>Academia Performance Fit</h2>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
